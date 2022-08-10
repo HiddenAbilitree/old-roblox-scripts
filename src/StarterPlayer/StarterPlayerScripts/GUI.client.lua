@@ -5,7 +5,7 @@ local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local Players = game:GetService("Players")
 local ContentProvider = game:GetService("ContentProvider")
 
---local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 --local TweenService = game:GetService("TweenService")
 local StarterGui = game:GetService("StarterGui")
 --local RunService = game:GetService("RunService")
@@ -130,13 +130,18 @@ LBText.ZIndex = LBTOrder
 LBText.LayoutOrder = LBTOrder
 LBText.Text = "Filler Text"
 LBText.TextSize = 30
-LBText.BackgroundTransparency = 0
-
+LBText.BackgroundTransparency = 1
+LBText.Size = UDim2.new(
+	0,
+	LB_XSIZE,
+	0,
+	LB_YSIZE
+)
 LBText.Position = UDim2.new(
 	0.5,
 	-LB_XSIZE/2,
 	0.75,
-	-LB_YSIZE/2
+	-LB_YSIZE/2-10
 )
 
 --StartScreenFrame
@@ -171,7 +176,7 @@ StartButton.Font = Enum.Font.SourceSansBold
 StartButton.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
 StartButton.Size = UDim2.new(0,BUTTON_XSIZE,0,BUTTON_YSIZE)
 
-StartButton.Position = UDim2.new(		--Button.Position
+StartButton.Position = UDim2.new(	--Button.Position
 	0.5,  							--xScale
 	-BUTTON_XSIZE/2,				--xOffset
 	1.1,							--yScale
@@ -216,21 +221,22 @@ print("LoadedPlayer")
 
 --Loading Screen
 
-local assets = workspace:GetDescendants()
-local totalassets = #assets
+local assets = ReplicatedStorage:GetDescendants()
 local currentasset = 0
 
 for i = 1, #assets do
 	currentasset = i
 	local asset = assets[i]
 	ContentProvider:PreloadAsync({asset})
+	print("Loaded: "..tostring(assets[i]))
 	local progress = i / #assets
+	LBText.Text = tostring(i).."/"..tostring(#assets)
 	LoadingBar:TweenSize(
 		UDim2.new(
-			0,
-			progress*LB_XSIZE,
-			0,
-			LB_YSIZE
+			0,					--xScale
+			progress*LB_XSIZE,	--xOffset
+			0,					--yscale
+			LB_YSIZE			--yOffset
 		),
 		Enum.EasingDirection.In,
 		Enum.EasingStyle.Sine,
@@ -239,6 +245,7 @@ for i = 1, #assets do
 	)
 end
 
+print("\nFinished loading assets\nStarting StartScreenTweens")
 
 StartButton:TweenPosition(UDim2.new(
 	0.5,  				--xScale
