@@ -255,7 +255,7 @@ print("\nFinished loading assets\nStarting StartScreenTweens")
 
 --Loading Screen Tween Out
 local tweenInfo = TweenInfo.new(
-5,							--Time
+2,							--Time
 Enum.EasingStyle.Sine, 		--EasingStyle
 Enum.EasingDirection.Out,	--EasingDirection
 0,							--Repeat Count
@@ -265,10 +265,21 @@ false,						--Reverse
 local property = {
 	BackgroundTransparency = 1
 }
+local property2 = {
+	TextTransparency = 1
+}
+LBText.Text = "Completed"
+task.wait(0.5)
+local LSFTween = TweenService:Create(LSFrame, tweenInfo, property)
+local LSBTween = TweenService:Create(LoadingBar, tweenInfo, property)
+local LSBBTween = TweenService:Create(LoadingBarBackground, tweenInfo, property)
+local LSBTTween = TweenService:Create(LBText, tweenInfo, property2)
+LSFTween:Play()
+LSBTween:Play()
+LSBBTween:Play()
+LSBTTween:Play()
 
-local tween = TweenService:Create(LSFrame, tweenInfo, property)
-tween:Play() -- plays tween
-tween.Completed:Connect(function()
+LSFTween.Completed:Connect(function()
 	print("Finished")
 	StartButton:TweenPosition(UDim2.new(
 	0.5,  				--xScale
