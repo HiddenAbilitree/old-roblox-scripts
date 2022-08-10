@@ -118,5 +118,28 @@ ButtonShadow:TweenPosition(UDim2.new(
 	2
 )
 
-
+Button.Activated:Connect(function()
+	Button:TweenPosition(UDim2.new(
+	0.5,  				--xScale
+	-BUTTON_XSIZE/2,	--xOffset
+	0,				--yScale
+	-BUTTON_YSIZE-7		--yOffset
+	),
+	Enum.EasingDirection.In,
+	Enum.EasingStyle.Elastic,
+	0.5,
+	true
+)
+ButtonShadow:TweenPosition(UDim2.new(
+	0.5,  				--xScale
+	-BUTTON_XSIZE/2,	--xOffset
+	0,				--yScale
+	-BUTTON_YSIZE	--yOffset
+	),
+	Enum.EasingDirection.In,
+	Enum.EasingStyle.Elastic,
+	0.5,
+	true
+)
+end)
 
