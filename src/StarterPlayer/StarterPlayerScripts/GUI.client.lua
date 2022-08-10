@@ -107,6 +107,7 @@ Button:TweenPosition(UDim2.new(
 	Enum.EasingStyle.Elastic,
 	2
 )
+
 ButtonShadow:TweenPosition(UDim2.new(
 	0.5,  				--xScale
 	-BUTTON_XSIZE/2,	--xOffset

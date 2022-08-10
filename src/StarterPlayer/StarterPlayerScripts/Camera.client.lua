@@ -120,3 +120,4 @@ Player.CharacterAdded:Connect(setupDeathTween)
 if Player.Character then
 	setupDeathTween(Player.Character or Player.CharacterAdded:Wait())
 end
+
