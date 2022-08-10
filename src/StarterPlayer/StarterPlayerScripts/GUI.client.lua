@@ -1,6 +1,6 @@
 --Services
 
-local LocalizationService = game:GetService("LocalizationService")
+--local LocalizationService = game:GetService("LocalizationService")
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local Players = game:GetService("Players")
 local ContentProvider = game:GetService("ContentProvider")
@@ -30,13 +30,13 @@ StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
 
 --Game GUI
 local GFOrder = 8500
-local MOrder = 9500
+--local MOrder = 9500
 local HBOrder = 9750
 local HBFOrder = 9500
 local HBBOrder = 9000
 
-local EBOrder = 9500
-local EBBOrder = 9000
+--local EBOrder = 9500
+--local EBBOrder = 9000
 --Start Screen
 local SSFOrder = 10000
 local SSBSOrder = 10500
@@ -232,7 +232,7 @@ ButtonShadowUICorner.CornerRadius = UDim.new(0,10)
 
 
 --GameFrame
-local GameFrame = Instance.new("Frame")
+--[[local GameFrame = Instance.new("Frame")
 GameFrame.Parent = ScreenGUI
 GameFrame.Name = "GameFrame"
 GameFrame.BackgroundTransparency = 1
@@ -263,6 +263,7 @@ HealthBarFrame.ZIndex = HBFOrder
 HealthBarFrame.LayoutOrder = HBFOrder
 HealthBarFrame.BackgroundColor3 = Color3.fromRGB(84,84,84)
 HealthBarFrame.BackgroundTransparency = 1
+HealthBarFrame.ClipsDescendants = true
 HealthBarFrame.Size = UDim2.new(
 	0,
 	HB_XSIZE,
@@ -284,8 +285,9 @@ HB_UICorner.CornerRadius = UDim.new(0,20)
 local HealthBar = Instance.new("Frame")
 HealthBar.Parent = HealthBarFrame
 HealthBar.Name = "HealthBar"
-HealthBar.ZIndex = HBBOrder
-HealthBar.LayoutOrder = HBBOrder
+HealthBar.ZIndex = HBOrder
+HealthBar.LayoutOrder = HBOrder
+HealthBar.BorderSizePixel = 0
 HealthBar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 HealthBar.BackgroundTransparency = 0
 HealthBar.Size = UDim2.new(
@@ -295,17 +297,17 @@ HealthBar.Size = UDim2.new(
 	HB_YSIZE
 )
 HealthBar.Position = UDim2.new(
-	0.5,
-	-HB_XSIZE/2,
-	0.9,
-	HB_YSIZE/2
+	0,
+	0,
+	0,
+	0
 )
 
 local HBBackground = Instance.new("Frame")
 HBBackground.Parent = GameFrame
 HBBackground.Name = "HBBackground"
-HBBackground.ZIndex = HBOrder
-HBBackground.LayoutOrder = HBOrder
+HBBackground.ZIndex = HBBOrder
+HBBackground.LayoutOrder = HBBOrder
 HBBackground.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 HBBackground.BackgroundTransparency = 0
 HBBackground.Size = UDim2.new(
@@ -325,7 +327,7 @@ local HBB_UICorner = Instance.new("UICorner")
 HBB_UICorner.Parent = HBBackground
 HBB_UICorner.Name = "HBB_UICorner"
 HBB_UICorner.CornerRadius = UDim.new(0,20)
-
+]]
 --Runtime
 print("Reached Runtime")
 Players.LocalPlayer.CharacterAdded:Wait()
@@ -338,7 +340,6 @@ Players.LocalPlayer.CharacterAdded:Wait()
 local assets = ReplicatedStorage:GetDescendants()
 
 for i = 1, #assets do
-	currentasset = i
 	local asset = assets[i]
 	ContentProvider:PreloadAsync({asset})
 	--print("Loaded: "..tostring(assets[i]))
@@ -389,8 +390,8 @@ local Camera = workspace.CurrentCamera
 Camera.CameraType = Enum.CameraType.Scriptable
 Camera.CFrame = CFrame.new(0,10,0)
 local Connection
-Connection = RunService.RenderStepped:Connect(function(deltaTime)
-    Camera.CFrame = Camera.CFrame*CFrame.Angles(0,0.005,0)
+Connection = RunService.RenderStepped:Connect(function(DeltaTime)
+    Camera.CFrame = Camera.CFrame*CFrame.Angles(0,0.005*(DeltaTime*60),0)
 end)
 
 
@@ -404,7 +405,10 @@ LSFTween.Completed:Connect(function()
 	),
 	Enum.EasingDirection.Out,
 	Enum.EasingStyle.Elastic,
-	2)
+	2
+	)
+
+
 
 	SBShadow:TweenPosition(UDim2.new(
 	0.5,  				--xScale
@@ -453,4 +457,3 @@ StartButton.Activated:Connect(function()
 	Camera.CameraType = Enum.CameraType.Custom
 	Connection:Disconnect()
 end)
-

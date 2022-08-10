@@ -2,7 +2,7 @@
 local Players = game:GetService("Players")
 
 
-local respawnDelay = 1
+local respawnDelay = 3
 
 Players.CharacterAutoLoads = false
 
@@ -12,10 +12,10 @@ Players.PlayerAdded:Connect(function(player)
 		local humanoid = character:FindFirstChild("Humanoid")
 		if humanoid then
 			humanoid.Died:Connect(function()
-				print(player .. " died")
+				print(tostring(player) .. " died")
 				task.wait(respawnDelay)
 				player:LoadCharacter()
-				print(player .. " respawned")
+				print(tostring(player) .. " respawned")
 			end)
 		end
 	end)
