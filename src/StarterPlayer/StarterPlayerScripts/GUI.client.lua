@@ -28,16 +28,27 @@ StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
 
 --ZIndex/LayoutOrder
 
---Loading Screen
-local LSFOrder = 1500
-local LBBOrder = 2000
-local LBOrder = 2500
-local LBTOrder = 3000
+--Game GUI
+local GFOrder = 8500
+local MOrder = 9500
+local HBOrder = 9750
+local HBFOrder = 9500
+local HBBOrder = 9000
 
+local EBOrder = 9500
+local EBBOrder = 9000
 --Start Screen
-local SSFOrder = 0
-local SSBSOrder = 500
-local SSBOrder = 1000
+local SSFOrder = 10000
+local SSBSOrder = 10500
+local SSBOrder = 11000
+
+--Loading Screen
+local LSFOrder = 11500
+local LBBOrder = 12000
+local LBOrder = 12500
+local LBTOrder = 13000
+
+
 
 --Screen GUI
 local ScreenGUI = Instance.new("ScreenGui")
@@ -225,6 +236,95 @@ local GameFrame = Instance.new("Frame")
 GameFrame.Parent = ScreenGUI
 GameFrame.Name = "GameFrame"
 GameFrame.BackgroundTransparency = 1
+GameFrame.ZIndex = GFOrder
+GameFrame.LayoutOrder = GFOrder
+
+GameFrame.Size = UDim2.new(
+	1,
+	0,
+	1,
+	0
+)
+
+GameFrame.Position = UDim2.new(
+	0,
+	0,
+	0,
+	0
+)
+
+local HB_XSIZE = 300
+local HB_YSIZE = 20
+
+local HealthBarFrame = Instance.new("Frame")
+HealthBarFrame.Parent = GameFrame
+HealthBarFrame.Name = "HealthBarFrame"
+HealthBarFrame.ZIndex = HBFOrder
+HealthBarFrame.LayoutOrder = HBFOrder
+HealthBarFrame.BackgroundColor3 = Color3.fromRGB(84,84,84)
+HealthBarFrame.BackgroundTransparency = 1
+HealthBarFrame.Size = UDim2.new(
+	0,
+	HB_XSIZE,
+	0,
+	HB_YSIZE
+)
+HealthBarFrame.Position = UDim2.new(
+	0.5,
+	-HB_XSIZE/2,
+	0.9,
+	HB_YSIZE/2
+)
+
+local HB_UICorner = Instance.new("UICorner")
+HB_UICorner.Parent = HealthBarFrame
+HB_UICorner.Name = "HB_UICorner"
+HB_UICorner.CornerRadius = UDim.new(0,20)
+
+local HealthBar = Instance.new("Frame")
+HealthBar.Parent = HealthBarFrame
+HealthBar.Name = "HealthBar"
+HealthBar.ZIndex = HBBOrder
+HealthBar.LayoutOrder = HBBOrder
+HealthBar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+HealthBar.BackgroundTransparency = 0
+HealthBar.Size = UDim2.new(
+	0,
+	HB_XSIZE,
+	0,
+	HB_YSIZE
+)
+HealthBar.Position = UDim2.new(
+	0.5,
+	-HB_XSIZE/2,
+	0.9,
+	HB_YSIZE/2
+)
+
+local HBBackground = Instance.new("Frame")
+HBBackground.Parent = GameFrame
+HBBackground.Name = "HBBackground"
+HBBackground.ZIndex = HBOrder
+HBBackground.LayoutOrder = HBOrder
+HBBackground.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+HBBackground.BackgroundTransparency = 0
+HBBackground.Size = UDim2.new(
+	0,
+	HB_XSIZE,
+	0,
+	HB_YSIZE
+)
+HBBackground.Position = UDim2.new(
+	0.5,
+	-HB_XSIZE/2,
+	0.9,
+	HB_YSIZE/2
+)
+
+local HBB_UICorner = Instance.new("UICorner")
+HBB_UICorner.Parent = HBBackground
+HBB_UICorner.Name = "HBB_UICorner"
+HBB_UICorner.CornerRadius = UDim.new(0,20)
 
 --Runtime
 print("Reached Runtime")
@@ -269,17 +369,17 @@ Enum.EasingDirection.Out,	--EasingDirection
 false,						--Reverse
 0							--Delay Between Reverses
 )
-local property = {
+local GUIProperty = {
 	BackgroundTransparency = 1
 }
-local property2 = {
+local TextProperty = {
 	TextTransparency = 1
 }
 task.wait(0.5)
-local LSFTween = TweenService:Create(LSFrame, tweenInfo, property)
-local LSBTween = TweenService:Create(LoadingBar, tweenInfo, property)
-local LSBBTween = TweenService:Create(LoadingBarBackground, tweenInfo, property)
-local LSBTTween = TweenService:Create(LBText, tweenInfo, property2)
+local LSFTween = TweenService:Create(LSFrame, tweenInfo, GUIProperty)
+local LSBTween = TweenService:Create(LoadingBar, tweenInfo, GUIProperty)
+local LSBBTween = TweenService:Create(LoadingBarBackground, tweenInfo, GUIProperty)
+local LSBTTween = TweenService:Create(LBText, tweenInfo, TextProperty)
 LSFTween:Play()
 LSBTween:Play()
 LSBBTween:Play()
