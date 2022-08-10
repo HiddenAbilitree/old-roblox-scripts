@@ -1,0 +1,1 @@
+print("Hello wor123123123ld, from chara12312cter!")
