@@ -12,10 +12,10 @@ Players.PlayerAdded:Connect(function(player)
 		local humanoid = character:FindFirstChild("Humanoid")
 		if humanoid then
 			humanoid.Died:Connect(function()
-				print("died")
+				print(player .. " died")
 				task.wait(respawnDelay)
 				player:LoadCharacter()
-				print("Respawned")
+				print(player .. " respawned")
 			end)
 		end
 	end)
