@@ -29,13 +29,15 @@ StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
 --ZIndex/LayoutOrder
 
 --Loading Screen
-local LSFOrder = 100
-local LBBOrder = 150
-local LBOrder = 200
-local LBTOrder = 300
+local LSFOrder = 1500
+local LBBOrder = 2000
+local LBOrder = 2500
+local LBTOrder = 3000
 
 --Start Screen
-
+local SSFOrder = 0
+local SSBSOrder = 500
+local SSBOrder = 1000
 
 --Screen GUI
 local ScreenGUI = Instance.new("ScreenGui")
@@ -163,8 +165,8 @@ SSFrame.Position = UDim2.new(
 	0
 )
 SSFrame.Size = UDim2.new(1,0,1,0)
-SSFrame.LayoutOrder = 0
-SSFrame.ZIndex = 0
+SSFrame.LayoutOrder = SSFOrder
+SSFrame.ZIndex = SSFOrder
 
 --Button
 
@@ -174,8 +176,8 @@ local BUTTON_YSIZE = 60
 local StartButton = Instance.new("TextButton")
 StartButton.Parent = SSFrame
 StartButton.Name = "StartButton"
-StartButton.ZIndex= 0
-StartButton.LayoutOrder = 0
+StartButton.ZIndex= SSBOrder
+StartButton.LayoutOrder = SSBOrder
 StartButton.Text = "Start"
 StartButton.TextSize = 50
 StartButton.Font = Enum.Font.SourceSansBold
@@ -201,8 +203,8 @@ SBShadow.Parent = SSFrame
 SBShadow.Name = "SBShadow"
 SBShadow.BackgroundColor3=Color3.fromRGB(84,84,84)
 SBShadow.BackgroundTransparency = 0
-SBShadow.ZIndex = -100
-SBShadow.LayoutOrder = -100
+SBShadow.ZIndex = SSBSOrder
+SBShadow.LayoutOrder = SSBSOrder
 SBShadow.Size = UDim2.new(0,BUTTON_XSIZE,0,BUTTON_YSIZE)
 
 SBShadow.Position = UDim2.new(		--SBShadow.Position
@@ -217,6 +219,12 @@ ButtonShadowUICorner.Parent = SBShadow
 ButtonShadowUICorner.Name = "ButtonShadowUICorner"
 ButtonShadowUICorner.CornerRadius = UDim.new(0,10)
 
+
+--GameFrame
+local GameFrame = Instance.new("Frame")
+GameFrame.Parent = ScreenGUI
+GameFrame.Name = "GameFrame"
+GameFrame.BackgroundTransparency = 1
 
 --Runtime
 print("Reached Runtime")
@@ -286,7 +294,7 @@ Connection = RunService.RenderStepped:Connect(function(deltaTime)
 end)
 
 
-
+--Tween Start Button Location
 LSFTween.Completed:Connect(function()
 	StartButton:TweenPosition(UDim2.new(
 	0.5,  				--xScale
@@ -345,3 +353,4 @@ StartButton.Activated:Connect(function()
 	Camera.CameraType = Enum.CameraType.Custom
 	Connection:Disconnect()
 end)
+
