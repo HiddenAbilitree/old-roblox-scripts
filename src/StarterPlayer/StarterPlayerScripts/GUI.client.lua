@@ -271,9 +271,9 @@ tween.Completed:Connect(function()
 	),
 	Enum.EasingDirection.Out,
 	Enum.EasingStyle.Elastic,
-	2
-)
-SBShadow:TweenPosition(UDim2.new(
+	2)
+
+	SBShadow:TweenPosition(UDim2.new(
 	0.5,  				--xScale
 	-BUTTON_XSIZE/2,	--xOffset
 	0.5,				--yScale
@@ -282,15 +282,8 @@ SBShadow:TweenPosition(UDim2.new(
 	Enum.EasingDirection.Out,
 	Enum.EasingStyle.Elastic,
 	2
-)
+	)
 end)
-
-
-
-print("test")
-
-
-
 
 
 
