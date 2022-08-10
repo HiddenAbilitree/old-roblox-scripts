@@ -160,18 +160,18 @@ SSFrame.ZIndex = 0
 local BUTTON_XSIZE = 300
 local BUTTON_YSIZE = 60
 
-local Button = Instance.new("TextButton")
-Button.Parent = SSFrame
-Button.Name = "StartButton"
-Button.ZIndex= 0
-Button.LayoutOrder = 0
-Button.Text = "Start"
-Button.TextSize = 50
-Button.Font = Enum.Font.SourceSansBold
-Button.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
-Button.Size = UDim2.new(0,BUTTON_XSIZE,0,BUTTON_YSIZE)
+local StartButton = Instance.new("TextButton")
+StartButton.Parent = SSFrame
+StartButton.Name = "StartButton"
+StartButton.ZIndex= 0
+StartButton.LayoutOrder = 0
+StartButton.Text = "Start"
+StartButton.TextSize = 50
+StartButton.Font = Enum.Font.SourceSansBold
+StartButton.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
+StartButton.Size = UDim2.new(0,BUTTON_XSIZE,0,BUTTON_YSIZE)
 
-Button.Position = UDim2.new(		--Button.Position
+StartButton.Position = UDim2.new(		--Button.Position
 	0.5,  							--xScale
 	-BUTTON_XSIZE/2,				--xOffset
 	1.1,							--yScale
@@ -179,22 +179,22 @@ Button.Position = UDim2.new(		--Button.Position
 )
 
 local ButtonUICorner = Instance.new("UICorner")
-ButtonUICorner.Parent = Button
+ButtonUICorner.Parent = StartButton
 ButtonUICorner.Name = "ButtonUICorner"
 ButtonUICorner.CornerRadius = UDim.new(0,10)
 
 --Button Shadow
 
-local ButtonShadow = Instance.new("Frame")
-ButtonShadow.Parent = SSFrame
-ButtonShadow.Name = "StartButtonShadow"
-ButtonShadow.BackgroundColor3=Color3.fromRGB(84,84,84)
-ButtonShadow.BackgroundTransparency = 0
-ButtonShadow.ZIndex = -100
-ButtonShadow.LayoutOrder = -100
-ButtonShadow.Size = UDim2.new(0,BUTTON_XSIZE,0,BUTTON_YSIZE)
+local SBShadow = Instance.new("Frame")
+SBShadow.Parent = SSFrame
+SBShadow.Name = "SBShadow"
+SBShadow.BackgroundColor3=Color3.fromRGB(84,84,84)
+SBShadow.BackgroundTransparency = 0
+SBShadow.ZIndex = -100
+SBShadow.LayoutOrder = -100
+SBShadow.Size = UDim2.new(0,BUTTON_XSIZE,0,BUTTON_YSIZE)
 
-ButtonShadow.Position = UDim2.new(	--ButtonShadow.Position
+SBShadow.Position = UDim2.new(		--SBShadow.Position
 	0.5,  							--xScale
 	-BUTTON_XSIZE/2,				--xOffset
 	1.1,							--yScale
@@ -202,7 +202,7 @@ ButtonShadow.Position = UDim2.new(	--ButtonShadow.Position
 )
 
 local ButtonShadowUICorner = Instance.new("UICorner")
-ButtonShadowUICorner.Parent = ButtonShadow
+ButtonShadowUICorner.Parent = SBShadow
 ButtonShadowUICorner.Name = "ButtonShadowUICorner"
 ButtonShadowUICorner.CornerRadius = UDim.new(0,10)
 
@@ -240,7 +240,7 @@ for i = 1, #assets do
 end
 
 
-Button:TweenPosition(UDim2.new(
+StartButton:TweenPosition(UDim2.new(
 	0.5,  				--xScale
 	-BUTTON_XSIZE/2,	--xOffset
 	0.5,				--yScale
@@ -250,7 +250,7 @@ Button:TweenPosition(UDim2.new(
 	Enum.EasingStyle.Elastic,
 	2
 )
-ButtonShadow:TweenPosition(UDim2.new(
+SBShadow:TweenPosition(UDim2.new(
 	0.5,  				--xScale
 	-BUTTON_XSIZE/2,	--xOffset
 	0.5,				--yScale
@@ -268,8 +268,8 @@ ButtonShadow:TweenPosition(UDim2.new(
 
 
 
-Button.Activated:Connect(function()
-	Button:TweenPosition(UDim2.new(
+StartButton.Activated:Connect(function()
+	StartButton:TweenPosition(UDim2.new(
 		0.5,  				--xScale
 		-BUTTON_XSIZE/2,	--xOffset
 		0,				--yScale
@@ -280,7 +280,7 @@ Button.Activated:Connect(function()
 		0.5,
 		true
 	)
-	ButtonShadow:TweenPosition(UDim2.new(
+	SBShadow:TweenPosition(UDim2.new(
 		0.5,  				--xScale
 		-BUTTON_XSIZE/2,	--xOffset
 		0,				--yScale
@@ -292,8 +292,8 @@ Button.Activated:Connect(function()
 		true
 	)
 	task.wait(0.5)
-	ButtonShadow.Visible = false
-	Button.Visible = false
+	SBShadow.Visible = false
+	StartButton.Visible = false
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
