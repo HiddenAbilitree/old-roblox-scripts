@@ -47,20 +47,20 @@ ScreenGUI.ResetOnSpawn = false
 
 --LoadingScreenFrame
 
-local LoadingScreenFrame = Instance.new("Frame")
-LoadingScreenFrame.Parent = ScreenGUI
-LoadingScreenFrame.Name = "StartScreenFrame"
-LoadingScreenFrame.BackgroundTransparency = 0
-LoadingScreenFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-LoadingScreenFrame.Position = UDim2.new(
+local LSFrame = Instance.new("Frame")
+LSFrame.Parent = ScreenGUI
+LSFrame.Name = "LoadingScreenFrame"
+LSFrame.BackgroundTransparency = 0
+LSFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+LSFrame.Position = UDim2.new(
 	0,
 	0,
 	0,
 	0
 )
-LoadingScreenFrame.Size = UDim2.new(1,0,1,0)
-LoadingScreenFrame.LayoutOrder = LSFOrder
-LoadingScreenFrame.ZIndex = LSFOrder
+LSFrame.Size = UDim2.new(1,0,1,0)
+LSFrame.LayoutOrder = LSFOrder
+LSFrame.ZIndex = LSFOrder
 
 local LB_XSIZE = 300
 local LB_YSIZE = 50
@@ -68,7 +68,7 @@ local LB_YSIZE = 50
 --LoadingBarBackground
 
 local LoadingBarBackground = Instance.new("Frame")
-LoadingBarBackground.Parent = LoadingScreenFrame
+LoadingBarBackground.Parent = LSFrame
 LoadingBarBackground.Name = "LoadingBarBackground"
 LoadingBarBackground.BackgroundTransparency = 0
 LoadingBarBackground.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
@@ -94,7 +94,7 @@ LBB_UICorner.Name = "LBB_UICorner"
 LBB_UICorner.CornerRadius = UDim.new(0,10)
 
 local LoadingBar = Instance.new("Frame")
-LoadingBar.Parent = LoadingScreenFrame
+LoadingBar.Parent = LSFrame
 LoadingBar.Name = "LoadingBar"
 LoadingBar.BackgroundTransparency = 0
 LoadingBar.BackgroundColor3 = Color3.fromRGB(0, 90, 207)
@@ -129,7 +129,8 @@ LBText.Name = "ProgressText"
 LBText.ZIndex = LBTOrder
 LBText.LayoutOrder = LBTOrder
 LBText.Text = "Filler Text"
-LBText.TextSize = 30
+LBText.TextSize = 50
+LBText.Font = Enum.Font.SourceSansBold
 LBText.BackgroundTransparency = 1
 LBText.Size = UDim2.new(
 	0,
@@ -141,8 +142,13 @@ LBText.Position = UDim2.new(
 	0.5,
 	-LB_XSIZE/2,
 	0.75,
-	-LB_YSIZE/2-10
+	-LB_YSIZE/2-15
 )
+local LBT_UICorner = Instance.new("UICorner")
+LBT_UICorner.Parent = LBText
+LBT_UICorner.Name = "LB_UICorner"
+LBT_UICorner.CornerRadius = UDim.new(0,10)
+
 
 --StartScreenFrame
 
@@ -247,7 +253,7 @@ end
 
 print("\nFinished loading assets\nStarting StartScreenTweens")
 
-print("Tween Start")
+--Loading Screen Tween Out
 local tweenInfo = TweenInfo.new(
 5,							--Time
 Enum.EasingStyle.Sine, 		--EasingStyle
@@ -259,7 +265,8 @@ false,						--Reverse
 local property = {
 	BackgroundTransparency = 1
 }
-local tween = TweenService:Create(LoadingScreenFrame, tweenInfo, property) --tween it to white
+
+local tween = TweenService:Create(LSFrame, tweenInfo, property)
 tween:Play() -- plays tween
 tween.Completed:Connect(function()
 	print("Finished")
@@ -291,7 +298,7 @@ StartButton.Activated:Connect(function()
 	StartButton:TweenPosition(UDim2.new(
 		0.5,  				--xScale
 		-BUTTON_XSIZE/2,	--xOffset
-		0,				--yScale
+		0,					--yScale
 		-BUTTON_YSIZE-7		--yOffset
 		),
 		Enum.EasingDirection.In,
@@ -302,8 +309,8 @@ StartButton.Activated:Connect(function()
 	SBShadow:TweenPosition(UDim2.new(
 		0.5,  				--xScale
 		-BUTTON_XSIZE/2,	--xOffset
-		0,				--yScale
-		-BUTTON_YSIZE	--yOffset
+		0,					--yScale
+		-BUTTON_YSIZE		--yOffset
 		),
 		Enum.EasingDirection.In,
 		Enum.EasingStyle.Elastic,
@@ -318,4 +325,3 @@ StartButton.Activated:Connect(function()
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
 	print("End")
 end)
-
