@@ -4,7 +4,7 @@ local LocalizationService = game:GetService("LocalizationService")
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local Players = game:GetService("Players")
 local ContentProvider = game:GetService("ContentProvider")
-
+local TweenService = game:GetService("TweenService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 --local TweenService = game:GetService("TweenService")
 local StarterGui = game:GetService("StarterGui")
@@ -149,7 +149,7 @@ LBText.Position = UDim2.new(
 local SSFrame = Instance.new("Frame")
 SSFrame.Parent = ScreenGUI
 SSFrame.Name = "StartScreenFrame"
-SSFrame.BackgroundTransparency = 0
+SSFrame.BackgroundTransparency = 1
 SSFrame.Position = UDim2.new(
 	0,
 	0,
@@ -247,7 +247,23 @@ end
 
 print("\nFinished loading assets\nStarting StartScreenTweens")
 
-StartButton:TweenPosition(UDim2.new(
+print("Tween Start")
+local tweenInfo = TweenInfo.new(
+5,							--Time
+Enum.EasingStyle.Sine, 		--EasingStyle
+Enum.EasingDirection.Out,	--EasingDirection
+0,							--Repeat Count
+false,						--Reverse
+0							--Delay Between Reverses
+)
+local property = {
+	BackgroundTransparency = 1
+}
+local tween = TweenService:Create(LoadingScreenFrame, tweenInfo, property) --tween it to white
+tween:Play() -- plays tween
+tween.Completed:Connect(function()
+	print("Finished")
+	StartButton:TweenPosition(UDim2.new(
 	0.5,  				--xScale
 	-BUTTON_XSIZE/2,	--xOffset
 	0.5,				--yScale
@@ -267,8 +283,11 @@ SBShadow:TweenPosition(UDim2.new(
 	Enum.EasingStyle.Elastic,
 	2
 )
+end)
 
 
+
+print("test")
 
 
 
