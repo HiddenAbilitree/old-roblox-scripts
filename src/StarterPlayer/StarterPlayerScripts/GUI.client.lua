@@ -8,7 +8,7 @@ local TweenService = game:GetService("TweenService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 --local TweenService = game:GetService("TweenService")
 local StarterGui = game:GetService("StarterGui")
---local RunService = game:GetService("RunService")
+local RunService = game:GetService("RunService")
 
 --Defaults
 
@@ -221,20 +221,19 @@ ButtonShadowUICorner.CornerRadius = UDim.new(0,10)
 --Runtime
 print("Reached Runtime")
 Players.LocalPlayer.CharacterAdded:Wait()
-print("LoadedPlayer")
+
 
 
 
 --Loading Screen
 
 local assets = ReplicatedStorage:GetDescendants()
-local currentasset = 0
 
 for i = 1, #assets do
 	currentasset = i
 	local asset = assets[i]
 	ContentProvider:PreloadAsync({asset})
-	print("Loaded: "..tostring(assets[i]))
+	--print("Loaded: "..tostring(assets[i]))
 	local progress = i / #assets
 	LBText.Text = tostring(i).."/"..tostring(#assets)
 	LoadingBar:TweenSize(
@@ -268,7 +267,6 @@ local property = {
 local property2 = {
 	TextTransparency = 1
 }
-LBText.Text = "Completed"
 task.wait(0.5)
 local LSFTween = TweenService:Create(LSFrame, tweenInfo, property)
 local LSBTween = TweenService:Create(LoadingBar, tweenInfo, property)
@@ -279,8 +277,17 @@ LSBTween:Play()
 LSBBTween:Play()
 LSBTTween:Play()
 
+local Camera = workspace.CurrentCamera
+Camera.CameraType = Enum.CameraType.Scriptable
+Camera.CFrame = CFrame.new(0,10,0)
+local Connection
+Connection = RunService.RenderStepped:Connect(function(deltaTime)
+    Camera.CFrame = Camera.CFrame*CFrame.Angles(0,0.005,0)
+end)
+
+
+
 LSFTween.Completed:Connect(function()
-	print("Finished")
 	StartButton:TweenPosition(UDim2.new(
 	0.5,  				--xScale
 	-BUTTON_XSIZE/2,	--xOffset
@@ -312,8 +319,8 @@ StartButton.Activated:Connect(function()
 		0,					--yScale
 		-BUTTON_YSIZE-7		--yOffset
 		),
-		Enum.EasingDirection.In,
-		Enum.EasingStyle.Elastic,
+		Enum.EasingDirection.Out,
+		Enum.EasingStyle.Quad,
 		0.5,
 		true
 	)
@@ -323,8 +330,8 @@ StartButton.Activated:Connect(function()
 		0,					--yScale
 		-BUTTON_YSIZE		--yOffset
 		),
-		Enum.EasingDirection.In,
-		Enum.EasingStyle.Elastic,
+		Enum.EasingDirection.Out,
+		Enum.EasingStyle.Quad,
 		0.5,
 		true
 	)
@@ -334,5 +341,7 @@ StartButton.Activated:Connect(function()
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
-	print("End")
+
+	Camera.CameraType = Enum.CameraType.Custom
+	Connection:Disconnect()
 end)
