@@ -232,7 +232,7 @@ ButtonShadowUICorner.CornerRadius = UDim.new(0,10)
 
 
 --GameFrame
---[[local GameFrame = Instance.new("Frame")
+local GameFrame = Instance.new("Frame")
 GameFrame.Parent = ScreenGUI
 GameFrame.Name = "GameFrame"
 GameFrame.BackgroundTransparency = 1
@@ -252,7 +252,7 @@ GameFrame.Position = UDim2.new(
 	0,
 	0
 )
-
+--[[
 local HB_XSIZE = 300
 local HB_YSIZE = 20
 
