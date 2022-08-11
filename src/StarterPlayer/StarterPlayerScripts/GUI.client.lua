@@ -252,63 +252,67 @@ GameFrame.Position = UDim2.new(
 	0,
 	0
 )
---[[
+
 local HB_XSIZE = 300
 local HB_YSIZE = 20
 
-local HealthBarFrame = Instance.new("Frame")
-HealthBarFrame.Parent = GameFrame
-HealthBarFrame.Name = "HealthBarFrame"
-HealthBarFrame.ZIndex = HBFOrder
-HealthBarFrame.LayoutOrder = HBFOrder
-HealthBarFrame.BackgroundColor3 = Color3.fromRGB(84,84,84)
-HealthBarFrame.BackgroundTransparency = 1
-HealthBarFrame.ClipsDescendants = true
-HealthBarFrame.Size = UDim2.new(
+local HBLeft = Instance.new("Frame")
+HBLeft.Parent = GameFrame
+HBLeft.Name = "HBLeft"
+HBLeft.ZIndex = HBOrder
+HBLeft.LayoutOrder = HBOrder
+HBLeft.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+HBLeft.BackgroundTransparency = 0
+HBLeft.ClipsDescendants = true
+HBLeft.Size = UDim2.new(
 	0,
-	HB_XSIZE,
+	10,
 	0,
 	HB_YSIZE
 )
-HealthBarFrame.Position = UDim2.new(
+HBLeft.Position = UDim2.new(
 	0.5,
 	-HB_XSIZE/2,
 	0.9,
 	HB_YSIZE/2
 )
 
-local HB_UICorner = Instance.new("UICorner")
-HB_UICorner.Parent = HealthBarFrame
-HB_UICorner.Name = "HB_UICorner"
-HB_UICorner.CornerRadius = UDim.new(0,20)
+local HBL_UICorner = Instance.new("UICorner")
+HBL_UICorner.Parent = HBLeft
+HBL_UICorner.Name = "HBL_UICorner"
+HBL_UICorner.CornerRadius = UDim.new(1,0)
 
-local HealthBar = Instance.new("Frame")
-HealthBar.Parent = HealthBarFrame
-HealthBar.Name = "HealthBar"
-HealthBar.ZIndex = HBOrder
-HealthBar.LayoutOrder = HBOrder
-HealthBar.BorderSizePixel = 0
-HealthBar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-HealthBar.BackgroundTransparency = 0
-HealthBar.Size = UDim2.new(
+local HBRight = Instance.new("Frame")
+HBRight.Parent = GameFrame
+HBRight.Name = "HBRight"
+HBRight.ZIndex = HBOrder
+HBRight.LayoutOrder = HBOrder
+HBRight.BorderSizePixel = 0
+HBRight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+HBRight.BackgroundTransparency = 1
+HBRight.Size = UDim2.new(
 	0,
 	HB_XSIZE,
 	0,
 	HB_YSIZE
 )
-HealthBar.Position = UDim2.new(
-	0,
-	0,
-	0,
-	0
+HBRight.Position = UDim2.new(
+	0.5,
+	-HB_XSIZE/2,
+	0.9,
+	HB_YSIZE/2
 )
+local HBR_UICorner = Instance.new("UICorner")
+HBR_UICorner.Parent = HBRight
+HBR_UICorner.Name = "HBR_UICorner"
+HBR_UICorner.CornerRadius = UDim.new(1,0)
 
 local HBBackground = Instance.new("Frame")
 HBBackground.Parent = GameFrame
 HBBackground.Name = "HBBackground"
 HBBackground.ZIndex = HBBOrder
 HBBackground.LayoutOrder = HBBOrder
-HBBackground.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+HBBackground.BackgroundColor3 = Color3.fromRGB(84,84,84)
 HBBackground.BackgroundTransparency = 0
 HBBackground.Size = UDim2.new(
 	0,
@@ -326,8 +330,8 @@ HBBackground.Position = UDim2.new(
 local HBB_UICorner = Instance.new("UICorner")
 HBB_UICorner.Parent = HBBackground
 HBB_UICorner.Name = "HBB_UICorner"
-HBB_UICorner.CornerRadius = UDim.new(0,20)
-]]
+HBB_UICorner.CornerRadius = UDim.new(1,0)
+
 --Runtime
 print("Reached Runtime")
 Players.LocalPlayer.CharacterAdded:Wait()
