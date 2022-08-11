@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 --local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
---local Debris = game:GetService('Debris')
+local Debris = game:GetService('Debris')
 --local ReplicatedStorage = game:GetService("ReplicatedStorage")
 --local Camera = workspace.Camera
 local CurrentCamera = workspace.CurrentCamera
@@ -96,7 +96,48 @@ UserInputService.InputBegan:Connect(function(key1)			--First W Input
 		Third:Disconnect()
 	end
 end)
+--[[
+local DashDebounce = false
+local DashCooldown = 1.5
+local DashDuration = 0.5
+local DashSpeed = 50
+local TrailEnabled = true
+local function AddTrails()
+	for _, v in pairs(Character:GetChildren()) do
+		if v:IsA("BasePart") and TrailEnabled then
+			local Att1 = Instance.new("Attachment")
+			Att1.Parent = v
+			Att1.Orientation = Vector3.new(-90, 0, 0)
+			Att1.Position = Vector3.new(0,0.5,0)
+			local Att2 = Instance.new("Attachment")
+			Att2.Parent = v
+			Att2.Orientation = Vector3.new(-90, 0, 0)
+			Att2.Position = Vector3.new(0,-0.5,0)
+			local Trail = Instance.new("Trail")
+			Trail.Parent = v
+			Trail.Attachment0 = Att1
+			Trail.Attachment1 = Att2
+			Trail.Lifetime = 0.1
+			Debris:AddItem(Att1, DashDuration)
+			Debris:AddItem(Att2, DashDuration)
+			Debris:AddItem(Trail, 0.5)
+		end
+	end
+end
 
+
+UserInputService.InputBegan:Connect(function(key)
+	if key.KeyCode == Enum.KeyCode.Q and not DashDebounce then
+		debounce = true
+		Humanoid.WalkSpeed += DashSpeed
+		AddTrails()
+		task.wait(DashDuration)
+		Humanoid.WalkSpeed -= DashSpeed
+	end
+
+	task.wait(DashCooldown)
+	DashDebounce = false
+end)]]
 
 local function PlayerAdded(player)
 
@@ -120,26 +161,4 @@ end)
 
 
 
---[[
-UserInputService.InputBegan:Connect(function(key)
-	if not dashdebounce and key.KeyCode == Enum.KeyCode.Q and Humanoid.MoveDirection.Magnitude>0 then
-		dashdebounce = true
-		print(Humanoid.WalkSpeed)
-		Humanoid.WalkSpeed += dashSpeed
-		print(Humanoid.WalkSpeed)
-		--DashSound:Play()
-		--animation:Play()
-		for _, v in pairs(Character:GetChildren()) do
-			if v:IsA("BasePart") and trailEnabled then
-				addTrail(v,dashCooldown)
-			end
-		end
-		print(Humanoid.WalkSpeed)
-		task.wait(dashDuration)
-		print(Humanoid.WalkSpeed)
-		Humanoid.WalkSpeed -= dashSpeed
-		print(Humanoid.WalkSpeed)
-		task.wait(dashCooldown)
-		dashdebounce = false
-	end
-end)]]
+
