@@ -2,12 +2,12 @@ local Players = game:GetService("Players")
 --local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
-local Debris = game:GetService('Debris')
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+--local Debris = game:GetService('Debris')
+--local ReplicatedStorage = game:GetService("ReplicatedStorage")
 --local Camera = workspace.Camera
 local CurrentCamera = workspace.CurrentCamera
 
-local Player = Players.LocalPlayer
+--local Player = Players.LocalPlayer
 local Character = script.Parent
 local Humanoid = Character:WaitForChild("Humanoid")
 
@@ -26,7 +26,7 @@ local WalkProperties = {FieldOfView = WALK_FOV}
 local toWalkInfo = TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 local toWalkTween = TweenService:Create(CurrentCamera, toWalkInfo, WalkProperties)
 
-local DashSound = ReplicatedStorage.Sounds["Dash Sound Effect"]
+--local DashSound = ReplicatedStorage.Sounds["Dash Sound Effect"]
 
 local CanRun = Instance.new("BoolValue")
 CanRun.Parent = script.Parent
@@ -57,7 +57,7 @@ local function onDeath()
 	debounce = true
 end
 
-local function CharacterAdded(char)
+local function CharacterAdded()
 	toWalkTween:Play()
 	Humanoid.WalkSpeed = WALK_SPEED
 	CurrentCamera.FieldOfView = WALK_FOV
@@ -82,8 +82,9 @@ UserInputService.InputBegan:Connect(function(key1)			--First W Input
 			if key3.KeyCode == Enum.KeyCode.W and sprinting and debounce then
 				print("Ended")
 				EndSprinting()
-				debounce = false
 				sprinting = false
+				task.wait(0.5)
+				debounce = false
 			end
 		end)
 		task.wait(0.5)
@@ -157,7 +158,7 @@ local function PlayerAdded(player)
 
 	local char = player.Character
 	if char then
-		CharacterAdded(char)
+		CharacterAdded()
 	end
 end
 
