@@ -52,6 +52,9 @@ local function onDeath()
 	CurrentCamera.FieldOfView = WALK_FOV
 	Character.CanRun.Value = false
 	IsDead = true
+	sprinting = false
+	scriptdebounce = false
+	debounce = true
 end
 
 local function CharacterAdded(char)
