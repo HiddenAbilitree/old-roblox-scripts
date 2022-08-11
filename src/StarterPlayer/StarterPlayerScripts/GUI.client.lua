@@ -23,7 +23,9 @@ StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
 --ScriptDefaults
 
 --local Event = ReplicatedStorage.RemoteEvent
---local Player = Players.LocalPlayer
+local Player = Players.LocalPlayer
+--local Character = Player.Character or Player.CharacterAdded:Wait()
+--local Humanoid = Character:WaitForChild("Humanoid")
 --local Mouse = Player:GetMouse()
 
 --ZIndex/LayoutOrder
@@ -181,8 +183,12 @@ SSFrame.ZIndex = SSFOrder
 
 --Button
 
-local BUTTON_XSIZE = 300
-local BUTTON_YSIZE = 60
+local SB_XSIZE = 300
+local SB_YSIZE = 60
+local SB_XPOS = 0.5
+local SB_YPOS = 60
+
+
 
 local StartButton = Instance.new("TextButton")
 StartButton.Parent = SSFrame
@@ -193,13 +199,13 @@ StartButton.Text = "Start"
 StartButton.TextSize = 50
 StartButton.Font = Enum.Font.SourceSansBold
 StartButton.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
-StartButton.Size = UDim2.new(0,BUTTON_XSIZE,0,BUTTON_YSIZE)
+StartButton.Size = UDim2.new(0,SB_XSIZE,0,SB_YSIZE)
 
 StartButton.Position = UDim2.new(	--Button.Position
-	0.5,  							--xScale
-	-BUTTON_XSIZE/2,				--xOffset
+	SB_XPOS,  							--xScale
+	-SB_XSIZE/2,				--xOffset
 	1.1,							--yScale
-	-BUTTON_YSIZE/2					--yOffset
+	-SB_YSIZE/2					--yOffset
 )
 
 local ButtonUICorner = Instance.new("UICorner")
@@ -216,13 +222,13 @@ SBShadow.BackgroundColor3=Color3.fromRGB(84,84,84)
 SBShadow.BackgroundTransparency = 0
 SBShadow.ZIndex = SSBSOrder
 SBShadow.LayoutOrder = SSBSOrder
-SBShadow.Size = UDim2.new(0,BUTTON_XSIZE,0,BUTTON_YSIZE)
+SBShadow.Size = UDim2.new(0,SB_XSIZE,0,SB_YSIZE)
 
 SBShadow.Position = UDim2.new(		--SBShadow.Position
-	0.5,  							--xScale
-	-BUTTON_XSIZE/2,				--xOffset
+	SB_XPOS,  							--xScale
+	-SB_XSIZE/2,				--xOffset
 	1.1,							--yScale
-	-BUTTON_YSIZE/2+7				--yOffset
+	-SB_YSIZE/2+7				--yOffset
 )
 
 local ButtonShadowUICorner = Instance.new("UICorner")
@@ -266,7 +272,7 @@ HBLeft.BackgroundTransparency = 0
 HBLeft.ClipsDescendants = true
 HBLeft.Size = UDim2.new(
 	0,
-	10,
+	5,
 	0,
 	HB_YSIZE
 )
@@ -289,7 +295,7 @@ HBRight.ZIndex = HBOrder
 HBRight.LayoutOrder = HBOrder
 HBRight.BorderSizePixel = 0
 HBRight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-HBRight.BackgroundTransparency = 1
+HBRight.BackgroundTransparency = 0
 HBRight.Size = UDim2.new(
 	0,
 	HB_XSIZE,
@@ -305,14 +311,14 @@ HBRight.Position = UDim2.new(
 local HBR_UICorner = Instance.new("UICorner")
 HBR_UICorner.Parent = HBRight
 HBR_UICorner.Name = "HBR_UICorner"
-HBR_UICorner.CornerRadius = UDim.new(1,0)
+HBR_UICorner.CornerRadius = UDim.new(0.25,0)
 
 local HBBackground = Instance.new("Frame")
 HBBackground.Parent = GameFrame
 HBBackground.Name = "HBBackground"
 HBBackground.ZIndex = HBBOrder
 HBBackground.LayoutOrder = HBBOrder
-HBBackground.BackgroundColor3 = Color3.fromRGB(84,84,84)
+HBBackground.BackgroundColor3 = Color3.fromRGB(51, 51, 51)
 HBBackground.BackgroundTransparency = 0
 HBBackground.Size = UDim2.new(
 	0,
@@ -330,18 +336,42 @@ HBBackground.Position = UDim2.new(
 local HBB_UICorner = Instance.new("UICorner")
 HBB_UICorner.Parent = HBBackground
 HBB_UICorner.Name = "HBB_UICorner"
-HBB_UICorner.CornerRadius = UDim.new(1,0)
+HBB_UICorner.CornerRadius = UDim.new(0.25,0)
 
 --Runtime
 print("Reached Runtime")
-Players.LocalPlayer.CharacterAdded:Wait()
 
+--HealthBar
 
-
+Player.CharacterAdded:Connect(function(character)
+	if character then
+		HBRight.Size = UDim2.new(
+			0,
+			HB_XSIZE,
+			0,
+			HB_YSIZE
+		)
+		character:WaitForChild("Humanoid").HealthChanged:Connect(function(health)
+			HBRight:TweenSize(UDim2.new(
+				0,
+				health*HB_XSIZE/100,
+				0,
+				HB_YSIZE
+				),
+				Enum.EasingDirection.Out,
+				Enum.EasingStyle.Quad,
+				0.25
+			)
+			print("Tweened Size")
+		end)
+	end
+end)
 
 --Loading Screen
 
 local assets = ReplicatedStorage:GetDescendants()
+
+
 
 for i = 1, #assets do
 	local asset = assets[i]
@@ -364,6 +394,9 @@ for i = 1, #assets do
 end
 
 print("\nFinished loading assets\nStarting StartScreenTweens")
+
+
+
 
 --Loading Screen Tween Out
 local tweenInfo = TweenInfo.new(
@@ -402,10 +435,10 @@ end)
 --Tween Start Button Location
 LSFTween.Completed:Connect(function()
 	StartButton:TweenPosition(UDim2.new(
-	0.5,  				--xScale
-	-BUTTON_XSIZE/2,	--xOffset
+	SB_XPOS,  				--xScale
+	-SB_XSIZE/2,	--xOffset
 	0.5,				--yScale
-	-BUTTON_YSIZE/2		--yOffset
+	-SB_YSIZE/2		--yOffset
 	),
 	Enum.EasingDirection.Out,
 	Enum.EasingStyle.Elastic,
@@ -415,10 +448,10 @@ LSFTween.Completed:Connect(function()
 
 
 	SBShadow:TweenPosition(UDim2.new(
-	0.5,  				--xScale
-	-BUTTON_XSIZE/2,	--xOffset
+	SB_XPOS,  				--xScale
+	-SB_XSIZE/2,	--xOffset
 	0.5,				--yScale
-	-BUTTON_YSIZE/2+7	--yOffset
+	-SB_YSIZE/2+7	--yOffset
 	),
 	Enum.EasingDirection.Out,
 	Enum.EasingStyle.Elastic,
@@ -430,10 +463,10 @@ end)
 
 StartButton.Activated:Connect(function()
 	StartButton:TweenPosition(UDim2.new(
-		0.5,  				--xScale
-		-BUTTON_XSIZE/2,	--xOffset
+		SB_XPOS,  				--xScale
+		-SB_XSIZE/2,	--xOffset
 		0,					--yScale
-		-BUTTON_YSIZE-7		--yOffset
+		-SB_YSIZE-7		--yOffset
 		),
 		Enum.EasingDirection.Out,
 		Enum.EasingStyle.Quad,
@@ -441,10 +474,10 @@ StartButton.Activated:Connect(function()
 		true
 	)
 	SBShadow:TweenPosition(UDim2.new(
-		0.5,  				--xScale
-		-BUTTON_XSIZE/2,	--xOffset
+		SB_XPOS,  				--xScale
+		-SB_XSIZE/2,	--xOffset
 		0,					--yScale
-		-BUTTON_YSIZE		--yOffset
+		-SB_YSIZE		--yOffset
 		),
 		Enum.EasingDirection.Out,
 		Enum.EasingStyle.Quad,
@@ -461,3 +494,6 @@ StartButton.Activated:Connect(function()
 	Camera.CameraType = Enum.CameraType.Custom
 	Connection:Disconnect()
 end)
+
+
+

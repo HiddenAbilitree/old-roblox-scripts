@@ -12,9 +12,11 @@ local Character = script.Parent
 local Humanoid = Character:WaitForChild("Humanoid")
 
 local WALK_SPEED = 16
-local SPRINT_SPEED = 20
+local SPRINT_SPEED_ADD = 4
 local SPRINT_FOV = 90
 local WALK_FOV = 70
+
+Humanoid.WalkSpeed = WALK_SPEED
 
 local SprintProperties = {FieldOfView = SPRINT_FOV}
 local toSprintInfo = TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
@@ -32,14 +34,15 @@ CanRun.Name = "CanRun"
 CanRun.Value = true
 local IsDead = false
 local debounce = false
-
+local sprinting = false
+local scriptdebounce = false
 local function StartSprinting()
-	Humanoid.WalkSpeed = SPRINT_SPEED
+	Humanoid.WalkSpeed += SPRINT_SPEED_ADD
 	toSprintTween:Play()
 end
 
 local function EndSprinting()
-	Humanoid.WalkSpeed = WALK_SPEED
+	Humanoid.WalkSpeed -= SPRINT_SPEED_ADD
 	toWalkTween:Play()
 end
 
@@ -55,13 +58,43 @@ local function CharacterAdded(char)
 	toWalkTween:Play()
 	Humanoid.WalkSpeed = WALK_SPEED
 	CurrentCamera.FieldOfView = WALK_FOV
-	char.CanRun.Value = true
 	IsDead = false
 end
 
+UserInputService.InputBegan:Connect(function(key1)			--First W Input
+	if key1.KeyCode == Enum.KeyCode.W and not debounce and not scriptdebounce and not IsDead then
+		scriptdebounce = true
+		print("First")
+		local Second
+		local Third
+		Second = UserInputService.InputBegan:Connect(function(key2)	--Second W input
+			if key2.KeyCode == Enum.KeyCode.W and not sprinting and not debounce then
+				print("Second")
+				StartSprinting()
+				debounce = true
+				sprinting = true
+			end
+		end)
+		Third = UserInputService.InputEnded:Connect(function(key3) --Second W input ends
+			if key3.KeyCode == Enum.KeyCode.W and sprinting and debounce then
+				print("Ended")
+				EndSprinting()
+				debounce = false
+				sprinting = false
+			end
+		end)
+		task.wait(0.5)
+		repeat
+			task.wait()
+		until not debounce
+		scriptdebounce = false
+		Second:Disconnect()
+		Third:Disconnect()
+	end
+end)
 -- Run Script
-UserInputService.InputBegan:Connect(function(input)
-	if not IsDead and input.KeyCode==Enum.KeyCode.W  then --and not Character.IsStunned.Value
+--[[UserInputService.InputBegan:Connect(function(input)
+	if not IsDead and input.KeyCode==Enum.KeyCode.W then --and not Character.IsStunned.Value
 		local StartConnection
 		local EndConnection
 		local InterruptConnection
@@ -92,7 +125,8 @@ UserInputService.InputBegan:Connect(function(input)
 				end)
 			end
 		end)
-		wait(0.23)
+		--[[
+		task.wait(0.23)
 		if not debounce then
 			StartConnection:Disconnect()
 			EndSprinting()
@@ -101,7 +135,7 @@ UserInputService.InputBegan:Connect(function(input)
                 task.wait()
             until not debounce
 			StartConnection:Disconnect()
-			EndSprinting()	
+			EndSprinting()
 		else
 			print("Sprinting Error")
 		end
@@ -111,7 +145,7 @@ UserInputService.InputBegan:Connect(function(input)
 end)
 
 
-
+]]
 
 
 local function PlayerAdded(player)
@@ -136,62 +170,26 @@ end)
 
 
 
--- Dash Script
-
---Trail Function
-
-local trailHeight = 0.25
-local trailWidth = .1
-local function addTrail(object, length)
-	local Att1 = Instance.new("Attachment")
-    Att1.Parent = object
-	Att1.Orientation = Vector3.new(-90, 0, 0)
-	Att1.Position = Vector3.new(trailWidth,trailHeight,0)
-	local Att2 = Instance.new("Attachment")
-    Att2.Parent = object
-	Att2.Orientation = Vector3.new(-90, 0, 0)
-	Att2.Position = Vector3.new(-trailWidth,-trailHeight,0)
-	local Trail = Instance.new("Trail")
-    Trail.Parent = object
-	Trail.Attachment0 = Att1
-	Trail.Attachment1 = Att2
-	Trail.Lifetime = 0.1
-	Trail.Color = ColorSequence.new(Color3.new(0.921569, 1, 0.0470588),Color3.new(1, 1, 1))
-	Debris:AddItem(Att1, length)
-	Debris:AddItem(Att2, length)
-	Debris:AddItem(Trail, 0.5)
-end
-
---Dash Animation
-
-local animation
-for _,v in ipairs(ReplicatedStorage.Animations:GetChildren()) do 
-	if v:IsA("Animation") and v.Name == "Dash Animation" then 
-		animation = Player.Character:WaitForChild("Humanoid"):LoadAnimation(v)
-	end
-end
-
---Dash Script
-
-local dashdebounce = false
-local dashDuration = .5
-local dashSpeed = 50
-local dashCooldown = 1.5
-local trailEnabled = true
+--[[
 UserInputService.InputBegan:Connect(function(key)
 	if not dashdebounce and key.KeyCode == Enum.KeyCode.Q and Humanoid.MoveDirection.Magnitude>0 then
 		dashdebounce = true
+		print(Humanoid.WalkSpeed)
 		Humanoid.WalkSpeed += dashSpeed
-		DashSound:Play()
-		animation:Play()
+		print(Humanoid.WalkSpeed)
+		--DashSound:Play()
+		--animation:Play()
 		for _, v in pairs(Character:GetChildren()) do
 			if v:IsA("BasePart") and trailEnabled then
 				addTrail(v,dashCooldown)
 			end
 		end
+		print(Humanoid.WalkSpeed)
 		task.wait(dashDuration)
+		print(Humanoid.WalkSpeed)
 		Humanoid.WalkSpeed -= dashSpeed
+		print(Humanoid.WalkSpeed)
 		task.wait(dashCooldown)
 		dashdebounce = false
 	end
-end)
+end)]]
