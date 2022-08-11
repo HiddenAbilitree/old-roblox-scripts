@@ -34,7 +34,7 @@ local Player = Players.LocalPlayer
 local GFOrder = 8500
 --local MOrder = 9500
 local HBOrder = 9750
-local HBFOrder = 9500
+--local HBFOrder = 9500
 local HBBOrder = 9000
 
 --local EBOrder = 9500
@@ -186,7 +186,7 @@ SSFrame.ZIndex = SSFOrder
 local SB_XSIZE = 300
 local SB_YSIZE = 60
 local SB_XPOS = 0.5
-local SB_YPOS = 60
+--local SB_YPOS = 60
 
 
 

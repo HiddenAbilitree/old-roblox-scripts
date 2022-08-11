@@ -96,60 +96,6 @@ UserInputService.InputBegan:Connect(function(key1)			--First W Input
 		Third:Disconnect()
 	end
 end)
--- Run Script
---[[UserInputService.InputBegan:Connect(function(input)
-	if not IsDead and input.KeyCode==Enum.KeyCode.W then --and not Character.IsStunned.Value
-		local StartConnection
-		local EndConnection
-		local InterruptConnection
-		StartConnection = UserInputService.InputBegan:Connect(function(input2)
-			if input2.KeyCode==Enum.KeyCode.W and Character.CanRun.Value and not debounce then
-				debounce = true
-				StartSprinting()
-				EndConnection = UserInputService.InputEnded:Connect(function(input3)
-					if input3.KeyCode==Enum.KeyCode.W then
-						EndSprinting()
-						EndConnection:Disconnect()
-						InterruptConnection:Disconnect()
-						task.wait(.4)
-						Character.CanRun.Value =true
-						debounce = false
-					end
-				end)
-				InterruptConnection = Character.CanRun:GetPropertyChangedSignal("Value"):Connect(function()
-					if not Character.CanRun.Value  then
-						Humanoid.WalkSpeed = 5
-						toWalkTween:Play()
-						EndConnection:Disconnect()
-						InterruptConnection:Disconnect()
-						task.wait(1.5)
-						Character.CanRun.Value =true
-						debounce = false
-					end
-				end)
-			end
-		end)
-		--[[
-		task.wait(0.23)
-		if not debounce then
-			StartConnection:Disconnect()
-			EndSprinting()
-		elseif debounce then
-			repeat
-                task.wait()
-            until not debounce
-			StartConnection:Disconnect()
-			EndSprinting()
-		else
-			print("Sprinting Error")
-		end
-	elseif IsDead then
-		onDeath()
-	end
-end)
-
-
-]]
 
 
 local function PlayerAdded(player)
