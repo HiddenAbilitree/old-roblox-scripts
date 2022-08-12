@@ -262,64 +262,13 @@ GameFrame.Position = UDim2.new(
 local HB_XSIZE = 300
 local HB_YSIZE = 20
 
-local HBLeft = Instance.new("Frame")
-HBLeft.Parent = GameFrame
-HBLeft.Name = "HBLeft"
-HBLeft.ZIndex = HBOrder
-HBLeft.LayoutOrder = HBOrder
-HBLeft.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-HBLeft.BackgroundTransparency = 0
-HBLeft.ClipsDescendants = true
-HBLeft.Size = UDim2.new(
-	0,
-	5,
-	0,
-	HB_YSIZE
-)
-HBLeft.Position = UDim2.new(
-	0.5,
-	-HB_XSIZE/2,
-	0.9,
-	HB_YSIZE/2
-)
-
-local HBL_UICorner = Instance.new("UICorner")
-HBL_UICorner.Parent = HBLeft
-HBL_UICorner.Name = "HBL_UICorner"
-HBL_UICorner.CornerRadius = UDim.new(1,0)
-
-local HBRight = Instance.new("Frame")
-HBRight.Parent = GameFrame
-HBRight.Name = "HBRight"
-HBRight.ZIndex = HBOrder
-HBRight.LayoutOrder = HBOrder
-HBRight.BorderSizePixel = 0
-HBRight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-HBRight.BackgroundTransparency = 0
-HBRight.Size = UDim2.new(
-	0,
-	HB_XSIZE,
-	0,
-	HB_YSIZE
-)
-HBRight.Position = UDim2.new(
-	0.5,
-	-HB_XSIZE/2,
-	0.9,
-	HB_YSIZE/2
-)
-local HBR_UICorner = Instance.new("UICorner")
-HBR_UICorner.Parent = HBRight
-HBR_UICorner.Name = "HBR_UICorner"
-HBR_UICorner.CornerRadius = UDim.new(0.25,0)
-
 local HBBackground = Instance.new("Frame")
 HBBackground.Parent = GameFrame
 HBBackground.Name = "HBBackground"
 HBBackground.ZIndex = HBBOrder
 HBBackground.LayoutOrder = HBBOrder
 HBBackground.BackgroundColor3 = Color3.fromRGB(51, 51, 51)
-HBBackground.BackgroundTransparency = 0
+HBBackground.BackgroundTransparency = 1
 HBBackground.Size = UDim2.new(
 	0,
 	HB_XSIZE,
@@ -329,7 +278,7 @@ HBBackground.Size = UDim2.new(
 HBBackground.Position = UDim2.new(
 	0.5,
 	-HB_XSIZE/2,
-	0.9,
+	0.95,
 	HB_YSIZE/2
 )
 
@@ -337,6 +286,55 @@ local HBB_UICorner = Instance.new("UICorner")
 HBB_UICorner.Parent = HBBackground
 HBB_UICorner.Name = "HBB_UICorner"
 HBB_UICorner.CornerRadius = UDim.new(0.25,0)
+
+local HBLeft = Instance.new("Frame")
+HBLeft.Parent = HBBackground
+HBLeft.Name = "HBLeft"
+HBLeft.ZIndex = HBOrder
+HBLeft.LayoutOrder = HBOrder
+HBLeft.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+HBLeft.BackgroundTransparency = 1
+HBLeft.Size = UDim2.new(
+	0,
+	10,
+	0,
+	HB_YSIZE
+)
+HBLeft.Position = UDim2.new(
+	0,
+	0,
+	0,
+	0
+)
+
+local HBL_UICorner = Instance.new("UICorner")
+HBL_UICorner.Parent = HBLeft
+HBL_UICorner.Name = "HBL_UICorner"
+HBL_UICorner.CornerRadius = UDim.new(1,0)
+
+local HBRight = Instance.new("Frame")
+HBRight.Parent = HBBackground
+HBRight.Name = "HBRight"
+HBRight.ZIndex = HBOrder
+HBRight.LayoutOrder = HBOrder
+HBRight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+HBRight.BackgroundTransparency = 1
+HBRight.Size = UDim2.new(
+	0,
+	HB_XSIZE,
+	0,
+	HB_YSIZE
+)
+HBRight.Position = UDim2.new(
+	0,
+	0,
+	0,
+	0
+)
+local HBR_UICorner = Instance.new("UICorner")
+HBR_UICorner.Parent = HBRight
+HBR_UICorner.Name = "HBR_UICorner"
+HBR_UICorner.CornerRadius = UDim.new(0.25,0)
 
 --Runtime
 print("Reached Runtime")
@@ -400,24 +398,31 @@ print("\nFinished loading assets\nStarting StartScreenTweens")
 
 --Loading Screen Tween Out
 local tweenInfo = TweenInfo.new(
-2,							--Time
-Enum.EasingStyle.Sine, 		--EasingStyle
-Enum.EasingDirection.Out,	--EasingDirection
-0,							--Repeat Count
-false,						--Reverse
-0							--Delay Between Reverses
+	2,							--Time
+	Enum.EasingStyle.Sine, 		--EasingStyle
+	Enum.EasingDirection.Out,	--EasingDirection
+	0,							--Repeat Count
+	false,						--Reverse
+	0							--Delay Between Reverses
 )
-local GUIProperty = {
+local TransparentBackground = {
 	BackgroundTransparency = 1
 }
-local TextProperty = {
+local TransparentText = {
 	TextTransparency = 1
 }
+local OpaqueBackground = {
+	BackgroundTransparency = 0
+}
+--[[local OpaqueText = {
+	TextTransparency = 0
+}]]
+
 task.wait(0.5)
-local LSFTween = TweenService:Create(LSFrame, tweenInfo, GUIProperty)
-local LSBTween = TweenService:Create(LoadingBar, tweenInfo, GUIProperty)
-local LSBBTween = TweenService:Create(LoadingBarBackground, tweenInfo, GUIProperty)
-local LSBTTween = TweenService:Create(LBText, tweenInfo, TextProperty)
+local LSFTween = TweenService:Create(LSFrame, tweenInfo, TransparentBackground)
+local LSBTween = TweenService:Create(LoadingBar, tweenInfo, TransparentBackground)
+local LSBBTween = TweenService:Create(LoadingBarBackground, tweenInfo, TransparentBackground)
+local LSBTTween = TweenService:Create(LBText, tweenInfo, TransparentText)
 LSFTween:Play()
 LSBTween:Play()
 LSBBTween:Play()
@@ -435,31 +440,40 @@ end)
 --Tween Start Button Location
 LSFTween.Completed:Connect(function()
 	StartButton:TweenPosition(UDim2.new(
-	SB_XPOS,  				--xScale
-	-SB_XSIZE/2,	--xOffset
-	0.5,				--yScale
-	-SB_YSIZE/2		--yOffset
-	),
-	Enum.EasingDirection.Out,
-	Enum.EasingStyle.Elastic,
-	2
+		SB_XPOS,  				--xScale
+		-SB_XSIZE/2,	--xOffset
+		0.5,				--yScale
+		-SB_YSIZE/2		--yOffset
+		),
+		Enum.EasingDirection.Out,
+		Enum.EasingStyle.Elastic,
+		2
 	)
 
 
 
 	SBShadow:TweenPosition(UDim2.new(
-	SB_XPOS,  				--xScale
-	-SB_XSIZE/2,	--xOffset
-	0.5,				--yScale
-	-SB_YSIZE/2+7	--yOffset
-	),
-	Enum.EasingDirection.Out,
-	Enum.EasingStyle.Elastic,
-	2
+		SB_XPOS,  				--xScale
+		-SB_XSIZE/2,	--xOffset
+		0.5,				--yScale
+		-SB_YSIZE/2+7	--yOffset
+		),
+		Enum.EasingDirection.Out,
+		Enum.EasingStyle.Elastic,
+		2
 	)
 end)
 
 
+local HBBInfo = {
+	BackgroundTransparency = 0,
+	Position = UDim2.new(
+		0.5,
+		-HB_XSIZE/2,
+		0.90,
+		HB_YSIZE/2
+	)
+}
 
 StartButton.Activated:Connect(function()
 	StartButton:TweenPosition(UDim2.new(
@@ -485,6 +499,7 @@ StartButton.Activated:Connect(function()
 		true
 	)
 	task.wait(0.5)
+	
 	SBShadow.Visible = false
 	StartButton.Visible = false
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
@@ -493,7 +508,43 @@ StartButton.Activated:Connect(function()
 
 	Camera.CameraType = Enum.CameraType.Custom
 	Connection:Disconnect()
+
+	local HBBTween = TweenService:Create(HBBackground, tweenInfo, HBBInfo)
+	local HBRightTween = TweenService:Create(HBRight, tweenInfo, OpaqueBackground)
+	local HBLeftTween = TweenService:Create(HBLeft, tweenInfo, OpaqueBackground)
+	HBBTween:Play()
+	HBRightTween:Play()
+	HBRightTween.Completed:Connect(function()
+		HBLeftTween:Play()
+	end)
 end)
 
 
 
+
+
+--[[
+	Cutscene Example
+
+local data = {{CFrame = CFrame.new(7.24662495, 49.8838158, 122.809601, -0.998124301, 0.00225036126, 0.0611790381, -0, 0.999324203, -0.0367583483, -0.0612204149, -0.0366894007, -0.997449756);Seconds = 2;Style = Enum.EasingStyle.Back},{CFrame = CFrame.new(55.0575294, 102.970627, -54.8986664, -0.600295603, -0.254995555, 0.75803864, -0, 0.947811007, 0.318832844, -0.799778223, 0.191393957, -0.568966746);Seconds = 2;Style = Enum.EasingStyle.Back}}
+
+repeat
+	task.wait()
+	Camera.CameraType = Enum.CameraType.Scriptable
+until Camera.CameraType == Enum.CameraType.Scriptable
+for _,v in pairs(data) do
+	TweenService:Create(
+		Camera,
+		TweenInfo.new(
+			v.Seconds,
+			v.Style,
+			Enum.EasingDirection.Out,
+			0,
+			false,
+			0
+		),
+		{CFrame = v.CFrame}
+	):Play()
+	task.wait(v.Seconds)
+end
+Camera.CameraType = Enum.CameraType.Custom]]
