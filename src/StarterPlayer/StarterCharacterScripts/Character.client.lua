@@ -87,7 +87,7 @@ UserInputService.InputBegan:Connect(function(key1)			--First W Input
 				debounce = false
 			end
 		end)
-		task.wait(0.5)
+		task.wait(0.2)
 		repeat
 			task.wait()
 		until not debounce

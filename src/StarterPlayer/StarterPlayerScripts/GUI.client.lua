@@ -31,6 +31,7 @@ local Player = Players.LocalPlayer
 --ZIndex/LayoutOrder
 
 --Game GUI
+local SFOrder = 10000
 local GFOrder = 8500
 --local MOrder = 9500
 local HBOrder = 9750
@@ -259,13 +260,33 @@ GameFrame.Position = UDim2.new(
 	0
 )
 
+local SF_XSIZE = 800
+local SF_YSIZE = 600
+local SettingFrame = Instance.new("Frame")
+SettingFrame.Parent = GameFrame
+SettingFrame.Name = "SettingFrame"
+SettingFrame.BackgroundTransparency = 1
+SettingFrame.ZIndex = SFOrder
+SettingFrame.LayoutOrder = SFOrder
 
+SettingFrame.Size = UDim2.new(
+	0,
+	0,
+	0,
+	0
+)
 
+SettingFrame.Position = UDim2.new(
+	.5,
+	-SF_XSIZE,
+	1.1,
+	-SF_YSIZE
+)
 
 
 local RMTButton = Instance.new("TextButton")
 RMTButton.Name = "RMTButton"
-RMTButton.Parent = GameFrame
+RMTButton.Parent = SettingFrame
 RMTButton.BackgroundColor3 = Color3.fromRGB(77, 156, 115)
 RMTButton.BorderSizePixel = 0
 RMTButton.Position = UDim2.new(0.05, 0, 0.5, 0)
@@ -588,11 +609,16 @@ end)
 
 
 RMTButton.Activated:Connect(function()
+	print("Removing Textures")
 	for _,v in pairs(workspace:GetDescendants()) do
 		if v:IsA("Part") then
 			v.Material = Enum.Material.SmoothPlastic
+		elseif v:IsA("Texture") then
+			v:Destroy()
 		end
 	end
+	RMTButton.Active = false
+	RMTTextLabel.Text = "Textures Removed!"
 end)
 
 
