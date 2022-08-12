@@ -96,7 +96,7 @@ UserInputService.InputBegan:Connect(function(key1)			--First W Input
 		Third:Disconnect()
 	end
 end)
---[[
+
 local DashDebounce = false
 local DashCooldown = 1.5
 local DashDuration = 0.5
@@ -125,19 +125,17 @@ local function AddTrails()
 	end
 end
 
-
 UserInputService.InputBegan:Connect(function(key)
 	if key.KeyCode == Enum.KeyCode.Q and not DashDebounce then
-		debounce = true
+		DashDebounce = true
 		Humanoid.WalkSpeed += DashSpeed
 		AddTrails()
 		task.wait(DashDuration)
 		Humanoid.WalkSpeed -= DashSpeed
+		task.wait(DashCooldown)
+		DashDebounce = false
 	end
-
-	task.wait(DashCooldown)
-	DashDebounce = false
-end)]]
+end)
 
 local function PlayerAdded(player)
 
