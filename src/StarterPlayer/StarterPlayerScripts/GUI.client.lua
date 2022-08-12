@@ -215,6 +215,7 @@ local SF_YSIZE = 600
 --Settings Frame
 
 local SFBackground = Instance.new("Frame")
+
 SFBackground.Parent = GameFrame
 SFBackground.Name = "SFBackground"
 SFBackground.BackgroundTransparency = 0
@@ -223,12 +224,14 @@ SFBackground.ZIndex = SFBackOrder
 SFBackground.LayoutOrder = SFBackOrder
 SFBackground.Size = UDim2.new(0, 700, 0, 500)
 SFBackground.Position = UDim2.new(0.5, -SF_XSIZE, 1.1, -SF_YSIZE)
-local DraggableFrame = DraggableObject.new(SFBackground)
+
 local SFB_UICorner = Instance.new("UICorner")
 SFB_UICorner.Parent = SFBackground
 SFB_UICorner.Name = "SFB_UICorner"
 SFB_UICorner.CornerRadius = UDim.new(0, 20)
 
+local DraggableFrame = DraggableObject.new(SFBackground)
+DraggableFrame:Enable()
 local SettingFrame = Instance.new("Frame")
 SettingFrame.Parent = SFBackground
 SettingFrame.Name = "SettingFrame"
