@@ -1,3 +1,4 @@
+---@diagnostic disable: unused-local
 -- Roblox character sound script
 
 local Players = game:GetService("Players")
@@ -69,7 +70,6 @@ local function shallowCopy(t)
 end
 
 local function initializeSoundSystem(instances)
-	local player = instances.player
 	local humanoid = instances.humanoid
 	local rootPart = instances.rootPart
 	
@@ -77,7 +77,7 @@ local function initializeSoundSystem(instances)
 
 	-- initialize sounds
 	for name: string, props: {[string]: any} in pairs(SOUND_DATA) do
-		local sound: Sound = Instance.new("Sound") 
+		local sound: Sound = Instance.new("Sound")
 		sound.Name = name
 
 		-- set default values
@@ -178,6 +178,7 @@ local function initializeSoundSystem(instances)
 	local loopedSoundUpdaters: {[Sound]: (number, Sound, Vector3) -> ()} = {
 		[sounds.Climbing] = function(dt: number, sound: Sound, vel: Vector3)
 			sound.Playing = vel.Magnitude > 0.1
+            dt = dt
 		end,
 
 		[sounds.FreeFalling] = function(dt: number, sound: Sound, vel: Vector3): ()
@@ -190,6 +191,7 @@ local function initializeSoundSystem(instances)
 
 		[sounds.Running] = function(dt: number, sound: Sound, vel: Vector3)
 			sound.Playing = vel.Magnitude > 0.5 and humanoid.MoveDirection.Magnitude > 0.5
+            dt = dt
 		end,
 	}
 
@@ -235,6 +237,7 @@ local function initializeSoundSystem(instances)
 			-- which might happen in case player character is unparented and parented back on server and reset-children mechanism is active.
 			for name: string, sound: Sound in pairs(sounds) do
 				sound:Destroy()
+                name = name
 			end
 			table.clear(sounds)
 		end
