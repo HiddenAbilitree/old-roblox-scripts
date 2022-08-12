@@ -259,6 +259,59 @@ GameFrame.Position = UDim2.new(
 	0
 )
 
+
+
+
+
+local RMTButton = Instance.new("TextButton")
+RMTButton.Name = "RMTButton"
+RMTButton.Parent = GameFrame
+RMTButton.BackgroundColor3 = Color3.fromRGB(77, 156, 115)
+RMTButton.BorderSizePixel = 0
+RMTButton.Position = UDim2.new(0.05, 0, 0.5, 0)
+RMTButton.Size = UDim2.new(0, 180, 0, 45)
+RMTButton.ZIndex = 2
+RMTButton.Font = Enum.Font.GothamMedium
+RMTButton.Text = ""
+RMTButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+RMTButton.TextScaled = true
+RMTButton.TextSize = 14.000
+RMTButton.TextWrapped = true
+
+local RMTB_UICorner = Instance.new("UICorner")
+RMTB_UICorner.Parent = RMTButton
+RMTB_UICorner.Name = "RMTB_UICorner"
+RMTB_UICorner.CornerRadius = UDim.new(0,10)
+
+local RMTShadow = Instance.new("Frame")
+RMTShadow.Name = "Shadow"
+RMTShadow.Parent = RMTButton
+RMTShadow.BackgroundColor3 = Color3.fromRGB(58, 118, 86)
+RMTShadow.BorderSizePixel = 0
+RMTShadow.Size = UDim2.new(1, 0, 1, 4)
+
+local RMTS_UICorner = Instance.new("UICorner")
+RMTS_UICorner.Parent = RMTShadow
+RMTS_UICorner.Name = "RMTS_UICorner"
+RMTS_UICorner.CornerRadius = UDim.new(0,10)
+
+local RMTTextLabel = Instance.new("TextLabel")
+RMTTextLabel.Parent = RMTButton
+RMTTextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+RMTTextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+RMTTextLabel.BackgroundTransparency = 1.000
+RMTTextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
+RMTTextLabel.BorderSizePixel = 0
+RMTTextLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+RMTTextLabel.Size = UDim2.new(1, -20, 1, -20)
+RMTTextLabel.ZIndex = 2
+RMTTextLabel.Font = Enum.Font.GothamMedium
+RMTTextLabel.Text = "Remove Textures"
+RMTTextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+RMTTextLabel.TextScaled = true
+RMTTextLabel.TextSize = 14.000
+RMTTextLabel.TextWrapped = true
+
 local HB_XSIZE = 300
 local HB_YSIZE = 20
 
@@ -296,7 +349,7 @@ HBLeft.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 HBLeft.BackgroundTransparency = 1
 HBLeft.Size = UDim2.new(
 	0,
-	10,
+	15,
 	0,
 	HB_YSIZE
 )
@@ -310,7 +363,7 @@ HBLeft.Position = UDim2.new(
 local HBL_UICorner = Instance.new("UICorner")
 HBL_UICorner.Parent = HBLeft
 HBL_UICorner.Name = "HBL_UICorner"
-HBL_UICorner.CornerRadius = UDim.new(1,0)
+HBL_UICorner.CornerRadius = UDim.new(0.5,0)
 
 local HBRight = Instance.new("Frame")
 HBRight.Parent = HBBackground
@@ -350,16 +403,30 @@ Player.CharacterAdded:Connect(function(character)
 			HB_YSIZE
 		)
 		character:WaitForChild("Humanoid").HealthChanged:Connect(function(health)
-			HBRight:TweenSize(UDim2.new(
-				0,
-				health*HB_XSIZE/100,
-				0,
-				HB_YSIZE
-				),
-				Enum.EasingDirection.Out,
-				Enum.EasingStyle.Quad,
-				0.25
-			)
+			if health*HB_XSIZE/100<=15 then 
+				HBRight:TweenSize(UDim2.new(
+					0,
+					15,
+					0,
+					HB_YSIZE
+					),
+					Enum.EasingDirection.Out,
+					Enum.EasingStyle.Quad,
+					0.25
+				)	
+			else
+				HBRight:TweenSize(UDim2.new(
+					0,
+					health*HB_XSIZE/100,
+					0,
+					HB_YSIZE
+					),
+					Enum.EasingDirection.Out,
+					Enum.EasingStyle.Quad,
+					0.25
+				)
+			end
+			
 			print("Tweened Size")
 		end)
 	end
@@ -520,7 +587,13 @@ StartButton.Activated:Connect(function()
 end)
 
 
-
+RMTButton.Activated:Connect(function()
+	for _,v in pairs(workspace:GetDescendants()) do
+		if v:IsA("Part") then
+			v.Material = Enum.Material.SmoothPlastic
+		end
+	end
+end)
 
 
 --[[
