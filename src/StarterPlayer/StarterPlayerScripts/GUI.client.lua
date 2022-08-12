@@ -214,6 +214,43 @@ local SF_YSIZE = 600
 
 --Settings Frame
 
+local GUIBB_XSIZE = 400
+local GUIBB_YSIZE = 80
+
+local GUIBBFrame = Instance.new("Frame")
+GUIBBFrame.Parent = GameFrame
+GUIBBFrame.Name = "GUIBBFrame"
+GUIBBFrame.BackgroundTransparency = 0
+GUIBBFrame.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
+GUIBBFrame.ZIndex = SFBackOrder
+GUIBBFrame.LayoutOrder = SFBackOrder
+GUIBBFrame.Size = UDim2.new(0, GUIBB_XSIZE, 0, GUIBB_YSIZE)
+GUIBBFrame.Position = UDim2.new(1, -GUIBB_XSIZE, 0.05, 0)
+
+local GUIBB_UICorner = Instance.new("UICorner")
+GUIBB_UICorner.Parent = GUIBBFrame
+GUIBB_UICorner.Name = "GUIBB_UICorner"
+GUIBB_UICorner.CornerRadius = UDim.new(1, 0)
+
+local GUIBBDrag = DraggableObject.new(GUIBBFrame)
+GUIBBDrag:Enable()
+
+local GUIBFrame = Instance.new("Frame")
+GUIBFrame.Parent = GUIBBFrame
+GUIBFrame.Name = "SFBackground"
+GUIBFrame.BackgroundTransparency = 0
+GUIBFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
+GUIBFrame.ZIndex = SFOrder
+GUIBFrame.LayoutOrder = SFOrder
+GUIBFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+GUIBFrame.Size = UDim2.new(0, GUIBB_XSIZE - 20, 0, GUIBB_YSIZE - 20)
+GUIBFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+
+local GUIB_UICorner = Instance.new("UICorner")
+GUIB_UICorner.Parent = GUIBFrame
+GUIB_UICorner.Name = "GUIB_UICorner"
+GUIB_UICorner.CornerRadius = UDim.new(1, 0)
+
 local SFBackground = Instance.new("Frame")
 
 SFBackground.Parent = GameFrame
