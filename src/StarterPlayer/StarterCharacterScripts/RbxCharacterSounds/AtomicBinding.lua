@@ -110,7 +110,7 @@ function AtomicBinding:bindRoot(root)
 	local rootInstToManifest = self._rootInstToManifest
 	local manifestSizeTarget = self._manifestSizeTarget
 	
-	assert(rootInstToManifest[root] == nil,"Error")
+	assert(rootInstToManifest[root] == nil)
 
 	local resolvedManifest = {}
 	rootInstToManifest[root] = resolvedManifest
@@ -157,7 +157,7 @@ function AtomicBinding:bindRoot(root)
 	-- Recursively descend into the tree, resolving each node.
 	-- Nodes start out as empty and instance-less; the resolving process discovers instances to map to nodes.
 	local function processNode(node)
-		local instance = assert(node.instance,"Error")
+		local instance = assert(node.instance)
 
 		local children = node.children
 		local alias = node.alias
@@ -203,7 +203,7 @@ function AtomicBinding:bindRoot(root)
 				self:_stopBoundFn(root) -- Happens before the tree is unbound so the manifest is still valid in the destructor.
 				unbindNodeDescend(childNode, resolvedManifest) -- Unbind the tree
 
-				assert(childNode.instance == nil,"Error") -- If this triggers, unbindNodeDescend failed
+				assert(childNode.instance == nil) -- If this triggers, unbindNodeDescend failed
 
 				-- Search for a replacement
 				local replacementChild = instance:FindFirstChild(childName)
@@ -240,7 +240,7 @@ function AtomicBinding:unbindRoot(root)
 
 	local rootNode = rootInstToRootNode[root]
 	if rootNode then
-		local resolvedManifest = assert(rootInstToManifest[root],"Error")
+		local resolvedManifest = assert(rootInstToManifest[root])
 		unbindNodeDescend(rootNode, resolvedManifest)
 		rootInstToRootNode[root] = nil
 	end
@@ -263,7 +263,7 @@ function AtomicBinding:destroy()
 
 	local rootInstToManifest = self._rootInstToManifest
 	for rootInst, rootNode in pairs(self._rootInstToRootNode) do
-		local resolvedManifest = assert(rootInstToManifest[rootInst],"Error")
+		local resolvedManifest = assert(rootInstToManifest[rootInst])
 		unbindNodeDescend(rootNode, resolvedManifest)
 	end
 	table.clear(self._rootInstToManifest)

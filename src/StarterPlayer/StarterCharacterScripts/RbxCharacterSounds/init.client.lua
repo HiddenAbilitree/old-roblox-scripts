@@ -69,6 +69,7 @@ local function shallowCopy(t)
 end
 
 local function initializeSoundSystem(instances)
+	local player = instances.player
 	local humanoid = instances.humanoid
 	local rootPart = instances.rootPart
 	
@@ -175,7 +176,7 @@ local function initializeSoundSystem(instances)
 
 	-- updaters for looped sounds
 	local loopedSoundUpdaters: {[Sound]: (number, Sound, Vector3) -> ()} = {
-		[sounds.Climbing] = function(sound: Sound, vel: Vector3)
+		[sounds.Climbing] = function(dt: number, sound: Sound, vel: Vector3)
 			sound.Playing = vel.Magnitude > 0.1
 		end,
 
@@ -187,7 +188,7 @@ local function initializeSoundSystem(instances)
 			end
 		end,
 
-		[sounds.Running] = function(sound: Sound, vel: Vector3)
+		[sounds.Running] = function(dt: number, sound: Sound, vel: Vector3)
 			sound.Playing = vel.Magnitude > 0.5 and humanoid.MoveDirection.Magnitude > 0.5
 		end,
 	}
@@ -232,7 +233,7 @@ local function initializeSoundSystem(instances)
 			-- Unparent all sounds and empty sounds table
 			-- This is needed in order to support the case where initializeSoundSystem might be called more than once for the same player,
 			-- which might happen in case player character is unparented and parented back on server and reset-children mechanism is active.
-			for sound: Sound in pairs(sounds) do
+			for name: string, sound: Sound in pairs(sounds) do
 				sound:Destroy()
 			end
 			table.clear(sounds)
