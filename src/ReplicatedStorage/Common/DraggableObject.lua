@@ -6,7 +6,6 @@ https://devforum.roblox.com/t/simple-module-for-creating-draggable-gui-elements/
 --]]
 
 local UDim2_new = UDim2.new
-
 local UserInputService = game:GetService("UserInputService")
 
 local DraggableObject = {}

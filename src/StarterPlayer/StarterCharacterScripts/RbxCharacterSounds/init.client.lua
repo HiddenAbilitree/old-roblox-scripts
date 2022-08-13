@@ -15,7 +15,7 @@ end
 
 local FFlagUserAtomicCharacterSoundsUnparent = loadFlag("UserAtomicCharacterSoundsUnparent")
 
-local SOUND_DATA : { [string]: {[string]: any}} = {
+local SOUND_DATA: { [string]: { [string]: any } } = {
 	Climbing = {
 		SoundId = "rbxasset://sounds/action_footsteps_plastic.mp3",
 		Looped = true,
@@ -53,7 +53,7 @@ local SOUND_DATA : { [string]: {[string]: any}} = {
 
 -- map a value from one range to another
 local function map(x: number, inMin: number, inMax: number, outMin: number, outMax: number): number
-	return (x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin
+	return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin
 end
 
 local function playSound(sound: Sound)
@@ -72,11 +72,11 @@ end
 local function initializeSoundSystem(instances)
 	local humanoid = instances.humanoid
 	local rootPart = instances.rootPart
-	
-	local sounds: {[string]: Sound} = {}
+
+	local sounds: { [string]: Sound } = {}
 
 	-- initialize sounds
-	for name: string, props: {[string]: any} in pairs(SOUND_DATA) do
+	for name: string, props: { [string]: any } in pairs(SOUND_DATA) do
 		local sound: Sound = Instance.new("Sound")
 		sound.Name = name
 
@@ -94,7 +94,7 @@ local function initializeSoundSystem(instances)
 		sounds[name] = sound
 	end
 
-	local playingLoopedSounds: {[Sound]: boolean?} = {}
+	local playingLoopedSounds: { [Sound]: boolean? } = {}
 
 	local function stopPlayingLoopedSounds(except: Sound?)
 		for sound in pairs(shallowCopy(playingLoopedSounds)) do
@@ -106,7 +106,7 @@ local function initializeSoundSystem(instances)
 	end
 
 	-- state transition callbacks.
-	local stateTransitions: {[Enum.HumanoidStateType]: () -> ()} = {
+	local stateTransitions: { [Enum.HumanoidStateType]: () -> () } = {
 		[Enum.HumanoidStateType.FallingDown] = function()
 			stopPlayingLoopedSounds()
 		end,
@@ -175,15 +175,15 @@ local function initializeSoundSystem(instances)
 	}
 
 	-- updaters for looped sounds
-	local loopedSoundUpdaters: {[Sound]: (number, Sound, Vector3) -> ()} = {
+	local loopedSoundUpdaters: { [Sound]: (number, Sound, Vector3) -> () } = {
 		[sounds.Climbing] = function(dt: number, sound: Sound, vel: Vector3)
 			sound.Playing = vel.Magnitude > 0.1
-            dt = dt
+			dt = dt
 		end,
 
 		[sounds.FreeFalling] = function(dt: number, sound: Sound, vel: Vector3): ()
 			if vel.Magnitude > 75 then
-				sound.Volume = math.clamp(sound.Volume + 0.9*dt, 0, 1)
+				sound.Volume = math.clamp(sound.Volume + 0.9 * dt, 0, 1)
 			else
 				sound.Volume = 0
 			end
@@ -191,12 +191,12 @@ local function initializeSoundSystem(instances)
 
 		[sounds.Running] = function(dt: number, sound: Sound, vel: Vector3)
 			sound.Playing = vel.Magnitude > 0.5 and humanoid.MoveDirection.Magnitude > 0.5
-            dt = dt
+			dt = dt
 		end,
 	}
 
 	-- state substitutions to avoid duplicating entries in the state table
-	local stateRemap: {[Enum.HumanoidStateType]: Enum.HumanoidStateType} = {
+	local stateRemap: { [Enum.HumanoidStateType]: Enum.HumanoidStateType } = {
 		[Enum.HumanoidStateType.RunningNoPhysics] = Enum.HumanoidStateType.Running,
 	}
 
@@ -237,12 +237,12 @@ local function initializeSoundSystem(instances)
 			-- which might happen in case player character is unparented and parented back on server and reset-children mechanism is active.
 			for name: string, sound: Sound in pairs(sounds) do
 				sound:Destroy()
-                name = name
+				name = name
 			end
 			table.clear(sounds)
 		end
 	end
-	
+
 	return terminate
 end
 
@@ -283,7 +283,7 @@ local function playerRemoving(player: Player)
 		end
 		playerConnections[player] = nil
 	end
-	
+
 	if player.Character then
 		characterRemoving(player.Character)
 	end
