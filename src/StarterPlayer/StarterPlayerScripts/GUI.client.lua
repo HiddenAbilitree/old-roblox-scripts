@@ -32,6 +32,12 @@ local Player = Players.LocalPlayer
 
 --Game GUI
 
+--GUI Buttons
+local GUIBBOrder = 20000
+local GUIBOrder = 20010
+local SettingBOrder = 20020
+local SettingIOrder = 20030
+
 --Settings
 local SFOrder = 10000
 local SFTOrder = 10003
@@ -95,6 +101,7 @@ local LB_YSIZE = 50
 
 local LoadingBarBackground = Instance.new("Frame")
 LoadingBarBackground.Parent = LSFrame
+LoadingBarBackground.AnchorPoint = Vector2.new(0.5, 0.5)
 LoadingBarBackground.Name = "LoadingBarBackground"
 LoadingBarBackground.BackgroundTransparency = 0
 LoadingBarBackground.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
@@ -102,7 +109,7 @@ LoadingBarBackground.LayoutOrder = LBBOrder
 LoadingBarBackground.ZIndex = LBBOrder
 LoadingBarBackground.Size = UDim2.new(0, LB_XSIZE, 0, LB_YSIZE)
 
-LoadingBarBackground.Position = UDim2.new(0.5, -LB_XSIZE / 2, 0.75, -LB_YSIZE / 2)
+LoadingBarBackground.Position = UDim2.new(0.5, 0, 0.75, 0)
 
 local LBB_UICorner = Instance.new("UICorner")
 LBB_UICorner.Parent = LoadingBarBackground
@@ -110,7 +117,8 @@ LBB_UICorner.Name = "LBB_UICorner"
 LBB_UICorner.CornerRadius = UDim.new(0, 10)
 
 local LoadingBar = Instance.new("Frame")
-LoadingBar.Parent = LSFrame
+LoadingBar.Parent = LoadingBarBackground
+LoadingBar.AnchorPoint = Vector2.new(0.5, 0.5)
 LoadingBar.Name = "LoadingBar"
 LoadingBar.BackgroundTransparency = 0
 LoadingBar.BackgroundColor3 = Color3.fromRGB(0, 90, 207)
@@ -118,7 +126,7 @@ LoadingBar.LayoutOrder = LBOrder
 LoadingBar.ZIndex = LBOrder
 LoadingBar.Size = UDim2.new(0, LB_XSIZE, 0, LB_YSIZE)
 
-LoadingBar.Position = UDim2.new(0.5, -LB_XSIZE / 2, 0.75, -LB_YSIZE / 2)
+LoadingBar.Position = UDim2.new(0.5, 0, 0.5, 0)
 
 local LB_UICorner = Instance.new("UICorner")
 LB_UICorner.Parent = LoadingBar
@@ -129,6 +137,7 @@ LB_UICorner.CornerRadius = UDim.new(0, 10)
 
 local LBText = Instance.new("TextLabel")
 LBText.Parent = LoadingBar
+LBText.AnchorPoint = Vector2.new(0.5, 0.5)
 LBText.Name = "ProgressText"
 LBText.ZIndex = LBTOrder
 LBText.LayoutOrder = LBTOrder
@@ -137,7 +146,7 @@ LBText.TextSize = 50
 LBText.Font = Enum.Font.SourceSansBold
 LBText.BackgroundTransparency = 1
 LBText.Size = UDim2.new(0, LB_XSIZE, 0, LB_YSIZE)
-LBText.Position = UDim2.new(0.5, -LB_XSIZE / 2, 0.75, -LB_YSIZE / 2 - 15)
+LBText.Position = UDim2.new(0.5, 0, 0.5)
 local LBT_UICorner = Instance.new("UICorner")
 LBT_UICorner.Parent = LBText
 LBT_UICorner.Name = "LB_UICorner"
@@ -212,20 +221,21 @@ GameFrame.Position = UDim2.new(0, 0, 0, 0)
 local SF_XSIZE = 800
 local SF_YSIZE = 600
 
---Settings Frame
+--GUI Button Frame
 
 local GUIBB_XSIZE = 400
 local GUIBB_YSIZE = 80
 
 local GUIBBFrame = Instance.new("Frame")
 GUIBBFrame.Parent = GameFrame
+GUIBBFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 GUIBBFrame.Name = "GUIBBFrame"
 GUIBBFrame.BackgroundTransparency = 0
 GUIBBFrame.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
-GUIBBFrame.ZIndex = SFBackOrder
-GUIBBFrame.LayoutOrder = SFBackOrder
+GUIBBFrame.ZIndex = GUIBBOrder
+GUIBBFrame.LayoutOrder = GUIBBOrder
 GUIBBFrame.Size = UDim2.new(0, GUIBB_XSIZE, 0, GUIBB_YSIZE)
-GUIBBFrame.Position = UDim2.new(1, -GUIBB_XSIZE, 0.05, 0)
+GUIBBFrame.Position = UDim2.new(0.85, 0, 0.9, 0)
 
 local GUIBB_UICorner = Instance.new("UICorner")
 GUIBB_UICorner.Parent = GUIBBFrame
@@ -240,8 +250,8 @@ GUIBFrame.Parent = GUIBBFrame
 GUIBFrame.Name = "SFBackground"
 GUIBFrame.BackgroundTransparency = 0
 GUIBFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
-GUIBFrame.ZIndex = SFOrder
-GUIBFrame.LayoutOrder = SFOrder
+GUIBFrame.ZIndex = GUIBOrder
+GUIBFrame.LayoutOrder = GUIBOrder
 GUIBFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 GUIBFrame.Size = UDim2.new(0, GUIBB_XSIZE - 20, 0, GUIBB_YSIZE - 20)
 GUIBFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
@@ -251,7 +261,38 @@ GUIB_UICorner.Parent = GUIBFrame
 GUIB_UICorner.Name = "GUIB_UICorner"
 GUIB_UICorner.CornerRadius = UDim.new(1, 0)
 
+--GUI Buttons
+
+local SettingButton = Instance.new("ImageButton")
+SettingButton.Parent = GUIBFrame
+SettingButton.AnchorPoint = Vector2.new(0.5, 0.5)
+SettingButton.ZIndex = SettingBOrder
+SettingButton.LayoutOrder = SettingBOrder
+SettingButton.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
+SettingButton.Position = UDim2.new(0, GUIBB_YSIZE - 44, 0.5, 0)
+SettingButton.Size = UDim2.new(0, GUIBB_YSIZE - 20, 0, GUIBB_YSIZE - 30)
+SettingButton.Image = "rbxassetid://10550379079"
+SettingButton.ImageTransparency = 1
+
+local SettingB_UICorners = Instance.new("UICorner")
+SettingB_UICorners.CornerRadius = UDim.new(1, 0)
+SettingB_UICorners.Parent = SettingButton
+
+local SettingImage = Instance.new("ImageLabel")
+SettingImage.Parent = SettingButton
+SettingImage.AnchorPoint = Vector2.new(0.5, 0.5)
+SettingImage.ZIndex = SettingIOrder
+SettingImage.LayoutOrder = SettingIOrder
+SettingImage.BackgroundTransparency = 1
+SettingImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+SettingImage.Size = UDim2.new(0, GUIBB_YSIZE - 50, 0, GUIBB_YSIZE - 50)
+SettingImage.Image = "rbxassetid://10572640817"
+
+--Settings Frame
+
 local SFBackground = Instance.new("Frame")
+local SFB_XSIZE = 300
+local SFB_YSIZE = 200
 
 SFBackground.Parent = GameFrame
 SFBackground.Name = "SFBackground"
@@ -259,7 +300,7 @@ SFBackground.BackgroundTransparency = 0
 SFBackground.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
 SFBackground.ZIndex = SFBackOrder
 SFBackground.LayoutOrder = SFBackOrder
-SFBackground.Size = UDim2.new(0, 700, 0, 500)
+SFBackground.Size = UDim2.new(0, SFB_XSIZE, 0, SFB_YSIZE)
 SFBackground.Position = UDim2.new(0.5, -SF_XSIZE, 1.1, -SF_YSIZE)
 
 local SFB_UICorner = Instance.new("UICorner")
@@ -277,7 +318,7 @@ SettingFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
 SettingFrame.ZIndex = SFOrder
 SettingFrame.LayoutOrder = SFOrder
 SettingFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-SettingFrame.Size = UDim2.new(0, 680, 0, 480)
+SettingFrame.Size = UDim2.new(0, SFB_XSIZE - 20, 0, SFB_YSIZE - 20)
 SettingFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 
 local SF_UICorner = Instance.new("UICorner")
@@ -290,9 +331,10 @@ SF_UICorner.CornerRadius = UDim.new(0, 18)
 local RMTButton = Instance.new("TextButton")
 RMTButton.Name = "RMTButton"
 RMTButton.Parent = SettingFrame
+RMTButton.AnchorPoint = Vector2.new(0.5, 0.5)
 RMTButton.BackgroundColor3 = Color3.fromRGB(77, 156, 115)
 RMTButton.BorderSizePixel = 0
-RMTButton.Position = UDim2.new(0.05, 0, 0.4, 0)
+RMTButton.Position = UDim2.new(0.5, 0, 0.3, 0)
 RMTButton.Size = UDim2.new(0, 180, 0, 45)
 RMTButton.ZIndex = SFBOrder
 RMTButton.LayoutOrder = SFBOrder
@@ -315,7 +357,8 @@ RMTShadow.BackgroundColor3 = Color3.fromRGB(58, 118, 86)
 RMTShadow.BorderSizePixel = 0
 RMTShadow.LayoutOrder = SFSOrder
 RMTShadow.ZIndex = SFSOrder
-RMTShadow.Size = UDim2.new(1, 0, 1, 4)
+RMTShadow.Size = UDim2.new(1, 0, 1, 0)
+RMTShadow.Position = UDim2.new(0, 0, 0, 4)
 
 local RMTS_UICorner = Instance.new("UICorner")
 RMTS_UICorner.Parent = RMTShadow
@@ -346,9 +389,10 @@ RMTTextLabel.TextWrapped = true
 local RMSButton = Instance.new("TextButton")
 RMSButton.Name = "RMSButton"
 RMSButton.Parent = SettingFrame
+RMSButton.AnchorPoint = Vector2.new(0.5, 0.5)
 RMSButton.BackgroundColor3 = Color3.fromRGB(77, 156, 115)
 RMSButton.BorderSizePixel = 0
-RMSButton.Position = UDim2.new(0.05, 0, 0.6, 0)
+RMSButton.Position = UDim2.new(0.5, 0, 0.7, 0)
 RMSButton.Size = UDim2.new(0, 180, 0, 45)
 RMSButton.ZIndex = SFBOrder
 RMSButton.LayoutOrder = SFBOrder
