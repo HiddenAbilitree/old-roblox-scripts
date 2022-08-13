@@ -17,70 +17,71 @@ local currentAnimKeyframeHandler = nil
 --local currentAnimSpeed = 1.0
 local animTable = {}
 local animNames = {
-	idle = 	{
+	idle = {
 		{ id = "http://www.roblox.com/asset/?id=180435571", weight = 9 },
-		{ id = "http://www.roblox.com/asset/?id=180435792", weight = 1 }
+		{ id = "http://www.roblox.com/asset/?id=180435792", weight = 1 },
 	},
-	walk = 	{ 
-		{ id = "http://www.roblox.com/asset/?id=10513603348", weight = 10 }
+	walk = {
+		{ id = "http://www.roblox.com/asset/?id=10513603348", weight = 10 },
 	},
-	run = 	{
-		{ id = "http://www.roblox.com/asset/?id=10513603348", weight = 10 }
+	run = {
+		{ id = "http://www.roblox.com/asset/?id=10513603348", weight = 10 },
 	},
-	jump = 	{
-		{ id = "http://www.roblox.com/asset/?id=125750702", weight = 10 }
+	jump = {
+		{ id = "http://www.roblox.com/asset/?id=125750702", weight = 10 },
 	},
-	fall = 	{
-		{ id = "http://www.roblox.com/asset/?id=180436148", weight = 10 }
+	fall = {
+		{ id = "http://www.roblox.com/asset/?id=180436148", weight = 10 },
 	},
 	climb = {
-		{ id = "http://www.roblox.com/asset/?id=180436334", weight = 10 }
+		{ id = "http://www.roblox.com/asset/?id=180436334", weight = 10 },
 	},
-	sit = 	{
-		{ id = "http://www.roblox.com/asset/?id=178130996", weight = 10 }
+	sit = {
+		{ id = "http://www.roblox.com/asset/?id=178130996", weight = 10 },
 	},
 	toolnone = {
-		{ id = "http://www.roblox.com/asset/?id=182393478", weight = 10 }
+		{ id = "http://www.roblox.com/asset/?id=182393478", weight = 10 },
 	},
 	toolslash = {
-		{ id = "http://www.roblox.com/asset/?id=129967390", weight = 10 }
-		--				{ id = "slash.xml", weight = 10 } 
+		{ id = "http://www.roblox.com/asset/?id=129967390", weight = 10 },
+		--				{ id = "slash.xml", weight = 10 }
 	},
 	toollunge = {
-		{ id = "http://www.roblox.com/asset/?id=129967478", weight = 10 }
+		{ id = "http://www.roblox.com/asset/?id=129967478", weight = 10 },
 	},
 	wave = {
-		{ id = "http://www.roblox.com/asset/?id=128777973", weight = 10 }
+		{ id = "http://www.roblox.com/asset/?id=128777973", weight = 10 },
 	},
 	point = {
-		{ id = "http://www.roblox.com/asset/?id=128853357", weight = 10 }
+		{ id = "http://www.roblox.com/asset/?id=128853357", weight = 10 },
 	},
 	dance1 = {
 		{ id = "http://www.roblox.com/asset/?id=182435998", weight = 10 },
 		{ id = "http://www.roblox.com/asset/?id=182491037", weight = 10 },
-		{ id = "http://www.roblox.com/asset/?id=182491065", weight = 10 }
+		{ id = "http://www.roblox.com/asset/?id=182491065", weight = 10 },
 	},
 	dance2 = {
 		{ id = "http://www.roblox.com/asset/?id=182436842", weight = 10 },
 		{ id = "http://www.roblox.com/asset/?id=182491248", weight = 10 },
-		{ id = "http://www.roblox.com/asset/?id=182491277", weight = 10 }
+		{ id = "http://www.roblox.com/asset/?id=182491277", weight = 10 },
 	},
 	dance3 = {
 		{ id = "http://www.roblox.com/asset/?id=182436935", weight = 10 },
 		{ id = "http://www.roblox.com/asset/?id=182491368", weight = 10 },
-		{ id = "http://www.roblox.com/asset/?id=182491423", weight = 10 }
+		{ id = "http://www.roblox.com/asset/?id=182491423", weight = 10 },
 	},
 	laugh = {
-		{ id = "http://www.roblox.com/asset/?id=129423131", weight = 10 }
+		{ id = "http://www.roblox.com/asset/?id=129423131", weight = 10 },
 	},
 	cheer = {
-		{ id = "http://www.roblox.com/asset/?id=129423030", weight = 10 }
+		{ id = "http://www.roblox.com/asset/?id=129423030", weight = 10 },
 	},
 }
-local dances = {"dance1", "dance2", "dance3"}
+local dances = { "dance1", "dance2", "dance3" }
 
 -- Existance in this list signifies that it is an emote, the value indicates if it is a looping emote
-local emoteNames = { wave = false, point = false, dance1 = true, dance2 = true, dance3 = true, laugh = false, cheer = false}
+local emoteNames =
+	{ wave = false, point = false, dance1 = true, dance2 = true, dance3 = true, laugh = false, cheer = false }
 
 function configureAnimationSet(name, fileList)
 	if animTable[name] ~= nil then
@@ -97,18 +98,27 @@ function configureAnimationSet(name, fileList)
 	local config = script:FindFirstChild(name)
 	if config ~= nil then
 		--		print("Loading anims " .. name)
-		table.insert(animTable[name].connections, config.ChildAdded:connect(function() 
-            configureAnimationSet(name, fileList)
-        end))
-		table.insert(animTable[name].connections, config.ChildRemoved:connect(function()
-            configureAnimationSet(name, fileList)
-        end))
+		table.insert(
+			animTable[name].connections,
+			config.ChildAdded:connect(function()
+				configureAnimationSet(name, fileList)
+			end)
+		)
+		table.insert(
+			animTable[name].connections,
+			config.ChildRemoved:connect(function()
+				configureAnimationSet(name, fileList)
+			end)
+		)
 		local idx = 1
 		for _, childPart in pairs(config:GetChildren()) do
 			if childPart:IsA("Animation") then
-				table.insert(animTable[name].connections, childPart.Changed:connect(function() 
-                    configureAnimationSet(name, fileList)
-                end))
+				table.insert(
+					animTable[name].connections,
+					childPart.Changed:connect(function()
+						configureAnimationSet(name, fileList)
+					end)
+				)
 				animTable[name][idx] = {}
 				animTable[name][idx].anim = childPart
 				local weightObject = childPart:FindFirstChild("Weight")
@@ -150,7 +160,6 @@ end
 
 script.ChildAdded:Connect(scriptChildModified)
 script.ChildRemoved:Connect(scriptChildModified)
-
 
 for name, fileList in pairs(animNames) do
 	configureAnimationSet(name, fileList)
@@ -204,7 +213,6 @@ end
 
 function keyFrameReachedFunc(frameName)
 	if frameName == "End" then
-
 		local repeatAnim = currentAnim
 		-- return to idle if finishing an emote
 		if emoteNames[repeatAnim] ~= nil and emoteNames[repeatAnim] == false then
@@ -218,9 +226,8 @@ function keyFrameReachedFunc(frameName)
 end
 
 -- Preload animations
-function playAnimation(animName, transitionTime, humanoid) 
-
-	local roll = math.random(1, animTable[animName].totalWeight) 
+function playAnimation(animName, transitionTime, humanoid)
+	local roll = math.random(1, animTable[animName].totalWeight)
 	--local origRoll = roll
 	local idx = 1
 	while roll > animTable[animName][idx].weight do
@@ -230,9 +237,8 @@ function playAnimation(animName, transitionTime, humanoid)
 	--		print(animName .. " " .. idx .. " [" .. origRoll .. "]")
 	local anim = animTable[animName][idx].anim
 
-	-- switch animation		
+	-- switch animation
 	if anim ~= currentAnimInstance then
-
 		if currentAnimTrack ~= nil then
 			currentAnimTrack:Stop(transitionTime)
 			currentAnimTrack:Destroy()
@@ -254,9 +260,7 @@ function playAnimation(animName, transitionTime, humanoid)
 			currentAnimKeyframeHandler:disconnect()
 		end
 		currentAnimKeyframeHandler = currentAnimTrack.KeyframeReached:connect(keyFrameReachedFunc)
-
 	end
-
 end
 
 -------------------------------------------------------------------------------------------
@@ -269,15 +273,13 @@ local currentToolAnimKeyframeHandler = nil
 
 function toolKeyFrameReachedFunc(frameName)
 	if frameName == "End" then
-		--		print("Keyframe : ".. frameName)	
+		--		print("Keyframe : ".. frameName)
 		playToolAnimation(toolAnimName, 0.0, Humanoid)
 	end
 end
 
-
-function playToolAnimation(animName, transitionTime, humanoid, priority)	 
-
-	local roll = math.random(1, animTable[animName].totalWeight) 
+function playToolAnimation(animName, transitionTime, humanoid, priority)
+	local roll = math.random(1, animTable[animName].totalWeight)
 	--local origRoll = roll
 	local idx = 1
 	while roll > animTable[animName][idx].weight do
@@ -288,7 +290,6 @@ function playToolAnimation(animName, transitionTime, humanoid, priority)
 	local anim = animTable[animName][idx].anim
 
 	if toolAnimInstance ~= anim then
-
 		if toolAnimTrack ~= nil then
 			toolAnimTrack:Stop()
 			toolAnimTrack:Destroy()
@@ -325,25 +326,23 @@ function stopToolAnimations()
 		toolAnimTrack = nil
 	end
 
-
 	return oldAnim
 end
 
 -------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 
-
 function onRunning(speed)
 	if speed > 0.01 then
 		playAnimation("walk", 0.1, Humanoid)
 		--if currentAnimInstance and currentAnimInstance.AnimationId == "http://www.roblox.com/asset/?id=180426354" then
-			--setAnimationSpeed(speed / 14.5)
+		--setAnimationSpeed(speed / 14.5)
 		--end
 		pose = "Running"
 	elseif speed > 19 then
 		playAnimation("run", 0.1, Humanoid)
 		--if currentAnimInstance and currentAnimInstance.AnimationId == "http://www.roblox.com/asset/?id=180426354" then
-			--setAnimationSpeed(speed / 14.5)
+		--setAnimationSpeed(speed / 14.5)
 		--end
 		pose = "Running"
 	else
@@ -401,9 +400,11 @@ function onSwimming(speed)
 	end
 end
 
-function getTool()	
+function getTool()
 	for _, kid in ipairs(Character:GetChildren()) do
-		if kid.className == "Tool" then return kid end
+		if kid.className == "Tool" then
+			return kid
+		end
 	end
 	return nil
 end
@@ -418,7 +419,6 @@ function getToolAnim(tool)
 end
 
 function animateTool()
-
 	if toolAnim == "None" then
 		playToolAnimation("toolnone", toolTransitionTime, Humanoid, Enum.AnimationPriority.Idle)
 		return
@@ -466,7 +466,13 @@ function move(time)
 		return
 	elseif pose == "Running" then
 		playAnimation("walk", 0.1, Humanoid)
-	elseif pose == "Dead" or pose == "GettingUp" or pose == "FallingDown" or pose == "Seated" or pose == "PlatformStanding" then
+	elseif
+		pose == "Dead"
+		or pose == "GettingUp"
+		or pose == "FallingDown"
+		or pose == "Seated"
+		or pose == "PlatformStanding"
+	then
 		--		print("Wha " .. pose)
 		stopAllAnimations()
 		amplitude = 0.1
@@ -486,14 +492,13 @@ function move(time)
 	-- Tool Animation handling
 	local tool = getTool()
 	if tool and tool:FindFirstChild("Handle") then
-
 		local animStringValueObject = getToolAnim(tool)
 
 		if animStringValueObject then
 			toolAnim = animStringValueObject.Value
 			-- message recieved, delete StringValue
 			animStringValueObject.Parent = nil
-			toolAnimTime = time + .3
+			toolAnimTime = time + 0.3
 		end
 
 		if time > toolAnimTime then
@@ -536,9 +541,7 @@ game:GetService("Players").LocalPlayer.Chatted:connect(function(msg)
 	if pose == "Standing" and emoteNames[emote] ~= nil then
 		playAnimation(emote, 0.1, Humanoid)
 	end
-
 end)
-
 
 -- main program
 

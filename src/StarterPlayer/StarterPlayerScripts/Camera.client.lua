@@ -21,7 +21,6 @@ ColorCorrectionEffect.Contrast = CC_DEFAULT_CONTRAST
 ColorCorrectionEffect.Saturation = CC_DEFAULT_SATURATION
 ColorCorrectionEffect.TintColor = CC_DEFAULT_TINT_COLOR
 
-
 local DepthOfFieldEffect = Instance.new("DepthOfFieldEffect")
 DepthOfFieldEffect.Parent = workspace.CurrentCamera
 DepthOfFieldEffect.Enabled = true
@@ -52,9 +51,8 @@ BloomEffect.Intensity = BM_DEFAULT_BLOOM_INTENSITY
 BloomEffect.Size = BM_DEFAULT_BLOOM_SIZE
 BloomEffect.Threshold = BM_DEFAULT_BLOOM_THRESHHOLD
 
-
 local DEATH_EFFECT_DELAY = 0 --seconds
-local DEATH_EFFECT_DURATION = 6  --seconds
+local DEATH_EFFECT_DURATION = 6 --seconds
 local DEATH_TINT_COLOR = Color3.fromRGB(200, 45, 45)
 local DEATH_BLUR_INTENSITY = 56
 
@@ -64,15 +62,15 @@ local deathEffectInfo = TweenInfo.new(
 	Enum.EasingDirection.Out,
 	0,
 	false,
-	DEATH_EFFECT_DELAY)
-
+	DEATH_EFFECT_DELAY
+)
 
 local tweenBlurGoal = {
 	Size = DEATH_BLUR_INTENSITY,
 }
 
 local tweenColorGoal = {
-	TintColor = DEATH_TINT_COLOR
+	TintColor = DEATH_TINT_COLOR,
 }
 
 local tweenBlur = TweenService:Create(BlurEffect, deathEffectInfo, tweenBlurGoal)
@@ -84,14 +82,12 @@ local function playDeathTween()
 end
 
 local function setupDeathTween(character)
-
 	local humanoid = character:WaitForChild("Humanoid")
 
 	if tweenBlur and tweenBlur.PlaybackState == Enum.PlaybackState.Playing then
 		tweenBlur:Cancel()
 		tweenColor:Cancel()
 	end
-
 
 	BlurEffect.Size = BR_DEFAULT_SIZE
 	ColorCorrectionEffect.Brightness = CC_DEFAULT_BRIGHTNESS
@@ -108,16 +104,13 @@ local function setupDeathTween(character)
 	SunRaysEffect.Intensity = SR_DEFAULT_INTENSITY
 	SunRaysEffect.Spread = SR_DEFAULT_SPREAD
 
-
 	humanoid.Died:Connect(function()
 		playDeathTween()
 	end)
 end
-
 
 Player.CharacterAdded:Connect(setupDeathTween)
 
 if Player.Character then
 	setupDeathTween(Player.Character or Player.CharacterAdded:Wait())
 end
-

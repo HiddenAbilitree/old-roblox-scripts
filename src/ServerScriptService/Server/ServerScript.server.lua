@@ -1,6 +1,4 @@
-
 local Players = game:GetService("Players")
-
 
 local respawnDelay = 3
 
@@ -22,7 +20,6 @@ Players.PlayerAdded:Connect(function(player)
 	player:LoadCharacter() -- load the character for the first time
 end)
 
-
 function PlayerJoined(Player)
 	Player.CharacterAdded:Wait()
 	local function RemoveMeshes(Character)
@@ -33,13 +30,12 @@ function PlayerJoined(Player)
 		CurrentDescription.Head = 0
 		CurrentDescription.Torso = 0
 		CurrentDescription.LeftArm = 0
-		CurrentDescription.RightArm  = 0
+		CurrentDescription.RightArm = 0
 		CurrentDescription.LeftLeg = 0
 		CurrentDescription.RightLeg = 0
 		Humanoid:ApplyDescription(CurrentDescription)
 	end
 	Player.CharacterAppearanceLoaded:Connect(RemoveMeshes)
-
 end
 Players.PlayerAdded:Connect(function(Player)
 	PlayerJoined(Player)

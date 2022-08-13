@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 --local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
-local Debris = game:GetService('Debris')
+local Debris = game:GetService("Debris")
 --local ReplicatedStorage = game:GetService("ReplicatedStorage")
 --local Camera = workspace.Camera
 local CurrentCamera = workspace.CurrentCamera
@@ -18,11 +18,11 @@ local WALK_FOV = 70
 
 Humanoid.WalkSpeed = WALK_SPEED
 
-local SprintProperties = {FieldOfView = SPRINT_FOV}
+local SprintProperties = { FieldOfView = SPRINT_FOV }
 local toSprintInfo = TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 local toSprintTween = TweenService:Create(CurrentCamera, toSprintInfo, SprintProperties)
 
-local WalkProperties = {FieldOfView = WALK_FOV}
+local WalkProperties = { FieldOfView = WALK_FOV }
 local toWalkInfo = TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 local toWalkTween = TweenService:Create(CurrentCamera, toWalkInfo, WalkProperties)
 
@@ -64,13 +64,13 @@ local function CharacterAdded()
 	IsDead = false
 end
 
-UserInputService.InputBegan:Connect(function(key1)			--First W Input
+UserInputService.InputBegan:Connect(function(key1) --First W Input
 	if key1.KeyCode == Enum.KeyCode.W and not debounce and not scriptdebounce and not IsDead then
 		scriptdebounce = true
 		print("First")
 		local Second
 		local Third
-		Second = UserInputService.InputBegan:Connect(function(key2)	--Second W input
+		Second = UserInputService.InputBegan:Connect(function(key2) --Second W input
 			if key2.KeyCode == Enum.KeyCode.W and not sprinting and not debounce then
 				print("Second")
 				StartSprinting()
@@ -108,11 +108,11 @@ local function AddTrails()
 			local Att1 = Instance.new("Attachment")
 			Att1.Parent = v
 			Att1.Orientation = Vector3.new(-90, 0, 0)
-			Att1.Position = Vector3.new(0,0.5,0)
+			Att1.Position = Vector3.new(0, 0.5, 0)
 			local Att2 = Instance.new("Attachment")
 			Att2.Parent = v
 			Att2.Orientation = Vector3.new(-90, 0, 0)
-			Att2.Position = Vector3.new(0,-0.5,0)
+			Att2.Position = Vector3.new(0, -0.5, 0)
 			local Trail = Instance.new("Trail")
 			Trail.Parent = v
 			Trail.Attachment0 = Att1
@@ -138,7 +138,6 @@ UserInputService.InputBegan:Connect(function(key)
 end)
 
 local function PlayerAdded(player)
-
 	player.CharacterAdded:Connect(CharacterAdded)
 
 	local char = player.Character
@@ -147,7 +146,7 @@ local function PlayerAdded(player)
 	end
 end
 
-for _,v in pairs(game.Players:GetPlayers()) do
+for _, v in pairs(game.Players:GetPlayers()) do
 	PlayerAdded(v)
 end
 
@@ -156,7 +155,3 @@ Players.PlayerAdded:Connect(PlayerAdded)
 Humanoid.Died:Connect(function()
 	onDeath()
 end)
-
-
-
-
