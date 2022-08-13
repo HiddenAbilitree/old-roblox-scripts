@@ -221,7 +221,7 @@ GameFrame.Position = UDim2.new(0, 0, 0, 0)
 local SF_XSIZE = 800
 local SF_YSIZE = 600
 
---GUI Button Frame
+--GUI Button Frame TRANSPARENT TO START
 
 local GUIBB_XSIZE = 400
 local GUIBB_YSIZE = 80
@@ -235,7 +235,7 @@ GUIBBFrame.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
 GUIBBFrame.ZIndex = GUIBBOrder
 GUIBBFrame.LayoutOrder = GUIBBOrder
 GUIBBFrame.Size = UDim2.new(0, GUIBB_XSIZE, 0, GUIBB_YSIZE)
-GUIBBFrame.Position = UDim2.new(0.85, 0, 0.9, 0)
+GUIBBFrame.Position = UDim2.new(0.85, 0 - 20, 0.9, 0)
 
 local GUIBB_UICorner = Instance.new("UICorner")
 GUIBB_UICorner.Parent = GUIBBFrame
@@ -263,6 +263,8 @@ GUIB_UICorner.CornerRadius = UDim.new(1, 0)
 
 --GUI Buttons
 
+--Transparent start
+
 local SettingButton = Instance.new("ImageButton")
 SettingButton.Parent = GUIBFrame
 SettingButton.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -278,22 +280,27 @@ local SettingB_UICorners = Instance.new("UICorner")
 SettingB_UICorners.CornerRadius = UDim.new(1, 0)
 SettingB_UICorners.Parent = SettingButton
 
+--Transparent start
+
 local SettingImage = Instance.new("ImageLabel")
 SettingImage.Parent = SettingButton
 SettingImage.AnchorPoint = Vector2.new(0.5, 0.5)
 SettingImage.ZIndex = SettingIOrder
 SettingImage.LayoutOrder = SettingIOrder
 SettingImage.BackgroundTransparency = 1
+SettingButton.ImageTransparency = 0
 SettingImage.Position = UDim2.new(0.5, 0, 0.5, 0)
 SettingImage.Size = UDim2.new(0, GUIBB_YSIZE - 50, 0, GUIBB_YSIZE - 50)
 SettingImage.Image = "rbxassetid://10572640817"
 
 --Settings Frame
 
-local SFBackground = Instance.new("Frame")
 local SFB_XSIZE = 300
 local SFB_YSIZE = 200
 
+--local SFBackTransparency = 0
+--local SFrameTransparency = 0.1
+local SFBackground = Instance.new("Frame")
 SFBackground.Parent = GameFrame
 SFBackground.Name = "SFBackground"
 SFBackground.BackgroundTransparency = 0
@@ -301,7 +308,7 @@ SFBackground.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
 SFBackground.ZIndex = SFBackOrder
 SFBackground.LayoutOrder = SFBackOrder
 SFBackground.Size = UDim2.new(0, SFB_XSIZE, 0, SFB_YSIZE)
-SFBackground.Position = UDim2.new(0.5, -SF_XSIZE, 1.1, -SF_YSIZE)
+SFBackground.Position = UDim2.new(0.5, -SF_XSIZE - 20, 1.1, -SF_YSIZE)
 
 local SFB_UICorner = Instance.new("UICorner")
 SFB_UICorner.Parent = SFBackground
@@ -313,7 +320,7 @@ DraggableFrame:Enable()
 local SettingFrame = Instance.new("Frame")
 SettingFrame.Parent = SFBackground
 SettingFrame.Name = "SettingFrame"
-SettingFrame.BackgroundTransparency = 0.1
+SettingFrame.BackgroundTransparency = 0
 SettingFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
 SettingFrame.ZIndex = SFOrder
 SettingFrame.LayoutOrder = SFOrder
@@ -514,6 +521,29 @@ Player.CharacterAdded:Connect(function(character)
 	end
 end)
 
+for _, v in pairs(GUIBBFrame:GetDescendants()) do
+	GUIBBFrame.BackgroundTransparency = 1
+	if not v:IsA("UICorner") then
+		v.BackgroundTransparency = 1
+		if v:IsA("TextButton") or v:IsA("TextLabel") then
+			v.TextTransparency = 1
+		elseif v:IsA("ImageButton") or v:IsA("ImageLabel") then
+			v.ImageTransparency = 1
+		end
+	end
+end
+
+for _, v in pairs(SFBackground:GetDescendants()) do
+	SFBackground.BackgroundTransparency = 1
+	if not v:IsA("UICorner") then
+		v.BackgroundTransparency = 1
+		if v:IsA("TextButton") or v:IsA("TextLabel") then
+			v.TextTransparency = 1
+		elseif v:IsA("ImageButton") or v:IsA("ImageLabel") then
+			v.ImageTransparency = 1
+		end
+	end
+end
 --Loading Screen
 
 local assets = ReplicatedStorage:GetDescendants()
@@ -546,9 +576,12 @@ local TransparentText = {
 local OpaqueBackground = {
 	BackgroundTransparency = 0,
 }
---[[local OpaqueText = {
+--[[local BarelyVisibleBackground = {
+	BackgroundTransparency = 0.1,
+}
+local OpaqueText = {
 	TextTransparency = 0
-}]]
+} ]]
 
 task.wait(0.5)
 local LSFTween = TweenService:Create(LSFrame, tweenInfo, TransparentBackground)
@@ -567,7 +600,7 @@ local Connection
 Connection = RunService.RenderStepped:Connect(function(DeltaTime)
 	Camera.CFrame = Camera.CFrame * CFrame.Angles(0, 0.005 * (DeltaTime * 60), 0)
 end)
-
+local AppearTweenInfo = TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, 0, false, 0)
 --Tween Start Button Location
 LSFTween.Completed:Connect(function()
 	StartButton:TweenPosition(
@@ -605,6 +638,7 @@ StartButton.Activated:Connect(function()
 		0.5,
 		true
 	)
+
 	task.wait(0.5)
 
 	SBShadow.Visible = false
@@ -616,14 +650,42 @@ StartButton.Activated:Connect(function()
 	Camera.CameraType = Enum.CameraType.Custom
 	Connection:Disconnect()
 
-	local HBBTween = TweenService:Create(HBBackground, tweenInfo, HBBInfo)
-	local HBRightTween = TweenService:Create(HBRight, tweenInfo, OpaqueBackground)
-	local HBLeftTween = TweenService:Create(HBLeft, tweenInfo, OpaqueBackground)
+	local HBBTween = TweenService:Create(HBBackground, AppearTweenInfo, HBBInfo)
+	local HBRightTween = TweenService:Create(HBRight, AppearTweenInfo, OpaqueBackground)
+	local HBLeftTween = TweenService:Create(HBLeft, AppearTweenInfo, OpaqueBackground)
 	HBBTween:Play()
 	HBRightTween:Play()
 	HBRightTween.Completed:Connect(function()
 		HBLeftTween:Play()
 	end)
+
+	TweenService:Create(GUIBBFrame, AppearTweenInfo, {
+		Position = UDim2.new(GUIBBFrame.Position.X, GUIBBFrame.Position.Y + UDim.new(0, -20)),
+		BackgroundTransparency = 0,
+	}):Play()
+	TweenService:Create(GUIBFrame, AppearTweenInfo, {
+		BackgroundTransparency = 0,
+	}):Play()
+
+	for _, v in pairs(GUIBBFrame:GetDescendants()) do
+		if not v:IsA("UICorner") then
+			if v:IsA("TextButton") or v:IsA("TextLabel") then
+				TweenService:Create(v, AppearTweenInfo, {
+					TextTransparency = 0,
+				}):Play()
+			elseif v:IsA("ImageButton") then
+				TweenService:Create(v, AppearTweenInfo, {
+					ImageTransparency = 1,
+					BackgroundTransparency = 0,
+				}):Play()
+			elseif v:IsA("ImageLabel") then
+				TweenService:Create(v, AppearTweenInfo, {
+					ImageTransparency = 0,
+					BackgroundTransparency = 1,
+				}):Play()
+			end
+		end
+	end
 end)
 
 RMTButton.Activated:Connect(function()
@@ -656,6 +718,87 @@ RMSButton.Activated:Connect(function()
 		task.wait(0.5)
 		RMSTextLabel.Text = "Toggle Shadows"
 		RMSBDebounce = false
+	end
+end)
+
+local SettingButtonDebounce = false
+local SettingsOpen = false
+SettingButton.Activated:Connect(function()
+	if not SettingButtonDebounce then
+		print("In")
+		SettingButtonDebounce = true
+		if not SettingsOpen then
+			SettingsOpen = true
+
+			TweenService:Create(SFBackground, AppearTweenInfo, {
+				Position = UDim2.new(SFBackground.Position.X, SFBackground.Position.Y + UDim.new(0, -20)),
+				BackgroundTransparency = 0,
+			}):Play()
+			TweenService:Create(SettingFrame, AppearTweenInfo, {
+				BackgroundTransparency = 0,
+			}):Play()
+
+			for _, v in pairs(SFBackground:GetDescendants()) do
+				if not v:IsA("UICorner") then
+					if v:IsA("TextButton") or v:IsA("TextLabel") then
+						TweenService:Create(v, AppearTweenInfo, {
+							TextTransparency = 0,
+						}):Play()
+						if v:IsA("TextButton") then
+							TweenService:Create(v, AppearTweenInfo, {
+								BackgroundTransparency = 0,
+							}):Play()
+						end
+					elseif v:IsA("ImageButton") then
+						TweenService:Create(v, AppearTweenInfo, {
+							ImageTransparency = 1,
+							BackgroundTransparency = 0,
+						}):Play()
+					elseif v:IsA("ImageLabel") then
+						TweenService:Create(v, AppearTweenInfo, {
+							ImageTransparency = 0,
+							BackgroundTransparency = 1,
+						}):Play()
+					end
+				end
+			end
+		else
+			SettingsOpen = false
+
+			TweenService:Create(SFBackground, AppearTweenInfo, {
+				Position = UDim2.new(SFBackground.Position.X, SFBackground.Position.Y + UDim.new(0, 20)),
+				BackgroundTransparency = 1,
+			}):Play()
+			TweenService:Create(SettingFrame, AppearTweenInfo, {
+				BackgroundTransparency = 1,
+			}):Play()
+
+			for _, v in pairs(SFBackground:GetDescendants()) do
+				if not v:IsA("UICorner") then
+					if v:IsA("TextButton") or v:IsA("TextLabel") then
+						TweenService:Create(v, AppearTweenInfo, {
+							TextTransparency = 1,
+						}):Play()
+						if v:IsA("TextButton") then
+							TweenService:Create(v, AppearTweenInfo, {
+								BackgroundTransparency = 1,
+							}):Play()
+						end
+					elseif v:IsA("ImageButton") then
+						TweenService:Create(v, AppearTweenInfo, {
+							ImageTransparency = 0,
+							BackgroundTransparency = 1,
+						}):Play()
+					elseif v:IsA("ImageLabel") then
+						TweenService:Create(v, AppearTweenInfo, {
+							ImageTransparency = 1,
+							BackgroundTransparency = 0,
+						}):Play()
+					end
+				end
+			end
+		end
+		SettingButtonDebounce = false
 	end
 end)
 

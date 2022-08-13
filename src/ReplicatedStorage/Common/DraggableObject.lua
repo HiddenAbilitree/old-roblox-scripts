@@ -1,9 +1,8 @@
---[[
-	@Author: Spynaz
-	@Description: Enables dragging on GuiObjects. Supports both mouse and touch.
-	
-	For instructions on how to use this module, go to this link:
-	https://devforum.roblox.com/t/simple-module-for-creating-draggable-gui-elements/230678
+--[[@Author: Spynaz
+@Description: Enables dragging on GuiObjects. Supports both mouse and touch.
+
+For instructions on how to use this module, go to this link:
+https://devforum.roblox.com/t/simple-module-for-creating-draggable-gui-elements/230678
 --]]
 
 local UDim2_new = UDim2.new
@@ -12,6 +11,11 @@ local UserInputService = game:GetService("UserInputService")
 
 local DraggableObject = {}
 DraggableObject.__index = DraggableObject
+
+-- Check if either mouse movement or touch input
+function MouseOrTouchMovement(input)
+	return input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch
+end
 
 -- Sets up a new draggable object
 function DraggableObject.new(Object)
@@ -51,14 +55,6 @@ function DraggableObject:Enable()
 			or input.UserInputType == Enum.UserInputType.Touch
 		then
 			preparingToDrag = true
-			--[[if self.DragStarted then
-				self.DragStarted()
-			end
-			
-			dragging	 	= true
-			dragStart 		= input.Position
-			startPos 		= Element.Position
-			--]]
 
 			local connection
 			connection = input.Changed:Connect(function()
@@ -77,10 +73,7 @@ function DraggableObject:Enable()
 	end)
 
 	self.InputChanged = object.InputChanged:Connect(function(input)
-		if
-			input.UserInputType == Enum.UserInputType.MouseMovement
-			or input.UserInputType == Enum.UserInputType.Touch
-		then
+		if MouseOrTouchMovement(input) then
 			dragInput = input
 		end
 	end)
@@ -91,7 +84,7 @@ function DraggableObject:Enable()
 			return
 		end
 
-		if preparingToDrag then
+		if MouseOrTouchMovement(input) and preparingToDrag then
 			preparingToDrag = false
 
 			if self.DragStarted then
