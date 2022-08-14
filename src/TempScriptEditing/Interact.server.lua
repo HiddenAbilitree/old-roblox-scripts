@@ -1,0 +1,6 @@
+local Proximity = Instance.new("ProximityPrompt")
+--local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RemoteEvent = Instance.new("RemoteEvent")
+Proximity.Triggered:Connect(function(Player)
+	RemoteEvent:FireClient(Player)
+end)
