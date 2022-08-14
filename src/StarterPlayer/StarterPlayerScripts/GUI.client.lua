@@ -544,8 +544,14 @@ for _, v in pairs(SFBackground:GetDescendants()) do
 		end
 	end
 end
---Loading Screen
+--Title Theme
+local TitleTheme = ReplicatedStorage.Sounds.Title_Theme
+TitleTheme.Volume = 0
 
+TitleTheme:Play()
+
+local TitleTween = TweenService:Create(TitleTheme, TweenInfo.new(100, Enum.EasingStyle.Linear), { Volume = 0.5 })
+TitleTween:Play()
 local assets = ReplicatedStorage:GetDescendants()
 
 for i = 1, #assets do
@@ -585,14 +591,10 @@ local OpaqueText = {
 
 task.wait(0.5)
 local LSFTween = TweenService:Create(LSFrame, tweenInfo, TransparentBackground)
-local LSBTween = TweenService:Create(LoadingBar, tweenInfo, TransparentBackground)
-local LSBBTween = TweenService:Create(LoadingBarBackground, tweenInfo, TransparentBackground)
-local LSBTTween = TweenService:Create(LBText, tweenInfo, TransparentText)
+TweenService:Create(LoadingBar, tweenInfo, TransparentBackground):Play()
+TweenService:Create(LoadingBarBackground, tweenInfo, TransparentBackground):Play()
+TweenService:Create(LBText, tweenInfo, TransparentText):Play()
 LSFTween:Play()
-LSBTween:Play()
-LSBBTween:Play()
-LSBTTween:Play()
-
 local Camera = workspace.CurrentCamera
 Camera.CameraType = Enum.CameraType.Scriptable
 Camera.CFrame = CFrame.new(0, 10, 0)
@@ -624,6 +626,8 @@ local HBBInfo = {
 }
 
 StartButton.Activated:Connect(function()
+	local TitleTweenStop = TweenService:Create(TitleTheme, TweenInfo.new(5, Enum.EasingStyle.Linear), { Volume = 0 })
+	TitleTweenStop:Play()
 	StartButton:TweenPosition(
 		UDim2.new(SB_XPOS, -SB_XSIZE / 2, 0, -SB_YSIZE - 7),
 		Enum.EasingDirection.Out,
