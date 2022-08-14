@@ -6,23 +6,31 @@ Players.CharacterAutoLoads = false
 
 Players.PlayerAdded:Connect(function(player)
 	player.CharacterAdded:Connect(function(character)
+		local humanoid = character:WaitForChild("Humanoid")
+		player.CharacterAppearanceLoaded:Connect(function()
+			task.wait()
+			local CurrentDescription = humanoid:GetAppliedDescription()
+			CurrentDescription.Head = 0
+			CurrentDescription.Torso = 0
+			CurrentDescription.LeftArm = 0
+			CurrentDescription.RightArm = 0
+			CurrentDescription.LeftLeg = 0
+			CurrentDescription.RightLeg = 0
+			humanoid:ApplyDescription(CurrentDescription)
+		end)
 		-- find the humanoid, and detect when it dies
-		local humanoid = character:FindFirstChild("Humanoid")
-		if humanoid then
-			humanoid.Died:Connect(function()
-				print(tostring(player) .. " died")
-				task.wait(respawnDelay)
-				player:LoadCharacter()
-				print(tostring(player) .. " respawned")
-			end)
-		end
+		humanoid.Died:Connect(function()
+			print(tostring(player) .. " died")
+			task.wait(respawnDelay)
+			player:LoadCharacter()
+			print(tostring(player) .. " respawned")
+		end)
 	end)
 	player:LoadCharacter() -- load the character for the first time
 end)
 
 function PlayerJoined(Player)
-	Player.CharacterAdded:Wait()
-	local function RemoveMeshes(Character)
+	Player.CharacterAppearanceLoaded:Connect(function(Character)
 		local Humanoid = Character:WaitForChild("Humanoid")
 		task.wait()
 		local CurrentDescription = Humanoid:GetAppliedDescription()
@@ -34,8 +42,7 @@ function PlayerJoined(Player)
 		CurrentDescription.LeftLeg = 0
 		CurrentDescription.RightLeg = 0
 		Humanoid:ApplyDescription(CurrentDescription)
-	end
-	Player.CharacterAppearanceLoaded:Connect(RemoveMeshes)
+	end)
 end
 Players.PlayerAdded:Connect(function(Player)
 	PlayerJoined(Player)

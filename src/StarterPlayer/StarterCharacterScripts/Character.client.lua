@@ -126,7 +126,7 @@ local function AddTrails()
 end
 
 UserInputService.InputBegan:Connect(function(key)
-	if key.KeyCode == Enum.KeyCode.Q and not DashDebounce then
+	if key.KeyCode == Enum.KeyCode.Q and not DashDebounce and Humanoid.MoveDirection.Magnitude > 0 then
 		DashDebounce = true
 		Humanoid.WalkSpeed += DashSpeed
 		AddTrails()
