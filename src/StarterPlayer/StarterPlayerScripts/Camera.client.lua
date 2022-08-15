@@ -6,8 +6,8 @@ local Player = Players.LocalPlayer
 local BlurEffect = Instance.new("BlurEffect")
 BlurEffect.Parent = workspace.CurrentCamera
 BlurEffect.Enabled = true
-local BR_DEFAULT_SIZE = 0
-BlurEffect.Size = 0
+local BR_DEFAULT_SIZE = 20
+BlurEffect.Size = BR_DEFAULT_SIZE
 
 local ColorCorrectionEffect = Instance.new("ColorCorrectionEffect")
 ColorCorrectionEffect.Parent = workspace.CurrentCamera
@@ -15,7 +15,7 @@ ColorCorrectionEffect.Enabled = true
 local CC_DEFAULT_BRIGHTNESS = 0
 local CC_DEFAULT_CONTRAST = 0.2
 local CC_DEFAULT_SATURATION = 0.1
-local CC_DEFAULT_TINT_COLOR = Color3.fromRGB(251, 255, 206)
+local CC_DEFAULT_TINT_COLOR = Color3.fromRGB(209, 197, 255)
 ColorCorrectionEffect.Brightness = CC_DEFAULT_BRIGHTNESS
 ColorCorrectionEffect.Contrast = CC_DEFAULT_CONTRAST
 ColorCorrectionEffect.Saturation = CC_DEFAULT_SATURATION
@@ -110,7 +110,12 @@ local function setupDeathTween(character)
 end
 
 Player.CharacterAdded:Connect(setupDeathTween)
-
+Player.PlayerGui:WaitForChild("GUI").StartScreenFrame.StartButton.Activated:Connect(function()
+	local BlurInfo = TweenInfo.new(3, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, DEATH_EFFECT_DELAY)
+	local StartBlurTween = TweenService:Create(BlurEffect, BlurInfo, { Size = 0 })
+	StartBlurTween:Play()
+	BR_DEFAULT_SIZE = 0
+end)
 if Player.Character then
 	setupDeathTween(Player.Character or Player.CharacterAdded:Wait())
 end

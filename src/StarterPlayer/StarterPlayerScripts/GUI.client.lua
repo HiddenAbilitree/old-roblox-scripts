@@ -1,6 +1,7 @@
 --Services
 
 --local LocalizationService = game:GetService("LocalizationService")
+--local GuiService = game:GetService("GuiService")
 local Lighting = game:GetService("Lighting")
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local Players = game:GetService("Players")
@@ -35,8 +36,8 @@ local Player = Players.LocalPlayer
 --GUI Buttons
 local GUIBBOrder = 20000
 local GUIBOrder = 20010
-local SettingBOrder = 20020
-local SettingIOrder = 20030
+local GUIButtonOrder = 20020
+local GUIImageOrder = 20030
 
 --Settings
 local SFOrder = 10000
@@ -221,8 +222,9 @@ local GUIBB_YSIZE = 80
 
 local GUIBBFrame = Instance.new("Frame")
 GUIBBFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+GUIBBFrame.Visible = false
 GUIBBFrame.Name = "GUIBBFrame"
-GUIBBFrame.BackgroundTransparency = 0
+GUIBBFrame.BackgroundTransparency = 1
 GUIBBFrame.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
 GUIBBFrame.ZIndex = GUIBBOrder
 GUIBBFrame.LayoutOrder = GUIBBOrder
@@ -240,7 +242,7 @@ GUIBBDrag:Enable()
 
 local GUIBFrame = Instance.new("Frame")
 GUIBFrame.Name = "SFBackground"
-GUIBFrame.BackgroundTransparency = 0
+GUIBFrame.BackgroundTransparency = 1
 GUIBFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
 GUIBFrame.ZIndex = GUIBOrder
 GUIBFrame.LayoutOrder = GUIBOrder
@@ -256,40 +258,106 @@ GUIB_UICorner.Parent = GUIBFrame
 
 --GUI Buttons
 
+local GUIBListLayout = Instance.new("UIListLayout")
+GUIBListLayout.Padding = UDim.new(0, 10)
+GUIBListLayout.FillDirection = Enum.FillDirection.Horizontal
+GUIBListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+GUIBListLayout.Parent = GUIBFrame
+
+local GUIBPadding = Instance.new("UIPadding")
+GUIBPadding.PaddingLeft = UDim.new(0, 10)
+GUIBPadding.Parent = GUIBFrame
 --Transparent start
 
 local SettingButton = Instance.new("ImageButton")
 SettingButton.AnchorPoint = Vector2.new(0.5, 0.5)
-SettingButton.ZIndex = SettingBOrder
-SettingButton.LayoutOrder = SettingBOrder
+SettingButton.ZIndex = GUIButtonOrder
+SettingButton.LayoutOrder = GUIButtonOrder
 SettingButton.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
-SettingButton.Position = UDim2.new(0, GUIBB_YSIZE - 44, 0.5, 0)
+--SettingButton.Position = UDim2.new(0, GUIBB_YSIZE - 44, 0.5, 0)
 SettingButton.Size = UDim2.new(0, GUIBB_YSIZE - 20, 0, GUIBB_YSIZE - 30)
 SettingButton.Image = "rbxassetid://10550379079"
 SettingButton.ImageTransparency = 1
 SettingButton.Parent = GUIBFrame
 
-local SettingB_UICorners = Instance.new("UICorner")
-SettingB_UICorners.CornerRadius = UDim.new(1, 0)
-SettingB_UICorners.Parent = SettingButton
+local QuestB_UICorners = Instance.new("UICorner")
+QuestB_UICorners.CornerRadius = UDim.new(1, 0)
+QuestB_UICorners.Parent = SettingButton
 
 --Transparent start
 
 local SettingImage = Instance.new("ImageLabel")
 SettingImage.AnchorPoint = Vector2.new(0.5, 0.5)
-SettingImage.ZIndex = SettingIOrder
-SettingImage.LayoutOrder = SettingIOrder
+SettingImage.ZIndex = GUIImageOrder
+SettingImage.LayoutOrder = GUIImageOrder
 SettingImage.BackgroundTransparency = 1
-SettingButton.ImageTransparency = 0
+SettingImage.ImageTransparency = 1
 SettingImage.Position = UDim2.new(0.5, 0, 0.5, 0)
 SettingImage.Size = UDim2.new(0, GUIBB_YSIZE - 50, 0, GUIBB_YSIZE - 50)
 SettingImage.Image = "rbxassetid://10572640817"
 SettingImage.Parent = SettingButton
 
+local QuestButton = Instance.new("ImageButton")
+QuestButton.AnchorPoint = Vector2.new(0.5, 0.5)
+QuestButton.ZIndex = GUIButtonOrder
+QuestButton.LayoutOrder = GUIButtonOrder
+QuestButton.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
+--QuestButton.Position = UDim2.new(0, GUIBB_YSIZE, 0.5, 0)
+QuestButton.Size = UDim2.new(0, GUIBB_YSIZE - 20, 0, GUIBB_YSIZE - 30)
+QuestButton.Image = "rbxassetid://10550379079"
+QuestButton.ImageTransparency = 1
+QuestButton.Parent = GUIBFrame
+
+local QB_UICorners = Instance.new("UICorner")
+QB_UICorners.CornerRadius = UDim.new(1, 0)
+QB_UICorners.Parent = QuestButton
+
+--Transparent start
+
+local QuestImage = Instance.new("ImageLabel")
+QuestImage.AnchorPoint = Vector2.new(0.5, 0.5)
+QuestImage.ZIndex = GUIImageOrder
+QuestImage.LayoutOrder = GUIImageOrder
+QuestImage.BackgroundTransparency = 1
+QuestImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+QuestImage.Size = UDim2.new(0, GUIBB_YSIZE - 50, 0, GUIBB_YSIZE - 50)
+QuestImage.Image = "rbxassetid://10596687853"
+QuestImage.ImageColor3 = Color3.fromRGB(51, 51, 51)
+QuestImage.ImageTransparency = 1
+QuestImage.Parent = QuestButton
+
+local InventoryButton = Instance.new("ImageButton")
+InventoryButton.AnchorPoint = Vector2.new(0.5, 0.5)
+InventoryButton.ZIndex = GUIButtonOrder
+InventoryButton.LayoutOrder = GUIButtonOrder
+InventoryButton.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
+InventoryButton.Size = UDim2.new(0, GUIBB_YSIZE - 20, 0, GUIBB_YSIZE - 30)
+InventoryButton.Image = "rbxassetid://10550379079"
+InventoryButton.ImageTransparency = 1
+InventoryButton.Parent = GUIBFrame
+
+local IB_UICorners = Instance.new("UICorner")
+IB_UICorners.CornerRadius = UDim.new(1, 0)
+IB_UICorners.Parent = InventoryButton
+
+--Transparent start
+
+local InventoryImage = Instance.new("ImageLabel")
+InventoryImage.AnchorPoint = Vector2.new(0.5, 0.5)
+InventoryImage.ZIndex = GUIImageOrder
+InventoryImage.LayoutOrder = GUIImageOrder
+InventoryImage.BackgroundTransparency = 1
+InventoryImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+InventoryImage.Size = UDim2.new(0, GUIBB_YSIZE - 50, 0, GUIBB_YSIZE - 43)
+InventoryImage.Image = "rbxassetid://10596808400"
+InventoryImage.ImageColor3 = Color3.fromRGB(51, 51, 51)
+InventoryImage.ImageTransparency = 1
+InventoryImage.Parent = InventoryButton
+
 --Settings Frame
 
 local SFB_XSIZE = 300
-local SFB_YSIZE = 200
+local SFB_YSIZE = 600
 
 --local SFBackTransparency = 0
 --local SFrameTransparency = 0.1
@@ -300,17 +368,18 @@ SFBackground.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
 SFBackground.AnchorPoint = Vector2.new(0.5, 0.5)
 SFBackground.ZIndex = SFBackOrder
 SFBackground.LayoutOrder = SFBackOrder
+SFBackground.Visible = false
 SFBackground.Size = UDim2.new(0, SFB_XSIZE, 0, SFB_YSIZE)
 SFBackground.Position = UDim2.new(0.5, 0, 0.5, 0)
 SFBackground.Parent = GameFrame
+local DraggableFrame = DraggableObject.new(SFBackground)
+DraggableFrame:Enable()
 
 local SFB_UICorner = Instance.new("UICorner")
 SFB_UICorner.Name = "SFB_UICorner"
 SFB_UICorner.CornerRadius = UDim.new(0, 20)
 SFB_UICorner.Parent = SFBackground
 
-local DraggableFrame = DraggableObject.new(SFBackground)
-DraggableFrame:Enable()
 local SettingFrame = Instance.new("Frame")
 SettingFrame.Name = "SettingFrame"
 SettingFrame.BackgroundTransparency = 0
@@ -326,6 +395,36 @@ local SF_UICorner = Instance.new("UICorner")
 SF_UICorner.Name = "SF_UICorner"
 SF_UICorner.CornerRadius = UDim.new(0, 18)
 SF_UICorner.Parent = SettingFrame
+
+local SFHeader = Instance.new("TextLabel")
+SFHeader.Name = "SFHeader"
+SFHeader.BackgroundTransparency = 0
+SFHeader.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
+SFHeader.ZIndex = SFBOrder
+SFHeader.LayoutOrder = SFBOrder
+SFHeader.TextXAlignment = Enum.TextXAlignment.Center
+SFHeader.Font = Enum.Font.SourceSansBold
+SFHeader.TextSize = 50
+SFHeader.Text = "Settings"
+SFHeader.AnchorPoint = Vector2.new(0.5, 0)
+SFHeader.Size = UDim2.new(0, SFB_XSIZE - 20, 0, 50)
+SFHeader.Position = UDim2.new(0.5, 0, 0, 20)
+SFHeader.Parent = SFBackground
+
+local SFH_UICorner = Instance.new("UICorner")
+SFH_UICorner.Name = "SFH_UICorner"
+SFH_UICorner.CornerRadius = UDim.new(0, 18)
+SFH_UICorner.Parent = SettingFrame
+
+local SF_ListLayout = Instance.new("UIListLayout")
+SF_ListLayout.Padding = UDim.new(0, 20)
+SF_ListLayout.FillDirection = Enum.FillDirection.Vertical
+SF_ListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+SF_ListLayout.Parent = SettingFrame
+
+local SF_Padding = Instance.new("UIPadding")
+SF_Padding.PaddingTop = UDim.new(0, 70)
+SF_Padding.Parent = SettingFrame
 --Remove Textures Button
 
 local RMTButton = Instance.new("TextButton")
@@ -333,7 +432,7 @@ RMTButton.Name = "RMTButton"
 RMTButton.AnchorPoint = Vector2.new(0.5, 0.5)
 RMTButton.BackgroundColor3 = Color3.fromRGB(77, 156, 115)
 RMTButton.BorderSizePixel = 0
-RMTButton.Position = UDim2.new(0.5, 0, 0.3, 0)
+--RMTButton.Position = UDim2.new(0.5, 0, 0.3, 0)
 RMTButton.Size = UDim2.new(0, 180, 0, 45)
 RMTButton.ZIndex = SFBOrder
 RMTButton.LayoutOrder = SFBOrder
@@ -391,7 +490,7 @@ RMSButton.Name = "RMSButton"
 RMSButton.AnchorPoint = Vector2.new(0.5, 0.5)
 RMSButton.BackgroundColor3 = Color3.fromRGB(77, 156, 115)
 RMSButton.BorderSizePixel = 0
-RMSButton.Position = UDim2.new(0.5, 0, 0.7, 0)
+--RMSButton.Position = UDim2.new(0.5, 0, 0.7, 0)
 RMSButton.Size = UDim2.new(0, 180, 0, 45)
 RMSButton.ZIndex = SFBOrder
 RMSButton.LayoutOrder = SFBOrder
@@ -500,7 +599,7 @@ end)
 
 for _, v in pairs(GUIBBFrame:GetDescendants()) do
 	GUIBBFrame.BackgroundTransparency = 1
-	if not v:IsA("UICorner") then
+	if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
 		v.BackgroundTransparency = 1
 		if v:IsA("TextButton") or v:IsA("TextLabel") then
 			v.TextTransparency = 1
@@ -512,7 +611,7 @@ end
 
 for _, v in pairs(SFBackground:GetDescendants()) do
 	SFBackground.BackgroundTransparency = 1
-	if not v:IsA("UICorner") then
+	if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
 		v.BackgroundTransparency = 1
 		if v:IsA("TextButton") or v:IsA("TextLabel") then
 			v.TextTransparency = 1
@@ -527,7 +626,7 @@ TitleTheme.Volume = 0
 
 TitleTheme:Play()
 
-local TitleTween = TweenService:Create(TitleTheme, TweenInfo.new(100, Enum.EasingStyle.Linear), { Volume = 0.5 })
+local TitleTween = TweenService:Create(TitleTheme, TweenInfo.new(30, Enum.EasingStyle.Linear), { Volume = 0.5 })
 TitleTween:Play()
 local assets = ReplicatedStorage:GetDescendants()
 
@@ -577,7 +676,7 @@ Camera.CameraType = Enum.CameraType.Scriptable
 Camera.CFrame = CFrame.new(0, 10, 0)
 local Connection
 Connection = RunService.RenderStepped:Connect(function(DeltaTime)
-	Camera.CFrame = Camera.CFrame * CFrame.Angles(0, 0.005 * (DeltaTime * 60), 0)
+	Camera.CFrame = Camera.CFrame * CFrame.Angles(0, 0.0025 * (DeltaTime * 60), 0)
 end)
 local AppearTweenInfo = TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, 0, false, 0)
 --Tween Start Button Location
@@ -607,7 +706,7 @@ StartButton.Activated:Connect(function()
 
 	TweenService:Create(HBBackground, AppearTweenInfo, HBBInfo):Play()
 	TweenService:Create(HBRight, AppearTweenInfo, OpaqueBackground):Play()
-
+	GUIBBFrame.Visible = true
 	TweenService:Create(GUIBBFrame, AppearTweenInfo, {
 		Position = UDim2.new(GUIBBFrame.Position.X, GUIBBFrame.Position.Y + UDim.new(0, -20)),
 		BackgroundTransparency = 0,
@@ -617,7 +716,7 @@ StartButton.Activated:Connect(function()
 	}):Play()
 
 	for _, v in pairs(GUIBBFrame:GetDescendants()) do
-		if not v:IsA("UICorner") then
+		if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
 			if v:IsA("TextButton") or v:IsA("TextLabel") then
 				TweenService:Create(v, AppearTweenInfo, {
 					TextTransparency = 0,
@@ -671,14 +770,12 @@ RMSButton.Activated:Connect(function()
 end)
 
 local SettingButtonDebounce = false
-local SettingsOpen = false
 SettingButton.Activated:Connect(function()
 	if not SettingButtonDebounce then
 		print("In")
 		SettingButtonDebounce = true
-		if not SettingsOpen then
-			SettingsOpen = true
-
+		if not SFBackground.Visible then
+			SFBackground.Visible = true
 			TweenService:Create(SFBackground, AppearTweenInfo, {
 				Position = UDim2.new(SFBackground.Position.X, SFBackground.Position.Y + UDim.new(0, -20)),
 				BackgroundTransparency = 0,
@@ -688,7 +785,7 @@ SettingButton.Activated:Connect(function()
 			}):Play()
 
 			for _, v in pairs(SFBackground:GetDescendants()) do
-				if not v:IsA("UICorner") then
+				if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
 					if v:IsA("TextButton") or v:IsA("TextLabel") then
 						TweenService:Create(v, AppearTweenInfo, {
 							TextTransparency = 0,
@@ -711,19 +808,19 @@ SettingButton.Activated:Connect(function()
 					end
 				end
 			end
+			task.wait(1)
 		else
-			SettingsOpen = false
-
 			TweenService:Create(SFBackground, AppearTweenInfo, {
 				Position = UDim2.new(SFBackground.Position.X, SFBackground.Position.Y + UDim.new(0, 20)),
 				BackgroundTransparency = 1,
 			}):Play()
+
 			TweenService:Create(SettingFrame, AppearTweenInfo, {
 				BackgroundTransparency = 1,
 			}):Play()
 
 			for _, v in pairs(SFBackground:GetDescendants()) do
-				if not v:IsA("UICorner") then
+				if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
 					if v:IsA("TextButton") or v:IsA("TextLabel") then
 						TweenService:Create(v, AppearTweenInfo, {
 							TextTransparency = 1,
@@ -746,6 +843,8 @@ SettingButton.Activated:Connect(function()
 					end
 				end
 			end
+			task.wait(1)
+			SFBackground.Visible = false
 		end
 		SettingButtonDebounce = false
 	end
