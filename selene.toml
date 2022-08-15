@@ -1,1 +1,25 @@
 std = "roblox"
+
+[rules]
+almost_swapped = true
+deprecated = true
+divide_by_zero = true
+duplicate_keys = true
+empty_if = true
+global_usage = true
+if_same_then_else = true
+ifs_same_cond = true
+multiple_statements = true
+must_use = true
+mismatched_arg_count = true
+parenthese_conditions = true
+roblox_incorrect_color3_new_bounds = true
+roblox_incorrect_roact_usage = true
+shadowing = true
+incorrect_standard_library_use = true
+suspicious_reverse_loop = true
+type_check_inside_call = true
+unbalanced_assignments = true
+undefined_variable = true
+unscoped_variables = true
+unused_variable = "allow"
