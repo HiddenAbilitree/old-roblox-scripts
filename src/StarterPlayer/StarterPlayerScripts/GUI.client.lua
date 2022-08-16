@@ -628,16 +628,16 @@ local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
 							BackgroundTransparency = 1,
 						}):Play()
 					end
-				elseif v:IsA("ImageButton") then
+				elseif v:IsA("ImageButton") or v:IsA("ImageLabel") then
 					TweenService:Create(v, tweenInfo, {
 						ImageTransparency = 1,
 						BackgroundTransparency = 1,
 					}):Play()
-				elseif v:IsA("ImageLabel") then
+				--[[elseif v:IsA("ImageLabel") then
 					TweenService:Create(v, tweenInfo, {
 						ImageTransparency = 1,
 						BackgroundTransparency = 1,
-					}):Play()
+					}):Play()]]
 				elseif v:IsA("Frame") then
 					TweenService:Create(v, tweenInfo, {
 						BackgroundTransparency = 1,
@@ -793,7 +793,7 @@ RMSButton.Activated:Connect(function()
 			Lighting.GlobalShadows = true
 			RMSTextLabel.Text = "Turned On Shadows!"
 		else
-			--print("Lighting Error")
+			print("Lighting Error")
 		end
 		task.wait(0.5)
 		RMSTextLabel.Text = "Toggle Shadows"

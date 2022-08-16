@@ -140,12 +140,7 @@ local function GUIAppearTween(gui, visible)
 							BackgroundTransparency = 1,
 						}):Play()
 					end
-				elseif v:IsA("ImageButton") then
-					TweenService:Create(v, DisappearTweenInfo, {
-						ImageTransparency = 1,
-						BackgroundTransparency = 1,
-					}):Play()
-				elseif v:IsA("ImageLabel") then
+				elseif v:IsA("ImageButton") or v:IsA("ImageLabel") then
 					TweenService:Create(v, DisappearTweenInfo, {
 						ImageTransparency = 1,
 						BackgroundTransparency = 1,
