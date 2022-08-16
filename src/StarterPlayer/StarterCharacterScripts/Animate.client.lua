@@ -4,7 +4,7 @@ local RightShoulder = Torso:WaitForChild("Right Shoulder")
 local LeftShoulder = Torso:WaitForChild("Left Shoulder")
 local RightHip = Torso:WaitForChild("Right Hip")
 local LeftHip = Torso:WaitForChild("Left Hip")
-local Neck = Torso:WaitForChild("Neck")
+--local Neck = Torso:WaitForChild("Neck")
 local Humanoid = Figure:WaitForChild("Humanoid")
 local pose = "Standing"
 
@@ -12,7 +12,7 @@ local currentAnim = ""
 local currentAnimInstance = nil
 local currentAnimTrack = nil
 local currentAnimKeyframeHandler = nil
-local currentAnimSpeed = 1.0
+--local currentAnimSpeed = 1.0
 local animTable = {}
 local animNames = {
 	idle = {
@@ -20,7 +20,7 @@ local animNames = {
 		{ id = "http://www.roblox.com/asset/?id=180435792", weight = 1 },
 	},
 	walk = {
-		{ id = "http://www.roblox.com/asset/?id=180426354", weight = 10 },
+		{ id = "rbxassetid://10617594060", weight = 10 },
 	},
 	run = {
 		{ id = "run.xml", weight = 10 },
@@ -98,13 +98,13 @@ function configureAnimationSet(name, fileList)
 		--		print("Loading anims " .. name)
 		table.insert(
 			animTable[name].connections,
-			config.ChildAdded:connect(function(child)
+			config.ChildAdded:Connect(function()
 				configureAnimationSet(name, fileList)
 			end)
 		)
 		table.insert(
 			animTable[name].connections,
-			config.ChildRemoved:connect(function(child)
+			config.ChildRemoved:Connect(function()
 				configureAnimationSet(name, fileList)
 			end)
 		)
@@ -113,7 +113,7 @@ function configureAnimationSet(name, fileList)
 			if childPart:IsA("Animation") then
 				table.insert(
 					animTable[name].connections,
-					childPart.Changed:connect(function(property)
+					childPart.Changed:Connect(function()
 						configureAnimationSet(name, fileList)
 					end)
 				)
@@ -156,8 +156,8 @@ function scriptChildModified(child)
 	end
 end
 
-script.ChildAdded:connect(scriptChildModified)
-script.ChildRemoved:connect(scriptChildModified)
+script.ChildAdded:Connect(scriptChildModified)
+script.ChildRemoved:Connect(scriptChildModified)
 
 for name, fileList in pairs(animNames) do
 	configureAnimationSet(name, fileList)
@@ -174,7 +174,7 @@ local jumpAnimDuration = 0.3
 
 local toolTransitionTime = 0.1
 local fallTransitionTime = 0.3
-local jumpMaxLimbVelocity = 0.75
+--local jumpMaxLimbVelocity = 0.75
 
 -- functions
 
@@ -217,7 +217,7 @@ function keyFrameReachedFunc(frameName)
 			repeatAnim = "idle"
 		end
 
-		local animSpeed = currentAnimSpeed
+		--local animSpeed = currentAnimSpeed
 		playAnimation(repeatAnim, 0.0, Humanoid)
 		--setAnimationSpeed(animSpeed)
 	end
@@ -226,7 +226,7 @@ end
 -- Preload animations
 function playAnimation(animName, transitionTime, humanoid)
 	local roll = math.random(1, animTable[animName].totalWeight)
-	local origRoll = roll
+	--local origRoll = roll
 	local idx = 1
 	while roll > animTable[animName][idx].weight do
 		roll = roll - animTable[animName][idx].weight
@@ -242,7 +242,7 @@ function playAnimation(animName, transitionTime, humanoid)
 			currentAnimTrack:Destroy()
 		end
 
-		currentAnimSpeed = 1.0
+		--currentAnimSpeed = 1.0
 
 		-- load it to the humanoid; get AnimationTrack
 		currentAnimTrack = humanoid:LoadAnimation(anim)
@@ -278,7 +278,7 @@ end
 
 function playToolAnimation(animName, transitionTime, humanoid, priority)
 	local roll = math.random(1, animTable[animName].totalWeight)
-	local origRoll = roll
+	--local origRoll = roll
 	local idx = 1
 	while roll > animTable[animName][idx].weight do
 		roll = roll - animTable[animName][idx].weight
@@ -333,9 +333,9 @@ end
 function onRunning(speed)
 	if speed > 0.01 then
 		playAnimation("walk", 0.1, Humanoid)
-		if currentAnimInstance and currentAnimInstance.AnimationId == "http://www.roblox.com/asset/?id=180426354" then
-			--setAnimationSpeed(speed / 14.5)
-		end
+		--if currentAnimInstance and currentAnimInstance.AnimationId == "http://www.roblox.com/asset/?id=180426354" then
+		--setAnimationSpeed(speed / 14.5)
+		--end
 		pose = "Running"
 	else
 		if emoteNames[currentAnim] == nil then
@@ -355,7 +355,7 @@ function onJumping()
 	pose = "Jumping"
 end
 
-function onClimbing(speed)
+function onClimbing()
 	playAnimation("climb", 0.1, Humanoid)
 	--setAnimationSpeed(speed / 12.0)
 	pose = "Climbing"
@@ -394,7 +394,7 @@ end
 
 function getTool()
 	for _, kid in ipairs(Figure:GetChildren()) do
-		if kid.className == "Tool" then
+		if kid.Instance.className == "Tool" then
 			return kid
 		end
 	end
@@ -426,7 +426,7 @@ function animateTool()
 		return
 	end
 end
-
+--[[
 function moveSit()
 	RightShoulder.MaxVelocity = 0.15
 	LeftShoulder.MaxVelocity = 0.15
@@ -434,7 +434,7 @@ function moveSit()
 	LeftShoulder:SetDesiredAngle(-3.14 / 2)
 	RightHip:SetDesiredAngle(3.14 / 2)
 	LeftHip:SetDesiredAngle(-3.14 / 2)
-end
+end]]
 
 local lastTick = 0
 

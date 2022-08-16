@@ -3,6 +3,9 @@ local Players = game:GetService("Players")
 
 local Player = Players.LocalPlayer
 
+Player.CameraMinZoomDistance = 7
+Player.CameraMaxZoomDistance = 15
+
 local BlurEffect = Instance.new("BlurEffect")
 BlurEffect.Parent = workspace.CurrentCamera
 BlurEffect.Enabled = true
