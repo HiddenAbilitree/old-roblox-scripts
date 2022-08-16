@@ -22,7 +22,6 @@ DialogText.Position = UDim2.new(0.5, 0, 0.6, 0)
 DialogText.Parent = DialogFrame
 
 local NPCName = Instance.new("TextLabel")
-NPCName.Name = "NPCName"
 NPCName.BackgroundTransparency = 0
 NPCName.TextSize = 30
 NPCName.Font = Enum.Font.SourceSansBold
@@ -37,3 +36,19 @@ NPCName.Position = UDim2.new(0, 0, 0, 0)
 NPCName.ZIndex = 100001
 NPCName.LayoutOrder = 100001
 NPCName.Parent = DialogFrame
+
+local ResponseFrame = Instance.new("TextLabel")
+ResponseFrame.BackgroundTransparency = 0
+ResponseFrame.TextSize = 30
+ResponseFrame.Font = Enum.Font.SourceSansBold
+ResponseFrame.Text = "Filler Text"
+ResponseFrame.TextColor3 = Color3.fromRGB(255, 255, 255)
+ResponseFrame.TextXAlignment = Enum.TextXAlignment.Center
+ResponseFrame.BorderSizePixel = 0
+ResponseFrame.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
+ResponseFrame.BackgroundTransparency = 0.2
+ResponseFrame.Size = UDim2.new(1, 0, 0, 30)
+ResponseFrame.Position = UDim2.new(0.9, 0, 0, 0)
+ResponseFrame.ZIndex = 100001
+ResponseFrame.LayoutOrder = 100001
+ResponseFrame.Parent = DialogFrame

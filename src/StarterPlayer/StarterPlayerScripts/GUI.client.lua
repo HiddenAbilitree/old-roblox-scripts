@@ -86,7 +86,6 @@ ScreenGUI.Parent = Player.PlayerGui
 --LoadingScreenFrame
 
 local LSFrame = Instance.new("Frame")
-LSFrame.Name = "LoadingScreenFrame"
 LSFrame.BackgroundTransparency = 0
 LSFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 LSFrame.Position = UDim2.new(0, 0, 0, 0)
@@ -102,7 +101,6 @@ local LB_YSIZE = 50
 
 local LoadingBarBackground = Instance.new("Frame")
 LoadingBarBackground.AnchorPoint = Vector2.new(0.5, 0.5)
-LoadingBarBackground.Name = "LoadingBarBackground"
 LoadingBarBackground.BackgroundTransparency = 0
 LoadingBarBackground.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
 LoadingBarBackground.LayoutOrder = LBBOrder
@@ -112,13 +110,11 @@ LoadingBarBackground.Position = UDim2.new(0.5, 0, 0.75, 0)
 LoadingBarBackground.Parent = LSFrame
 
 local LBB_UICorner = Instance.new("UICorner")
-LBB_UICorner.Name = "LBB_UICorner"
 LBB_UICorner.CornerRadius = UDim.new(0, 10)
 LBB_UICorner.Parent = LoadingBarBackground
 
 local LoadingBar = Instance.new("Frame")
 LoadingBar.AnchorPoint = Vector2.new(0, 0.5)
-LoadingBar.Name = "LoadingBar"
 LoadingBar.BackgroundTransparency = 0
 LoadingBar.BackgroundColor3 = Color3.fromRGB(0, 90, 207)
 LoadingBar.LayoutOrder = LBOrder
@@ -128,13 +124,11 @@ LoadingBar.Position = UDim2.new(0, 0, 0.5, 0)
 LoadingBar.Parent = LoadingBarBackground
 
 local LB_UICorner = Instance.new("UICorner")
-LB_UICorner.Name = "LB_UICorner"
 LB_UICorner.CornerRadius = UDim.new(0, 10)
 LB_UICorner.Parent = LoadingBar
 
 local LBText = Instance.new("TextLabel")
 LBText.AnchorPoint = Vector2.new(0.5, 0.5)
-LBText.Name = "ProgressText"
 LBText.LayoutOrder = LBOrder
 LBText.ZIndex = LBOrder
 LBText.Text = "Filler Text"
@@ -146,7 +140,6 @@ LBText.Position = UDim2.new(0.5, 0, 0.5)
 LBText.Parent = LoadingBarBackground
 
 local LBT_UICorner = Instance.new("UICorner")
-LBT_UICorner.Name = "LB_UICorner"
 LBT_UICorner.CornerRadius = UDim.new(0, 10)
 LBT_UICorner.Parent = LBText
 
@@ -183,7 +176,6 @@ StartButton.Position = UDim2.new(0.5, 0, 1.1, 0)
 StartButton.Parent = SSFrame
 
 local SB_UICorner = Instance.new("UICorner")
-SB_UICorner.Name = "SB_UICorner"
 SB_UICorner.CornerRadius = UDim.new(0, 10)
 SB_UICorner.Parent = StartButton
 
@@ -191,7 +183,6 @@ SB_UICorner.Parent = StartButton
 
 local SBShadow = Instance.new("Frame")
 SBShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-SBShadow.Name = "SBShadow"
 SBShadow.BackgroundColor3 = Color3.fromRGB(84, 84, 84)
 SBShadow.BackgroundTransparency = 0
 SBShadow.ZIndex = SSBSOrder
@@ -201,7 +192,6 @@ SBShadow.Position = UDim2.new(0.5, 0, 0.5, 5)
 SBShadow.Parent = StartButton
 
 local SBS_UICorner = Instance.new("UICorner")
-SBS_UICorner.Name = "SBS_UICorner"
 SBS_UICorner.CornerRadius = UDim.new(0, 10)
 SBS_UICorner.Parent = SBShadow
 
@@ -257,7 +247,6 @@ local GUIBB_YSIZE = 80
 local GUIBBFrame = Instance.new("Frame")
 GUIBBFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 GUIBBFrame.Visible = false
-GUIBBFrame.Name = "GUIBBFrame"
 GUIBBFrame.BackgroundTransparency = 1
 GUIBBFrame.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
 GUIBBFrame.ZIndex = GUIBBOrder
@@ -267,7 +256,6 @@ GUIBBFrame.Position = UDim2.new(0.85, 0 - 20, 0.9, 0)
 GUIBBFrame.Parent = GameFrame
 
 local GUIBB_UICorner = Instance.new("UICorner")
-GUIBB_UICorner.Name = "GUIBB_UICorner"
 GUIBB_UICorner.CornerRadius = UDim.new(1, 0)
 GUIBB_UICorner.Parent = GUIBBFrame
 
@@ -275,7 +263,6 @@ local GUIBBDrag = DraggableObject.new(GUIBBFrame)
 GUIBBDrag:Enable()
 
 local GUIBFrame = Instance.new("Frame")
-GUIBFrame.Name = "SFBackground"
 GUIBFrame.BackgroundTransparency = 1
 GUIBFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
 GUIBFrame.ZIndex = GUIBOrder
@@ -286,7 +273,6 @@ GUIBFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 GUIBFrame.Parent = GUIBBFrame
 
 local GUIB_UICorner = Instance.new("UICorner")
-GUIB_UICorner.Name = "GUIB_UICorner"
 GUIB_UICorner.CornerRadius = UDim.new(1, 0)
 GUIB_UICorner.Parent = GUIBFrame
 
@@ -396,7 +382,6 @@ local SFB_YSIZE = 600
 --local SFBackTransparency = 0
 --local SFrameTransparency = 0.1
 local SFBackground = Instance.new("Frame")
-SFBackground.Name = "SFBackground"
 SFBackground.BackgroundTransparency = 1
 SFBackground.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
 SFBackground.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -410,12 +395,10 @@ local DraggableFrame = DraggableObject.new(SFBackground)
 DraggableFrame:Enable()
 
 local SFB_UICorner = Instance.new("UICorner")
-SFB_UICorner.Name = "SFB_UICorner"
 SFB_UICorner.CornerRadius = UDim.new(0, 20)
 SFB_UICorner.Parent = SFBackground
 
 local SettingFrame = Instance.new("Frame")
-SettingFrame.Name = "SettingFrame"
 SettingFrame.BackgroundTransparency = 1
 SettingFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
 SettingFrame.ZIndex = SFOrder
@@ -426,12 +409,10 @@ SettingFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 SettingFrame.Parent = SFBackground
 
 local SF_UICorner = Instance.new("UICorner")
-SF_UICorner.Name = "SF_UICorner"
 SF_UICorner.CornerRadius = UDim.new(0, 18)
 SF_UICorner.Parent = SettingFrame
 
 local SFHeader = Instance.new("TextLabel")
-SFHeader.Name = "SFHeader"
 SFHeader.BackgroundTransparency = 1
 SFHeader.TextTransparency = 1
 SFHeader.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
@@ -447,7 +428,6 @@ SFHeader.Position = UDim2.new(0.5, 0, 0, 20)
 SFHeader.Parent = SFBackground
 
 local SFH_UICorner = Instance.new("UICorner")
-SFH_UICorner.Name = "SFH_UICorner"
 SFH_UICorner.CornerRadius = UDim.new(0, 18)
 SFH_UICorner.Parent = SettingFrame
 
@@ -463,7 +443,6 @@ SF_Padding.Parent = SettingFrame
 --Remove Textures Button
 
 local RMTButton = Instance.new("TextButton")
-RMTButton.Name = "RMTButton"
 RMTButton.AnchorPoint = Vector2.new(0.5, 0.5)
 RMTButton.BackgroundColor3 = Color3.fromRGB(77, 156, 115)
 RMTButton.BorderSizePixel = 0
@@ -480,12 +459,10 @@ RMTButton.TextWrapped = true
 RMTButton.Parent = SettingFrame
 
 local RMTB_UICorner = Instance.new("UICorner")
-RMTB_UICorner.Name = "RMTB_UICorner"
 RMTB_UICorner.CornerRadius = UDim.new(0, 10)
 RMTB_UICorner.Parent = RMTButton
 
 local RMTShadow = Instance.new("Frame")
-RMTShadow.Name = "RMTShadow"
 RMTShadow.BackgroundColor3 = Color3.fromRGB(58, 118, 86)
 RMTShadow.BorderSizePixel = 0
 RMTShadow.LayoutOrder = SFSOrder
@@ -495,12 +472,10 @@ RMTShadow.Position = UDim2.new(0, 0, 0, 4)
 RMTShadow.Parent = RMTButton
 
 local RMTS_UICorner = Instance.new("UICorner")
-RMTS_UICorner.Name = "RMTS_UICorner"
 RMTS_UICorner.CornerRadius = UDim.new(0, 10)
 RMTS_UICorner.Parent = RMTShadow
 
 local RMTTextLabel = Instance.new("TextLabel")
-RMTTextLabel.Name = "RMTTextLabel"
 RMTTextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
 RMTTextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 RMTTextLabel.BackgroundTransparency = 1.000
@@ -521,11 +496,9 @@ RMTTextLabel.Parent = RMTButton
 --Remove Shadows Button
 
 local RMSButton = Instance.new("TextButton")
-RMSButton.Name = "RMSButton"
 RMSButton.AnchorPoint = Vector2.new(0.5, 0.5)
 RMSButton.BackgroundColor3 = Color3.fromRGB(77, 156, 115)
 RMSButton.BorderSizePixel = 0
---RMSButton.Position = UDim2.new(0.5, 0, 0.7, 0)
 RMSButton.Size = UDim2.new(0, 180, 0, 45)
 RMSButton.ZIndex = SFBOrder
 RMSButton.LayoutOrder = SFBOrder
@@ -538,12 +511,10 @@ RMSButton.TextWrapped = true
 RMSButton.Parent = SettingFrame
 
 local RMSB_UICorner = Instance.new("UICorner")
-RMSB_UICorner.Name = "RMSB_UICorner"
 RMSB_UICorner.CornerRadius = UDim.new(0, 10)
 RMSB_UICorner.Parent = RMSButton
 
 local RMSShadow = Instance.new("Frame")
-RMSShadow.Name = "RMSShadow"
 RMSShadow.BackgroundColor3 = Color3.fromRGB(58, 118, 86)
 RMSShadow.BorderSizePixel = 0
 RMSShadow.ZIndex = SFSOrder
@@ -552,12 +523,10 @@ RMSShadow.Size = UDim2.new(1, 0, 1, 4)
 RMSShadow.Parent = RMSButton
 
 local RMSS_UICorner = Instance.new("UICorner")
-RMSS_UICorner.Name = "RMSS_UICorner"
 RMSS_UICorner.CornerRadius = UDim.new(0, 10)
 RMSS_UICorner.Parent = RMSShadow
 
 local RMSTextLabel = Instance.new("TextLabel")
-RMSTextLabel.Name = "RMSTextLabel"
 RMSTextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
 RMSTextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 RMSTextLabel.BackgroundTransparency = 1.000
@@ -581,7 +550,6 @@ local HB_XSIZE = 300
 local HB_YSIZE = 20
 
 local HBBackground = Instance.new("Frame")
-HBBackground.Name = "HBBackground"
 HBBackground.ZIndex = HBBOrder
 HBBackground.LayoutOrder = HBBOrder
 HBBackground.BackgroundColor3 = Color3.fromRGB(51, 51, 51)
@@ -591,12 +559,10 @@ HBBackground.Position = UDim2.new(0.5, -HB_XSIZE / 2, 0.95, HB_YSIZE / 2)
 HBBackground.Parent = GameFrame
 
 local HBB_UICorner = Instance.new("UICorner")
-HBB_UICorner.Name = "HBB_UICorner"
 HBB_UICorner.CornerRadius = UDim.new(0.25, 0)
 HBB_UICorner.Parent = HBBackground
 
 local HBRight = Instance.new("Frame")
-HBRight.Name = "HBRight"
 HBRight.ZIndex = HBOrder
 HBRight.LayoutOrder = HBOrder
 HBRight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
@@ -606,12 +572,11 @@ HBRight.Position = UDim2.new(0, 0, 0, 0)
 HBRight.Parent = HBBackground
 
 local HBR_UICorner = Instance.new("UICorner")
-HBR_UICorner.Name = "HBR_UICorner"
 HBR_UICorner.CornerRadius = UDim.new(0.25, 0)
 HBR_UICorner.Parent = HBRight
 
 --Runtime
-print("Reached Runtime")
+--print("Reached Runtime")
 --Runtime Functions
 
 local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
@@ -699,7 +664,7 @@ Player.CharacterAdded:Connect(function(character)
 				0.25
 			)
 		end
-		print("Tweened Size")
+		--print("Tweened Size")
 	end)
 end)
 
@@ -728,7 +693,7 @@ for i = 1, #assets do
 	)
 end
 
-print("\nFinished loading assets\nStarting StartScreenTweens")
+--print("\nFinished loading assets\nStarting StartScreenTweens")
 
 --Loading Screen Tween Out
 local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, 0, false, 0)
@@ -804,7 +769,7 @@ StartButton.Activated:Connect(function()
 end)
 
 RMTButton.Activated:Connect(function()
-	print("Removing Textures")
+	--print("Removing Textures")
 	for _, v in pairs(workspace:GetDescendants()) do
 		if v:IsA("Part") then
 			v.Material = Enum.Material.SmoothPlastic
@@ -819,7 +784,7 @@ end)
 local RMSBDebounce = false
 RMSButton.Activated:Connect(function()
 	if not RMSBDebounce then
-		print("Toggling Shadows")
+		--print("Toggling Shadows")
 		RMSBDebounce = true
 		if Lighting.GlobalShadows == true then
 			Lighting.GlobalShadows = false
@@ -828,7 +793,7 @@ RMSButton.Activated:Connect(function()
 			Lighting.GlobalShadows = true
 			RMSTextLabel.Text = "Turned On Shadows!"
 		else
-			print("Lighting Error")
+			--print("Lighting Error")
 		end
 		task.wait(0.5)
 		RMSTextLabel.Text = "Toggle Shadows"
@@ -839,7 +804,7 @@ end)
 local SettingButtonDebounce = false
 SettingButton.Activated:Connect(function()
 	if not SettingButtonDebounce then
-		print("In")
+		--print("In")
 		SettingButtonDebounce = true
 		if not SFBackground.Visible then
 			SFBackground.Visible = true

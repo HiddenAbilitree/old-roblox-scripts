@@ -67,12 +67,12 @@ end
 UserInputService.InputBegan:Connect(function(key1) --First W Input
 	if key1.KeyCode == Enum.KeyCode.W and not debounce and not scriptdebounce and not IsDead then
 		scriptdebounce = true
-		print("First")
+		--print("First")
 		local Second
 		local Third
 		Second = UserInputService.InputBegan:Connect(function(key2) --Second W input
 			if key2.KeyCode == Enum.KeyCode.W and not sprinting and not debounce then
-				print("Second")
+				--print("Second")
 				StartSprinting()
 				debounce = true
 				sprinting = true
@@ -80,7 +80,7 @@ UserInputService.InputBegan:Connect(function(key1) --First W Input
 		end)
 		Third = UserInputService.InputEnded:Connect(function(key3) --Second W input ends
 			if key3.KeyCode == Enum.KeyCode.W and sprinting and debounce then
-				print("Ended")
+				--print("Ended")
 				EndSprinting()
 				sprinting = false
 				task.wait(0.5)
