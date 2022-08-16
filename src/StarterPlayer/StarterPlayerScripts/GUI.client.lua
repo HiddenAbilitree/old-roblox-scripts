@@ -725,6 +725,12 @@ local HBBInfo = {
 	Position = UDim2.new(0.5, -HB_XSIZE / 2, 0.90, HB_YSIZE / 2),
 }
 
+CreditButton.Activated:Connect(function()
+	CreditButton:TweenPosition(UDim2.new(0.5, 0, 1.25, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
+	task.wait(0.1)
+	StartButton:TweenPosition(UDim2.new(0.5, 0, 1.1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
+end)
+
 StartButton.Activated:Connect(function()
 	local TitleTweenStop = TweenService:Create(TitleTheme, TweenInfo.new(5, Enum.EasingStyle.Linear), { Volume = 0 })
 	TitleTweenStop:Play()
