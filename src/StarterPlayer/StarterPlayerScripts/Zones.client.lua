@@ -19,6 +19,24 @@ ZoneFrame.Size = UDim2.new(0, 100, 0, 100)
 ZoneFrame.BackgroundTransparency = 1
 ZoneFrame.Parent = Player.PlayerGui:WaitForChild("GUI").GameFrame
 
+local TopLine = Instance.new("Frame")
+TopLine.AnchorPoint = Vector2.new(0.5, 0.5)
+TopLine.Position = UDim2.new(0.5, 0, -0.1, 0)
+TopLine.Size = UDim2.new(0, 150, 0, 5)
+TopLine.BackgroundTransparency = 1
+TopLine.BackgroundColor3 = Color3.new(1, 1, 1)
+TopLine.BorderSizePixel = 0
+TopLine.Parent = ZoneFrame
+
+local BottomLine = Instance.new("Frame")
+BottomLine.AnchorPoint = Vector2.new(0.5, 0.5)
+BottomLine.Position = UDim2.new(0.5, 0, 1, 0)
+BottomLine.Size = UDim2.new(0, 150, 0, 5)
+BottomLine.BackgroundTransparency = 1
+BottomLine.BackgroundColor3 = Color3.new(1, 1, 1)
+BottomLine.BorderSizePixel = 0
+BottomLine.Parent = ZoneFrame
+
 local ZoneHeader = Instance.new("TextLabel")
 ZoneHeader.AnchorPoint = Vector2.new(0.5, 0.5)
 ZoneHeader.Position = UDim2.new(0.5, 0, 0.25, 0)
@@ -78,7 +96,7 @@ end]]
 
 local function GUIAppearTween(gui, visible)
 	if visible then
-		--TweenService:Create(gui, AppearTweenInfo, {Position = UDim2.new(0.5, 0, 0.25, -20),}):Play()
+		TweenService:Create(gui, AppearTweenInfo, { Position = UDim2.new(0.5, 0, 0.25, -20) }):Play()
 		for _, v in pairs(gui:GetDescendants()) do
 			if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
 				if v:IsA("TextButton") or v:IsA("TextLabel") then
@@ -99,6 +117,10 @@ local function GUIAppearTween(gui, visible)
 					TweenService:Create(v, AppearTweenInfo, {
 						ImageTransparency = 0,
 						BackgroundTransparency = 1,
+					}):Play()
+				elseif v:IsA("Frame") then
+					TweenService:Create(v, AppearTweenInfo, {
+						BackgroundTransparency = 0,
 					}):Play()
 				end
 			end
@@ -128,21 +150,29 @@ local function GUIAppearTween(gui, visible)
 						ImageTransparency = 1,
 						BackgroundTransparency = 1,
 					}):Play()
+				elseif v:IsA("Frame") then
+					TweenService:Create(v, DisappearTweenInfo, {
+						BackgroundTransparency = 1,
+					}):Play()
 				end
 			end
 		end
 	end
 end
 local debounce = false
+
 Player.PlayerGui:WaitForChild("GUI").StartScreenFrame.StartButton.Activated:Connect(function()
 	task.wait(2)
 	StarterZone.localPlayerEntered:Connect(function()
+		repeat
+			task.wait()
+		until not debounce
 		--if not debounce then
 		debounce = true
 		print("Entering")
 		GUIAppearTween(ZoneFrame, true)
-		ZoneHeader.Text = "Entering..."
-		ZoneText.Text = "Starter Zone"
+		ZoneHeader.Text = "Entering"
+		ZoneText.Text = "Starter Forest"
 		task.wait(2)
 		GUIAppearTween(ZoneFrame, false)
 		task.wait(1)
@@ -151,11 +181,14 @@ Player.PlayerGui:WaitForChild("GUI").StartScreenFrame.StartButton.Activated:Conn
 	end)
 	Wilderness.localPlayerEntered:Connect(function()
 		--if not debounce then
+		repeat
+			task.wait()
+		until not debounce
 		debounce = true
 		print("Entering")
 		GUIAppearTween(ZoneFrame, true)
-		ZoneHeader.Text = "Entering..."
-		ZoneText.Text = "Wilderness"
+		ZoneHeader.Text = "Entering"
+		ZoneText.Text = "The Wilderness"
 		task.wait(2)
 		GUIAppearTween(ZoneFrame, false)
 		task.wait(1)
