@@ -397,7 +397,7 @@ local SFB_YSIZE = 600
 --local SFrameTransparency = 0.1
 local SFBackground = Instance.new("Frame")
 SFBackground.Name = "SFBackground"
-SFBackground.BackgroundTransparency = 0
+SFBackground.BackgroundTransparency = 1
 SFBackground.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
 SFBackground.AnchorPoint = Vector2.new(0.5, 0.5)
 SFBackground.ZIndex = SFBackOrder
@@ -416,7 +416,7 @@ SFB_UICorner.Parent = SFBackground
 
 local SettingFrame = Instance.new("Frame")
 SettingFrame.Name = "SettingFrame"
-SettingFrame.BackgroundTransparency = 0
+SettingFrame.BackgroundTransparency = 1
 SettingFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
 SettingFrame.ZIndex = SFOrder
 SettingFrame.LayoutOrder = SFOrder
@@ -432,7 +432,8 @@ SF_UICorner.Parent = SettingFrame
 
 local SFHeader = Instance.new("TextLabel")
 SFHeader.Name = "SFHeader"
-SFHeader.BackgroundTransparency = 0
+SFHeader.BackgroundTransparency = 1
+SFHeader.TextTransparency = 1
 SFHeader.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
 SFHeader.ZIndex = SFBOrder
 SFHeader.LayoutOrder = SFBOrder
@@ -615,7 +616,9 @@ print("Reached Runtime")
 
 local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
 	if visible then
-		TweenService:Create(gui, tweenInfo, { Position = tweenPosition + UDim2.new(0, 0, 0, -20) }):Play()
+		TweenService
+			:Create(gui, tweenInfo, { Position = tweenPosition + UDim2.new(0, 0, 0, -20), BackgroundTransparency = 0 })
+			:Play()
 		for _, v in pairs(gui:GetDescendants()) do
 			if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
 				if v:IsA("TextButton") or v:IsA("TextLabel") then
@@ -644,9 +647,10 @@ local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
 				end
 			end
 		end
-	else
+	elseif not visible then
 		TweenService:Create(gui, tweenInfo, {
 			Position = tweenPosition + UDim2.new(0, 0, 0, 20),
+			BackgroundTransparency = 1,
 		}):Play()
 		for _, v in pairs(gui:GetDescendants()) do
 			if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
@@ -676,6 +680,8 @@ local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
 				end
 			end
 		end
+	else
+		error("No Visibility Option")
 	end
 end
 --HealthBar
@@ -697,29 +703,6 @@ Player.CharacterAdded:Connect(function(character)
 	end)
 end)
 
-for _, v in pairs(GUIBBFrame:GetDescendants()) do
-	GUIBBFrame.BackgroundTransparency = 1
-	if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
-		v.BackgroundTransparency = 1
-		if v:IsA("TextButton") or v:IsA("TextLabel") then
-			v.TextTransparency = 1
-		elseif v:IsA("ImageButton") or v:IsA("ImageLabel") then
-			v.ImageTransparency = 1
-		end
-	end
-end
-
-for _, v in pairs(SFBackground:GetDescendants()) do
-	SFBackground.BackgroundTransparency = 1
-	if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
-		v.BackgroundTransparency = 1
-		if v:IsA("TextButton") or v:IsA("TextLabel") then
-			v.TextTransparency = 1
-		elseif v:IsA("ImageButton") or v:IsA("ImageLabel") then
-			v.ImageTransparency = 1
-		end
-	end
-end
 --Title Theme
 local TitleTheme = ReplicatedStorage.Sounds.Title_Theme
 TitleTheme.Volume = 0

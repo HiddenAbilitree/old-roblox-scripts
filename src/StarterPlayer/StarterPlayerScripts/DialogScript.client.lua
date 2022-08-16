@@ -14,6 +14,13 @@ DialogFrame.ZIndex = 100000
 DialogFrame.LayoutOrder = 100000
 DialogFrame.Parent = ScreenGUI
 
+local DialogText = Instance.new("TextLabel")
+DialogText.AnchorPoint = Vector2.new(0.5, 0.5)
+DialogText.Size = UDim2.new(0.9, 0, 0.7)
+DialogText.Position = UDim2.new(0.5, 0, 0.6, 0)
+
+DialogText.Parent = DialogFrame
+
 local NPCName = Instance.new("TextLabel")
 NPCName.Name = "NPCName"
 NPCName.BackgroundTransparency = 0
