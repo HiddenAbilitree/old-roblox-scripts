@@ -611,7 +611,73 @@ HBR_UICorner.Parent = HBRight
 
 --Runtime
 print("Reached Runtime")
+--Runtime Functions
 
+local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
+	if visible then
+		TweenService:Create(gui, tweenInfo, { Position = tweenPosition + UDim2.new(0, 0, 0, -20) }):Play()
+		for _, v in pairs(gui:GetDescendants()) do
+			if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
+				if v:IsA("TextButton") or v:IsA("TextLabel") then
+					TweenService:Create(v, tweenInfo, {
+						TextTransparency = 0,
+					}):Play()
+					if v:IsA("TextButton") then
+						TweenService:Create(v, tweenInfo, {
+							BackgroundTransparency = 0,
+						}):Play()
+					end
+				elseif v:IsA("ImageButton") then
+					TweenService:Create(v, tweenInfo, {
+						ImageTransparency = 1,
+						BackgroundTransparency = 0,
+					}):Play()
+				elseif v:IsA("ImageLabel") then
+					TweenService:Create(v, tweenInfo, {
+						ImageTransparency = 0,
+						BackgroundTransparency = 1,
+					}):Play()
+				elseif v:IsA("Frame") then
+					TweenService:Create(v, tweenInfo, {
+						BackgroundTransparency = 0,
+					}):Play()
+				end
+			end
+		end
+	else
+		TweenService:Create(gui, tweenInfo, {
+			Position = tweenPosition + UDim2.new(0, 0, 0, 20),
+		}):Play()
+		for _, v in pairs(gui:GetDescendants()) do
+			if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
+				if v:IsA("TextButton") or v:IsA("TextLabel") then
+					TweenService:Create(v, tweenInfo, {
+						TextTransparency = 1,
+					}):Play()
+					if v:IsA("TextButton") then
+						TweenService:Create(v, tweenInfo, {
+							BackgroundTransparency = 1,
+						}):Play()
+					end
+				elseif v:IsA("ImageButton") then
+					TweenService:Create(v, tweenInfo, {
+						ImageTransparency = 1,
+						BackgroundTransparency = 1,
+					}):Play()
+				elseif v:IsA("ImageLabel") then
+					TweenService:Create(v, tweenInfo, {
+						ImageTransparency = 1,
+						BackgroundTransparency = 1,
+					}):Play()
+				elseif v:IsA("Frame") then
+					TweenService:Create(v, tweenInfo, {
+						BackgroundTransparency = 1,
+					}):Play()
+				end
+			end
+		end
+	end
+end
 --HealthBar
 
 Player.CharacterAdded:Connect(function(character)
@@ -751,33 +817,7 @@ StartButton.Activated:Connect(function()
 	TweenService:Create(HBBackground, AppearTweenInfo, HBBInfo):Play()
 	TweenService:Create(HBRight, AppearTweenInfo, OpaqueBackground):Play()
 	GUIBBFrame.Visible = true
-	TweenService:Create(GUIBBFrame, AppearTweenInfo, {
-		Position = UDim2.new(GUIBBFrame.Position.X, GUIBBFrame.Position.Y + UDim.new(0, -20)),
-		BackgroundTransparency = 0,
-	}):Play()
-	TweenService:Create(GUIBFrame, AppearTweenInfo, {
-		BackgroundTransparency = 0,
-	}):Play()
-
-	for _, v in pairs(GUIBBFrame:GetDescendants()) do
-		if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
-			if v:IsA("TextButton") or v:IsA("TextLabel") then
-				TweenService:Create(v, AppearTweenInfo, {
-					TextTransparency = 0,
-				}):Play()
-			elseif v:IsA("ImageButton") then
-				TweenService:Create(v, AppearTweenInfo, {
-					ImageTransparency = 1,
-					BackgroundTransparency = 0,
-				}):Play()
-			elseif v:IsA("ImageLabel") then
-				TweenService:Create(v, AppearTweenInfo, {
-					ImageTransparency = 0,
-					BackgroundTransparency = 1,
-				}):Play()
-			end
-		end
-	end
+	GUIAppearTween(GUIBBFrame, true, AppearTweenInfo, UDim2.new(GUIBBFrame.Position.X, GUIBBFrame.Position.Y))
 end)
 
 RMTButton.Activated:Connect(function()
@@ -820,73 +860,20 @@ SettingButton.Activated:Connect(function()
 		SettingButtonDebounce = true
 		if not SFBackground.Visible then
 			SFBackground.Visible = true
-			TweenService:Create(SFBackground, AppearTweenInfo, {
-				Position = UDim2.new(SFBackground.Position.X, SFBackground.Position.Y + UDim.new(0, -20)),
-				BackgroundTransparency = 0,
-			}):Play()
-			TweenService:Create(SettingFrame, AppearTweenInfo, {
-				BackgroundTransparency = 0,
-			}):Play()
-
-			for _, v in pairs(SFBackground:GetDescendants()) do
-				if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
-					if v:IsA("TextButton") or v:IsA("TextLabel") then
-						TweenService:Create(v, AppearTweenInfo, {
-							TextTransparency = 0,
-						}):Play()
-						if v:IsA("TextButton") then
-							TweenService:Create(v, AppearTweenInfo, {
-								BackgroundTransparency = 0,
-							}):Play()
-						end
-					elseif v:IsA("ImageButton") then
-						TweenService:Create(v, AppearTweenInfo, {
-							ImageTransparency = 1,
-							BackgroundTransparency = 0,
-						}):Play()
-					elseif v:IsA("ImageLabel") then
-						TweenService:Create(v, AppearTweenInfo, {
-							ImageTransparency = 0,
-							BackgroundTransparency = 1,
-						}):Play()
-					end
-				end
-			end
+			GUIAppearTween(
+				SFBackground,
+				true,
+				AppearTweenInfo,
+				UDim2.new(SFBackground.Position.X, SFBackground.Position.Y)
+			)
 			task.wait(1)
 		else
-			TweenService:Create(SFBackground, AppearTweenInfo, {
-				Position = UDim2.new(SFBackground.Position.X, SFBackground.Position.Y + UDim.new(0, 20)),
-				BackgroundTransparency = 1,
-			}):Play()
-
-			TweenService:Create(SettingFrame, AppearTweenInfo, {
-				BackgroundTransparency = 1,
-			}):Play()
-
-			for _, v in pairs(SFBackground:GetDescendants()) do
-				if not v:IsA("UICorner") and not v:IsA("UIListLayout") and not v:IsA("UIPadding") then
-					if v:IsA("TextButton") or v:IsA("TextLabel") then
-						TweenService:Create(v, AppearTweenInfo, {
-							TextTransparency = 1,
-						}):Play()
-						if v:IsA("TextButton") then
-							TweenService:Create(v, AppearTweenInfo, {
-								BackgroundTransparency = 1,
-							}):Play()
-						end
-					elseif v:IsA("ImageButton") then
-						TweenService:Create(v, AppearTweenInfo, {
-							ImageTransparency = 0,
-							BackgroundTransparency = 1,
-						}):Play()
-					elseif v:IsA("ImageLabel") then
-						TweenService:Create(v, AppearTweenInfo, {
-							ImageTransparency = 1,
-							BackgroundTransparency = 0,
-						}):Play()
-					end
-				end
-			end
+			GUIAppearTween(
+				SFBackground,
+				false,
+				AppearTweenInfo,
+				UDim2.new(SFBackground.Position.X, SFBackground.Position.Y)
+			)
 			task.wait(1)
 			SFBackground.Visible = false
 		end
