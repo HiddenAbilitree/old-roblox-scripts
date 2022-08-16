@@ -205,6 +205,40 @@ SBS_UICorner.Name = "SBS_UICorner"
 SBS_UICorner.CornerRadius = UDim.new(0, 10)
 SBS_UICorner.Parent = SBShadow
 
+--Credits Button
+
+local CreditButton = Instance.new("TextButton")
+CreditButton.ZIndex = SSBOrder
+CreditButton.LayoutOrder = SSBOrder
+CreditButton.Text = "Credits"
+CreditButton.TextSize = 50
+CreditButton.Font = Enum.Font.SourceSansBold
+CreditButton.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
+CreditButton.Size = UDim2.new(0, SB_XSIZE, 0, SB_YSIZE)
+CreditButton.AnchorPoint = Vector2.new(0.5, 0.5)
+CreditButton.Position = UDim2.new(0.5, 0, 1.25, 0)
+CreditButton.Parent = SSFrame
+
+local CB_UICorner = Instance.new("UICorner")
+CB_UICorner.CornerRadius = UDim.new(0, 10)
+CB_UICorner.Parent = CreditButton
+
+--Credits Button Shadow
+
+local CBShadow = Instance.new("Frame")
+CBShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+CBShadow.BackgroundColor3 = Color3.fromRGB(84, 84, 84)
+CBShadow.BackgroundTransparency = 0
+CBShadow.ZIndex = SSBSOrder
+CBShadow.LayoutOrder = SSBSOrder
+CBShadow.Size = UDim2.new(0, SB_XSIZE, 0, SB_YSIZE)
+CBShadow.Position = UDim2.new(0.5, 0, 0.5, 5)
+CBShadow.Parent = CreditButton
+
+local CBS_UICorner = Instance.new("UICorner")
+CBS_UICorner.CornerRadius = UDim.new(0, 10)
+CBS_UICorner.Parent = CBShadow
+
 --GameFrame
 local GameFrame = Instance.new("Frame")
 GameFrame.Name = "GameFrame"
@@ -681,7 +715,9 @@ end)
 local AppearTweenInfo = TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, 0, false, 0)
 --Tween Start Button Location
 LSFTween.Completed:Connect(function()
-	StartButton:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Elastic, 2)
+	StartButton:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 1.5)
+	task.wait(0.1)
+	CreditButton:TweenPosition(UDim2.new(0.5, 0, 0.65, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 1.5)
 end)
 
 local HBBInfo = {
@@ -692,11 +728,13 @@ local HBBInfo = {
 StartButton.Activated:Connect(function()
 	local TitleTweenStop = TweenService:Create(TitleTheme, TweenInfo.new(5, Enum.EasingStyle.Linear), { Volume = 0 })
 	TitleTweenStop:Play()
-	StartButton:TweenPosition(UDim2.new(0.5, 0, 1.2, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
+	CreditButton:TweenPosition(UDim2.new(0.5, 0, 1.25, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
+	task.wait(0.1)
+	StartButton:TweenPosition(UDim2.new(0.5, 0, 1.1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
 
 	task.wait(0.5)
 
-	StartButton.Visible = false
+	SSFrame.Visible = false
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
