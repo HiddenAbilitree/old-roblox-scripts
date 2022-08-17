@@ -91,6 +91,7 @@ function DraggableObject:Enable()
 			end
 
 			self.Dragging = true
+
 			dragStart = input.Position
 			startPos = object.Position
 		end

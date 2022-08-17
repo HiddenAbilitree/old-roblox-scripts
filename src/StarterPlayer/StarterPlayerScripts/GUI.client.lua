@@ -45,6 +45,19 @@ local SFTOrder = 10003
 local SFBOrder = 10002
 local SFSOrder = 10001
 local SFBackOrder = 9999
+
+--Quests
+local QFOrder = 15000
+local QFTOrder = 15003
+local QFBOrder = 15002
+local QFSOrder = 15001
+local QFBackOrder = 14999
+
+local IFOrder = 17500
+local IFTOrder = 17503
+local IFBOrder = 17502
+local IFSOrder = 17501
+local IFBackOrder = 17499
 --Game Frame
 
 local GFOrder = 8500
@@ -376,8 +389,8 @@ InventoryImage.Parent = InventoryButton
 
 --Settings Frame
 
-local SFB_XSIZE = 300
-local SFB_YSIZE = 600
+local SFB_XSIZE = 0.2
+local SFB_YSIZE = 0.8
 
 --local SFBackTransparency = 0
 --local SFrameTransparency = 0.1
@@ -388,8 +401,8 @@ SFBackground.AnchorPoint = Vector2.new(0.5, 0.5)
 SFBackground.ZIndex = SFBackOrder
 SFBackground.LayoutOrder = SFBackOrder
 SFBackground.Visible = false
-SFBackground.Size = UDim2.new(0, SFB_XSIZE, 0, SFB_YSIZE)
-SFBackground.Position = UDim2.new(0.5, 0, 0.5, 0)
+SFBackground.Size = UDim2.new(SFB_XSIZE, 0, SFB_YSIZE, 0)
+SFBackground.Position = UDim2.new(0.15, 0, 0.5, 0)
 SFBackground.Parent = GameFrame
 local DraggableFrame = DraggableObject.new(SFBackground)
 DraggableFrame:Enable()
@@ -403,9 +416,9 @@ SettingFrame.BackgroundTransparency = 1
 SettingFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
 SettingFrame.ZIndex = SFOrder
 SettingFrame.LayoutOrder = SFOrder
-SettingFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-SettingFrame.Size = UDim2.new(0, SFB_XSIZE - 20, 0, SFB_YSIZE - 20)
-SettingFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+SettingFrame.AnchorPoint = Vector2.new(0.5, 0)
+SettingFrame.Size = UDim2.new(1, -20, 1, -80)
+SettingFrame.Position = UDim2.new(0.5, 0, 0, 70)
 SettingFrame.Parent = SFBackground
 
 local SF_UICorner = Instance.new("UICorner")
@@ -423,13 +436,13 @@ SFHeader.Font = Enum.Font.SourceSansBold
 SFHeader.TextSize = 50
 SFHeader.Text = "Settings"
 SFHeader.AnchorPoint = Vector2.new(0.5, 0)
-SFHeader.Size = UDim2.new(0, SFB_XSIZE - 20, 0, 50)
-SFHeader.Position = UDim2.new(0.5, 0, 0, 20)
+SFHeader.Size = UDim2.new(1, -20, 0, 50)
+SFHeader.Position = UDim2.new(0.5, 0, 0, 10)
 SFHeader.Parent = SFBackground
 
 local SFH_UICorner = Instance.new("UICorner")
 SFH_UICorner.CornerRadius = UDim.new(0, 18)
-SFH_UICorner.Parent = SettingFrame
+SFH_UICorner.Parent = SFHeader
 
 local SF_ListLayout = Instance.new("UIListLayout")
 SF_ListLayout.Padding = UDim.new(0, 20)
@@ -438,8 +451,9 @@ SF_ListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 SF_ListLayout.Parent = SettingFrame
 
 local SF_Padding = Instance.new("UIPadding")
-SF_Padding.PaddingTop = UDim.new(0, 70)
+SF_Padding.PaddingTop = UDim.new(0.1, 0)
 SF_Padding.Parent = SettingFrame
+
 --Remove Textures Button
 
 local RMTButton = Instance.new("TextButton")
@@ -447,14 +461,14 @@ RMTButton.AnchorPoint = Vector2.new(0.5, 0.5)
 RMTButton.BackgroundColor3 = Color3.fromRGB(77, 156, 115)
 RMTButton.BorderSizePixel = 0
 --RMTButton.Position = UDim2.new(0.5, 0, 0.3, 0)
-RMTButton.Size = UDim2.new(0, 180, 0, 45)
+RMTButton.Size = UDim2.new(1, -100, 0, 45)
 RMTButton.ZIndex = SFBOrder
 RMTButton.LayoutOrder = SFBOrder
 RMTButton.Font = Enum.Font.GothamMedium
-RMTButton.Text = ""
+RMTButton.Text = "Remove Textures"
 RMTButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 RMTButton.TextScaled = true
-RMTButton.TextSize = 14.000
+RMTButton.TextSize = 12.000
 RMTButton.TextWrapped = true
 RMTButton.Parent = SettingFrame
 
@@ -475,38 +489,20 @@ local RMTS_UICorner = Instance.new("UICorner")
 RMTS_UICorner.CornerRadius = UDim.new(0, 10)
 RMTS_UICorner.Parent = RMTShadow
 
-local RMTTextLabel = Instance.new("TextLabel")
-RMTTextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-RMTTextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-RMTTextLabel.BackgroundTransparency = 1.000
-RMTTextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
-RMTTextLabel.BorderSizePixel = 0
-RMTTextLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-RMTTextLabel.Size = UDim2.new(1, -20, 1, -20)
-RMTTextLabel.ZIndex = SFTOrder
-RMTTextLabel.LayoutOrder = SFTOrder
-RMTTextLabel.Font = Enum.Font.GothamMedium
-RMTTextLabel.Text = "Remove Textures"
-RMTTextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-RMTTextLabel.TextScaled = true
-RMTTextLabel.TextSize = 14.000
-RMTTextLabel.TextWrapped = true
-RMTTextLabel.Parent = RMTButton
-
 --Remove Shadows Button
 
 local RMSButton = Instance.new("TextButton")
 RMSButton.AnchorPoint = Vector2.new(0.5, 0.5)
 RMSButton.BackgroundColor3 = Color3.fromRGB(77, 156, 115)
 RMSButton.BorderSizePixel = 0
-RMSButton.Size = UDim2.new(0, 180, 0, 45)
+RMSButton.Size = UDim2.new(1, -100, 0, 45)
 RMSButton.ZIndex = SFBOrder
 RMSButton.LayoutOrder = SFBOrder
 RMSButton.Font = Enum.Font.GothamMedium
-RMSButton.Text = ""
+RMSButton.Text = "Toggle Shadows"
 RMSButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 RMSButton.TextScaled = true
-RMSButton.TextSize = 14.000
+RMSButton.TextSize = 12.000
 RMSButton.TextWrapped = true
 RMSButton.Parent = SettingFrame
 
@@ -526,23 +522,135 @@ local RMSS_UICorner = Instance.new("UICorner")
 RMSS_UICorner.CornerRadius = UDim.new(0, 10)
 RMSS_UICorner.Parent = RMSShadow
 
-local RMSTextLabel = Instance.new("TextLabel")
-RMSTextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-RMSTextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-RMSTextLabel.BackgroundTransparency = 1.000
-RMSTextLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
-RMSTextLabel.BorderSizePixel = 0
-RMSTextLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-RMSTextLabel.Size = UDim2.new(1, -20, 1, -20)
-RMSTextLabel.ZIndex = SFTOrder
-RMSTextLabel.LayoutOrder = SFTOrder
-RMSTextLabel.Font = Enum.Font.GothamMedium
-RMSTextLabel.Text = "Toggle Shadows"
-RMSTextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-RMSTextLabel.TextScaled = true
-RMSTextLabel.TextSize = 14.000
-RMSTextLabel.TextWrapped = true
-RMSTextLabel.Parent = RMSButton
+--Quest Frame
+
+local QFB_XSIZE = 0.25
+local QFB_YSIZE = 0.7
+
+local QFBackground = Instance.new("Frame")
+QFBackground.BackgroundTransparency = 1
+QFBackground.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
+QFBackground.AnchorPoint = Vector2.new(0.5, 0.5)
+QFBackground.ZIndex = QFBackOrder
+QFBackground.LayoutOrder = QFBackOrder
+QFBackground.Visible = false
+QFBackground.Size = UDim2.new(QFB_XSIZE, 0, QFB_YSIZE, 0)
+QFBackground.Position = UDim2.new(1, -260, 0.5, 0)
+QFBackground.Parent = GameFrame
+local DraggableFrame = DraggableObject.new(QFBackground)
+DraggableFrame:Enable()
+
+local QFB_UICorner = Instance.new("UICorner")
+QFB_UICorner.CornerRadius = UDim.new(0, 20)
+QFB_UICorner.Parent = QFBackground
+
+local QuestFrame = Instance.new("Frame")
+QuestFrame.BackgroundTransparency = 1
+QuestFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
+QuestFrame.ZIndex = QFOrder
+QuestFrame.LayoutOrder = QFOrder
+QuestFrame.AnchorPoint = Vector2.new(0.5, 0)
+QuestFrame.Size = UDim2.new(1, -20, 1, -80)
+QuestFrame.Position = UDim2.new(0.5, 0, 0, 70)
+QuestFrame.Parent = QFBackground
+
+local QF_UICorner = Instance.new("UICorner")
+QF_UICorner.CornerRadius = UDim.new(0, 18)
+QF_UICorner.Parent = QuestFrame
+
+local QFHeader = Instance.new("TextLabel")
+QFHeader.BackgroundTransparency = 1
+QFHeader.TextTransparency = 1
+QFHeader.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
+QFHeader.ZIndex = QFTOrder
+QFHeader.LayoutOrder = QFTOrder
+QFHeader.TextXAlignment = Enum.TextXAlignment.Center
+QFHeader.Font = Enum.Font.SourceSansBold
+QFHeader.TextSize = 50
+QFHeader.Text = "Quests"
+QFHeader.AnchorPoint = Vector2.new(0.5, 0)
+QFHeader.Size = UDim2.new(1, -20, 0, 50)
+QFHeader.Position = UDim2.new(0.5, 0, 0, 10)
+QFHeader.Parent = QFBackground
+
+local QFH_UICorner = Instance.new("UICorner")
+QFH_UICorner.CornerRadius = UDim.new(0, 18)
+QFH_UICorner.Parent = QFHeader
+
+local QF_ListLayout = Instance.new("UIListLayout")
+QF_ListLayout.Padding = UDim.new(0, 20)
+QF_ListLayout.FillDirection = Enum.FillDirection.Vertical
+QF_ListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+QF_ListLayout.Parent = QuestFrame
+
+local QF_Padding = Instance.new("UIPadding")
+QF_Padding.PaddingTop = UDim.new(0, 10)
+QF_Padding.Parent = QuestFrame
+
+--Inventory Frame
+
+local IFB_XSIZE = 0.4
+local IFB_YSIZE = 0.7
+
+local IFBackground = Instance.new("Frame")
+IFBackground.BackgroundTransparency = 1
+IFBackground.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
+IFBackground.AnchorPoint = Vector2.new(0.5, 0.5)
+IFBackground.ZIndex = IFBackOrder
+IFBackground.LayoutOrder = IFBackOrder
+IFBackground.Visible = false
+IFBackground.Size = UDim2.new(IFB_XSIZE, 0, IFB_YSIZE, 0)
+IFBackground.Position = UDim2.new(0.478, 0, 0.5, 0)
+IFBackground.Parent = GameFrame
+local DraggableFrame = DraggableObject.new(IFBackground)
+DraggableFrame:Enable()
+
+local IFB_UICorner = Instance.new("UICorner")
+IFB_UICorner.CornerRadius = UDim.new(0, 20)
+IFB_UICorner.Parent = IFBackground
+
+local InventoryFrame = Instance.new("ScrollingFrame")
+InventoryFrame.BackgroundTransparency = 1
+InventoryFrame.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
+InventoryFrame.ZIndex = IFOrder
+InventoryFrame.LayoutOrder = IFOrder
+InventoryFrame.AnchorPoint = Vector2.new(0.5, 0)
+InventoryFrame.Size = UDim2.new(1, -30, 1, -90)
+InventoryFrame.Position = UDim2.new(0.5, 0, 0, 75)
+InventoryFrame.Parent = IFBackground
+
+local IF_UICorner = Instance.new("UICorner")
+IF_UICorner.CornerRadius = UDim.new(0, 18)
+IF_UICorner.Parent = InventoryFrame
+
+local IFHeader = Instance.new("TextLabel")
+IFHeader.BackgroundTransparency = 1
+IFHeader.TextTransparency = 1
+IFHeader.BackgroundColor3 = Color3.fromRGB(102, 102, 102)
+IFHeader.ZIndex = IFTOrder
+IFHeader.LayoutOrder = IFTOrder
+IFHeader.TextXAlignment = Enum.TextXAlignment.Center
+IFHeader.Font = Enum.Font.SourceSansBold
+IFHeader.TextSize = 50
+IFHeader.Text = "Inventory"
+IFHeader.AnchorPoint = Vector2.new(0.5, 0)
+IFHeader.Size = UDim2.new(1, -20, 0, 50)
+IFHeader.Position = UDim2.new(0.5, 0, 0, 10)
+IFHeader.Parent = IFBackground
+
+local IFH_UICorner = Instance.new("UICorner")
+IFH_UICorner.CornerRadius = UDim.new(0, 18)
+IFH_UICorner.Parent = IFHeader
+
+local IF_ListLayout = Instance.new("UIListLayout")
+IF_ListLayout.Padding = UDim.new(0, 20)
+IF_ListLayout.FillDirection = Enum.FillDirection.Vertical
+IF_ListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+IF_ListLayout.Parent = InventoryFrame
+
+local IF_Padding = Instance.new("UIPadding")
+IF_Padding.PaddingTop = UDim.new(0, 10)
+IF_Padding.Parent = InventoryFrame
 
 --Health Bar
 
@@ -567,7 +675,7 @@ HBRight.ZIndex = HBOrder
 HBRight.LayoutOrder = HBOrder
 HBRight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 HBRight.BackgroundTransparency = 1
-HBRight.Size = UDim2.new(0, HB_XSIZE, 0, HB_YSIZE)
+HBRight.Size = UDim2.new(1, 0, 1, 0)
 HBRight.Position = UDim2.new(0, 0, 0, 0)
 HBRight.Parent = HBBackground
 
@@ -579,7 +687,7 @@ HBR_UICorner.Parent = HBRight
 --print("Reached Runtime")
 --Runtime Functions
 
-local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
+local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition, TextLabelVisible)
 	if visible then
 		TweenService
 			:Create(gui, tweenInfo, { Position = tweenPosition + UDim2.new(0, 0, 0, -20), BackgroundTransparency = 0 })
@@ -590,7 +698,7 @@ local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
 					TweenService:Create(v, tweenInfo, {
 						TextTransparency = 0,
 					}):Play()
-					if v:IsA("TextButton") then
+					if v:IsA("TextButton") or TextLabelVisible then
 						TweenService:Create(v, tweenInfo, {
 							BackgroundTransparency = 0,
 						}):Play()
@@ -605,10 +713,15 @@ local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
 						ImageTransparency = 0,
 						BackgroundTransparency = 1,
 					}):Play()
-				elseif v:IsA("Frame") then
+				elseif v:IsA("Frame") or v:IsA("ScrollingFrame") then
 					TweenService:Create(v, tweenInfo, {
 						BackgroundTransparency = 0,
 					}):Play()
+					if v:IsA("ScrollingFrame") then
+						TweenService:Create(v, tweenInfo, {
+							ScrollBarImageTransparency = 0,
+						}):Play()
+					end
 				end
 			end
 		end
@@ -623,7 +736,7 @@ local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
 					TweenService:Create(v, tweenInfo, {
 						TextTransparency = 1,
 					}):Play()
-					if v:IsA("TextButton") then
+					if v:IsA("TextButton") or TextLabelVisible then
 						TweenService:Create(v, tweenInfo, {
 							BackgroundTransparency = 1,
 						}):Play()
@@ -633,15 +746,15 @@ local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition)
 						ImageTransparency = 1,
 						BackgroundTransparency = 1,
 					}):Play()
-				--[[elseif v:IsA("ImageLabel") then
-					TweenService:Create(v, tweenInfo, {
-						ImageTransparency = 1,
-						BackgroundTransparency = 1,
-					}):Play()]]
-				elseif v:IsA("Frame") then
+				elseif v:IsA("Frame") or v:IsA("ScrollingFrame") then
 					TweenService:Create(v, tweenInfo, {
 						BackgroundTransparency = 1,
 					}):Play()
+					if v:IsA("ScrollingFrame") then
+						TweenService:Create(v, tweenInfo, {
+							Transparency = 1,
+						}):Play()
+					end
 				end
 			end
 		end
@@ -765,7 +878,7 @@ StartButton.Activated:Connect(function()
 	TweenService:Create(HBBackground, AppearTweenInfo, HBBInfo):Play()
 	TweenService:Create(HBRight, AppearTweenInfo, OpaqueBackground):Play()
 	GUIBBFrame.Visible = true
-	GUIAppearTween(GUIBBFrame, true, AppearTweenInfo, UDim2.new(GUIBBFrame.Position.X, GUIBBFrame.Position.Y))
+	GUIAppearTween(GUIBBFrame, true, AppearTweenInfo, UDim2.new(GUIBBFrame.Position.X, GUIBBFrame.Position.Y), false)
 end)
 
 RMTButton.Activated:Connect(function()
@@ -778,7 +891,7 @@ RMTButton.Activated:Connect(function()
 		end
 	end
 	RMTButton.Active = false
-	RMTTextLabel.Text = "Textures Removed!" .. "\n" .. "Rejoin to Reset"
+	RMTButton.Text = "Textures Removed!" .. "\n" .. "Rejoin to Reset"
 end)
 
 local RMSBDebounce = false
@@ -788,15 +901,15 @@ RMSButton.Activated:Connect(function()
 		RMSBDebounce = true
 		if Lighting.GlobalShadows == true then
 			Lighting.GlobalShadows = false
-			RMSTextLabel.Text = "Turned Off Shadows!"
+			RMSButton.Text = "Turned Off Shadows!"
 		elseif Lighting.GlobalShadows == false then
 			Lighting.GlobalShadows = true
-			RMSTextLabel.Text = "Turned On Shadows!"
+			RMSButton.Text = "Turned On Shadows!"
 		else
 			print("Lighting Error")
 		end
 		task.wait(0.5)
-		RMSTextLabel.Text = "Toggle Shadows"
+		RMSButton.Text = "Toggle Shadows"
 		RMSBDebounce = false
 	end
 end)
@@ -812,7 +925,8 @@ SettingButton.Activated:Connect(function()
 				SFBackground,
 				true,
 				AppearTweenInfo,
-				UDim2.new(SFBackground.Position.X, SFBackground.Position.Y)
+				UDim2.new(SFBackground.Position.X, SFBackground.Position.Y),
+				true
 			)
 			task.wait(1)
 		else
@@ -820,12 +934,73 @@ SettingButton.Activated:Connect(function()
 				SFBackground,
 				false,
 				AppearTweenInfo,
-				UDim2.new(SFBackground.Position.X, SFBackground.Position.Y)
+				UDim2.new(SFBackground.Position.X, SFBackground.Position.Y),
+				true
 			)
 			task.wait(1)
 			SFBackground.Visible = false
 		end
 		SettingButtonDebounce = false
+	end
+end)
+
+local QuestButtonDebounce = false
+QuestButton.Activated:Connect(function()
+	if not QuestButtonDebounce then
+		--print("In")
+		QuestButtonDebounce = true
+		if not QFBackground.Visible then
+			QFBackground.Visible = true
+			GUIAppearTween(
+				QFBackground,
+				true,
+				AppearTweenInfo,
+				UDim2.new(QFBackground.Position.X, QFBackground.Position.Y),
+				true
+			)
+			task.wait(1)
+		else
+			GUIAppearTween(
+				QFBackground,
+				false,
+				AppearTweenInfo,
+				UDim2.new(QFBackground.Position.X, QFBackground.Position.Y),
+				true
+			)
+			task.wait(1)
+			QFBackground.Visible = false
+		end
+		QuestButtonDebounce = false
+	end
+end)
+
+local InventoryFrameDebounce = false
+InventoryButton.Activated:Connect(function()
+	if not InventoryFrameDebounce then
+		--print("In")
+		InventoryFrameDebounce = true
+		if not IFBackground.Visible then
+			IFBackground.Visible = true
+			GUIAppearTween(
+				IFBackground,
+				true,
+				AppearTweenInfo,
+				UDim2.new(IFBackground.Position.X, IFBackground.Position.Y),
+				true
+			)
+			task.wait(1)
+		else
+			GUIAppearTween(
+				IFBackground,
+				false,
+				AppearTweenInfo,
+				UDim2.new(IFBackground.Position.X, IFBackground.Position.Y),
+				true
+			)
+			task.wait(1)
+			IFBackground.Visible = false
+		end
+		InventoryFrameDebounce = false
 	end
 end)
 
