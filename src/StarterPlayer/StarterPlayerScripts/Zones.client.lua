@@ -1,16 +1,55 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 
 local Player = Players.LocalPlayer
 local ZoneService = require(ReplicatedStorage.Common.Zone)
 
 local TweenService = game:GetService("TweenService")
+local Workspace = game:GetService("Workspace")
 local StartZoneContainer = workspace.Zones.StartZone
 local StarterZone = ZoneService.new(StartZoneContainer)
 local WildernessContainer = workspace.Zones.Wilderness
 local Wilderness = ZoneService.new(WildernessContainer)
+local OutsideDoor = workspace.Zones.DoorOutside
+local DoorOutside = ZoneService.new(OutsideDoor)
+DoorOutside:setAccuracy("Precise")
 StarterZone:setAccuracy("Low")
 Wilderness:setAccuracy("Low")
+local doorDebounce = false
+DoorOutside.localPlayerEntered:Connect(function()
+	print("Bruh")
+	repeat
+		task.wait()
+	until not doorDebounce
+	doorDebounce = true
+	local door = game:GetService("Workspace").MainHouse.Door.Door.Door
+	local tween = TweenService:Create(door, TweenInfo.new(1), { Position = door.Position + Vector3.new(11, 0, 0) })
+	local tween2 =
+		TweenService:Create(door.Parent.Part, TweenInfo.new(1), { Position = door.Position + Vector3.new(11, 0, 0) })
+	tween:Play()
+	tween2:Play()
+	tween.Completed:Connect(function()
+		doorDebounce = false
+	end)
+end)
+
+DoorOutside.localPlayerExited:Connect(function()
+	print("Bruh")
+	repeat
+		task.wait()
+	until not doorDebounce
+	doorDebounce = true
+	local door = game:GetService("Workspace").MainHouse.Door.Door.Door
+	local tween = TweenService:Create(door, TweenInfo.new(1), { Position = door.Position + Vector3.new(-11, 0, 0) })
+	local tween2 =
+		TweenService:Create(door.Parent.Part, TweenInfo.new(1), { Position = door.Position + Vector3.new(-11, 0, 0) })
+	tween:Play()
+	tween2:Play()
+	tween.Completed:Connect(function()
+		doorDebounce = false
+	end)
+end)
 
 local ZoneFrame = Instance.new("Frame")
 ZoneFrame.AnchorPoint = Vector2.new(0.5, 0.5)
