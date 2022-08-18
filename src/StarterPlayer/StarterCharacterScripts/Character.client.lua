@@ -7,6 +7,21 @@ local Debris = game:GetService("Debris")
 --local Camera = workspace.Camera
 local CurrentCamera = workspace.CurrentCamera
 
+local ContextActionService = game:GetService("ContextActionService")
+
+ContextActionService:BindActionAtPriority(
+	"DisableArrowKeys",
+	function()
+		return Enum.ContextActionResult.Sink
+	end,
+	false,
+	Enum.ContextActionPriority.High.Value,
+	Enum.KeyCode.Up,
+	Enum.KeyCode.Down,
+	Enum.KeyCode.Left,
+	Enum.KeyCode.Right
+)
+
 --local Player = Players.LocalPlayer
 local Character = script.Parent
 local Humanoid = Character:WaitForChild("Humanoid")
