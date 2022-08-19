@@ -15,13 +15,11 @@ end
 
 local function onDoorRemoved(door)
 	if doors[door] then
-		-- Clean up an already-existing door
 		doors[door]:Cleanup()
 		doors[door] = nil
 	end
 end
 
--- Listen for existing tags, tag additions and tag removals for the door tag
 for _, inst in pairs(CollectionService:GetTagged(Door.TAG_NAME)) do
 	onDoorAdded(inst)
 end
