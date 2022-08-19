@@ -15,11 +15,11 @@ function EToPickUp.new(item)
 	self.proxim = Instance.new("ProximityPrompt")
 	self.proxim.ActionText = "Pick Up"
 	self.proxim.Parent = self.item
-
+	self.proxim:Destroy()
 	self.proxim.Triggered:Connect(function(player)
 		local PlayerItem = self.item.Parent:Clone()
 		PlayerItem.Parent = player.Backpack
-		PlayerItem.Handle.ProximityPrompt:Destroy()
+
 		self.tool:Destroy()
 	end)
 
