@@ -11,13 +11,11 @@ local StartZoneContainer = workspace.Zones.StartZone
 local StarterZone = ZoneService.new(StartZoneContainer)
 local WildernessContainer = workspace.Zones.Wilderness
 local Wilderness = ZoneService.new(WildernessContainer)
-local OutsideDoor = workspace.Zones.DoorOutside
-local DoorOutside = ZoneService.new(OutsideDoor)
-DoorOutside:setAccuracy("Precise")
+
 StarterZone:setAccuracy("Low")
 Wilderness:setAccuracy("Low")
 local doorDebounce = false
-DoorOutside.localPlayerEntered:Connect(function()
+--[[DoorOutside.localPlayerEntered:Connect(function()
 	print("Bruh")
 	repeat
 		task.wait()
@@ -49,7 +47,7 @@ DoorOutside.localPlayerExited:Connect(function()
 	tween.Completed:Connect(function()
 		doorDebounce = false
 	end)
-end)
+end)]]
 
 local ZoneFrame = Instance.new("Frame")
 ZoneFrame.AnchorPoint = Vector2.new(0.5, 0.5)
