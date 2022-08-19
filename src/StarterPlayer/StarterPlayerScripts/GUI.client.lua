@@ -1,18 +1,19 @@
---Services
-
---local LocalizationService = game:GetService("LocalizationService")
---local GuiService = game:GetService("GuiService")
+local LocalizationService = game:GetService("LocalizationService")
+local GuiService = game:GetService("GuiService")
 local Lighting = game:GetService("Lighting")
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local Players = game:GetService("Players")
 local ContentProvider = game:GetService("ContentProvider")
 local TweenService = game:GetService("TweenService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
---local TweenService = game:GetService("TweenService")
+local TweenService = game:GetService("TweenService")
 local StarterGui = game:GetService("StarterGui")
 local RunService = game:GetService("RunService")
 local DraggableObject = require(ReplicatedStorage.Common.DraggableObject)
---Defaults
+
+--Instances:
+
+local Player = Players.LocalPlayer
 
 ReplicatedFirst:RemoveDefaultLoadingScreen()
 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
@@ -24,7 +25,7 @@ StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
 --ScriptDefaults
 
 --local Event = ReplicatedStorage.RemoteEvent
-local Player = Players.LocalPlayer
+
 --local Character = Player.Character or Player.CharacterAdded:Wait()
 --local Humanoid = Character:WaitForChild("Humanoid")
 --local Mouse = Player:GetMouse()
@@ -658,21 +659,18 @@ local HB_XSIZE = 300
 local HB_YSIZE = 20
 
 local HBBackground = Instance.new("Frame")
-HBBackground.ZIndex = HBBOrder
-HBBackground.LayoutOrder = HBBOrder
+HBBackground.AnchorPoint = Vector2.new(0.5, 0.5)
 HBBackground.BackgroundColor3 = Color3.fromRGB(51, 51, 51)
 HBBackground.BackgroundTransparency = 1
 HBBackground.Size = UDim2.new(0, HB_XSIZE, 0, HB_YSIZE)
-HBBackground.Position = UDim2.new(0.5, -HB_XSIZE / 2, 0.95, HB_YSIZE / 2)
-HBBackground.Parent = GameFrame
+HBBackground.Position = UDim2.new(0.5, 0, 0.95, 0)
+HBBackground.Parent = ScreenGUI
 
 local HBB_UICorner = Instance.new("UICorner")
 HBB_UICorner.CornerRadius = UDim.new(0.25, 0)
 HBB_UICorner.Parent = HBBackground
 
 local HBRight = Instance.new("Frame")
-HBRight.ZIndex = HBOrder
-HBRight.LayoutOrder = HBOrder
 HBRight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 HBRight.BackgroundTransparency = 1
 HBRight.Size = UDim2.new(1, 0, 1, 0)
@@ -763,9 +761,9 @@ local function GUIAppearTween(gui, visible, tweenInfo, tweenPosition, TextLabelV
 	end
 end
 --HealthBar
+-- Scripts:
 
 Player.CharacterAdded:Connect(function(character)
-	HBRight.Size = UDim2.new(0, HB_XSIZE, 0, HB_YSIZE)
 	character:WaitForChild("Humanoid").HealthChanged:Connect(function(health)
 		if health * HB_XSIZE / 100 <= 15 then
 			HBRight:TweenSize(UDim2.new(0, 15, 0, HB_YSIZE), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.25)
@@ -849,7 +847,7 @@ end)
 
 local HBBInfo = {
 	BackgroundTransparency = 0,
-	Position = UDim2.new(0.5, -HB_XSIZE / 2, 0.90, HB_YSIZE / 2),
+	Position = UDim2.new(0.5, 0, 0.9, 0),
 }
 
 CreditButton.Activated:Connect(function()
