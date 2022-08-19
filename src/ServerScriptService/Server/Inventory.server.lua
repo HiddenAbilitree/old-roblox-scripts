@@ -5,10 +5,11 @@ game.Players.PlayerAdded:Connect(function(Player)
 	Inventory.Name = "Inventory"
 	Inventory.Parent = Player
 
-	Inventory.ChildAdded:Connect(function(item)
-		Event:FireClient(Player, item, true)
+	Inventory.ChildAdded:Connect(function(Item)
+		Event:FireClient(Player, Item, true)
 	end)
-	Inventory.OnServerEvent:Connect(function(PLayer, Item, Value)
-		print("Bru")
+	Event.OnServerEvent:Connect(function(player, ItemName, ItemType, value)
+		local Item = Instance.new(ItemType)
+		Item.Parent = player.Inventory
 	end)
 end)
