@@ -170,6 +170,15 @@ SSFrame.LayoutOrder = SSFOrder
 SSFrame.ZIndex = SSFOrder
 SSFrame.Parent = ScreenGUI
 
+local SSBackground = Instance.new("Frame")
+SSBackground.AnchorPoint = Vector2.new(0.5, 0.5)
+SSBackground.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+SSBackground.BackgroundTransparency = 0.800
+SSBackground.BorderSizePixel = 0
+SSBackground.Position = UDim2.new(0.5, 0, 0.5, 0)
+SSBackground.Size = UDim2.new(0.75, 0, 1, 0)
+SSBackground.Parent = ScreenGUI
+
 --Start Button
 
 local SB_XSIZE = 300
@@ -867,7 +876,6 @@ StartButton.Activated:Connect(function()
 
 	SSFrame.Visible = false
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
-	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
 
 	Camera.CameraType = Enum.CameraType.Custom
