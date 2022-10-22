@@ -138,7 +138,7 @@ local function AddTrails()
 			Debris:AddItem(Trail, 0.5)
 		end
 	end
-end
+end	
 
 UserInputService.InputBegan:Connect(function(key)
 	if key.KeyCode == Enum.KeyCode.Q and not DashDebounce and Humanoid.MoveDirection.Magnitude > 0 then
